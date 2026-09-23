@@ -1,3 +1,18 @@
+<p align="center">
+  <img src="assets/images/DeuBug_Logo.png" alt="Logo Escopo Facil" width="280">
+</p>
+
+<p align="center">
+  <strong>Organize tarefas, acompanhe o progresso e conclua projetos com clareza.</strong>
+</p>
+
+<p align="center">
+  <img alt="status" src="https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge">
+  <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-frontend-F7DF1E?style=for-the-badge&logo=javascript&logoColor=000">
+  <img alt="PHP" src="https://img.shields.io/badge/PHP-8.2-777BB4?style=for-the-badge&logo=php&logoColor=white">
+  <img alt="MySQL" src="https://img.shields.io/badge/MySQL-database-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+</p>
+
 ## Sobre
 
 A **Deu Bug** uma consultoria digital com foco em dar suporte e oportunidade a empresas de pequeno e médio porte a terem sua identidade visual sólida junto de sua plataforma Web. Em um mercado cada vez mais disputado pelo custo de uma identidade própria e a I.A Generativa gratuíta, a Deu Bug surge com a oportunidade de oferecer um orçamento acessível com qualidade.
