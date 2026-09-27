@@ -98,6 +98,7 @@ header {
 
     background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%), #0d0a1471;
     cursor: pointer;
+    transition: 1s;
 }
 
 /* Borda Transparente do Liquid Glass */
@@ -112,6 +113,12 @@ header {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
+  transition: 2s;
+}
+
+#button-login:hover {
+    border: 1px solid rgba(255, 255, 255, 0.514);
+    color: #b987f1;
 }
 
 .cta-section {
