@@ -34,11 +34,11 @@ header {
     padding: 0px 55px;
 
     /* Liquid-Glass */
-    backdrop-filter: url(#liquid-distortion) blur(0.5px);
+    backdrop-filter: url(#liquid-distortion) blur(0.9px);
     -webkit-backdrop-filter: url(#liquid-distortion);
     border: 1px solid rgba(255, 255, 255, 0.15);
 
-    background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%), #0d0a14;
+    background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%), #0d0a1471;
 }
 
 .navbar_header::before {
@@ -82,12 +82,12 @@ header {
     color: #7B4BB3;
 
     /* Liquid-Glass */
-    backdrop-filter: url(#liquid-distortion) blur(0.5px);
+    backdrop-filter: url(#liquid-distortion) blur(0.9px);
     -webkit-backdrop-filter: url(#liquid-distortion);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 50px;
 
-    background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%), #0d0a14;
+    background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%), #0d0a1471;
     cursor: pointer;
 }
 
