@@ -1,0 +1,106 @@
+* {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 10vh;
+    overflow-x: hidden;
+    background-color: #08070C;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 34px 164px;
+    gap: 20px;
+}
+
+.navbar_header {
+    display: flex;
+    flex-direction: row;
+    width: 1474px;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 50px;
+    padding: 0px 55px;
+
+    /* Liquid-Glass */
+    backdrop-filter: url(#liquid-distortion) blur(0.5px);
+    -webkit-backdrop-filter: url(#liquid-distortion);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%), #0d0a14;
+}
+
+.navbar_header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50px;
+  padding: 1px; /* espessura da borda */
+  background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.05) 30%, rgba(255,255,255,0.02) 60%, rgba(255,255,255,0.25) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.navbar_header div {
+    display: flex;
+    flex-direction: row;
+    gap: 23px;
+    min-width: 240px;
+}
+
+.navbar_header a {
+    font: 15px"Nunito";
+    color: #7B4BB3;
+}
+
+.navbar_header img {
+    height: 40px;
+}
+
+#button_login {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 50px;
+    font: 16px "Nunito";
+    font-weight: 800;
+    color: #7B4BB3;
+
+    /* Liquid-Glass */
+    backdrop-filter: url(#liquid-distortion) blur(0.5px);
+    -webkit-backdrop-filter: url(#liquid-distortion);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+
+    background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%), #0d0a14;
+    cursor: pointer;
+}
+
+/* Borda Transparente do Liquid Glass */
+#button_login::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.05) 30%, rgba(255,255,255,0.02) 60%, rgba(255,255,255,0.25) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}

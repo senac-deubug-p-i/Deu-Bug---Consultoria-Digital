@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="index.css">
+        <link rel="shortcut icon" href="../../assets/images/DeuBug_favIcon.ico" type="image/x-icon">
+
+        <!-- Fonts -->
+         <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+
+        <title>Deu Bug! - Consultoria Digital</title>
+    </head>
+    <body>
+        <!-- Filtro LiquidGlass -->
+         <svg style="display:none">
+            <filter id="liquid-distortion" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence 
+                type="fractalNoise" 
+                baseFrequency="0.01 0.0000001" 
+                numOctaves="2" 
+                seed="6" 
+                result="noise" 
+                />
+                <feDisplacementMap 
+                in="SourceGraphic" 
+                in2="noise" 
+                scale="80" 
+                xChannelSelector="R" 
+                yChannelSelector="G" 
+                />
+            </filter>
+        </svg>
+        
+        <header>
+            <nav class="navbar_header">
+                <div>
+                    <a href="">PROJETOS</a>
+                    <a href="">PACOTES</a>
+                    <a href="">SOBRE</a>
+                </div>
+                <img src="/assets/images/ReducedLogo_DeuBug.png" alt="Deu_Bug Logo">
+                <div></div>
+            </nav>
+            <button id="button_login">Login</button>
+            <button id="button_login">temporario</button>
+        </header>
+
+        
+    </body>
+</html>
