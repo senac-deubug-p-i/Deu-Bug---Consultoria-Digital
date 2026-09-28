@@ -10,7 +10,6 @@ body {
     display: flex;
     flex-direction: column;
     width: 100vw;
-    height: 900vh;
     overflow-x: hidden;
     background-color: #08070C;
 }
@@ -233,4 +232,46 @@ header {
     transform: translateY(-5px);
     border: 1px solid #fff;
     color: #fff;
+}
+
+.data-section {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 0px;
+    gap: 64px;
+}
+
+.data-section div {
+    display: flex;
+    flex-direction: column;
+    width: 365px;
+    height: 196px;
+    align-items: center;
+    justify-content: center;
+
+    backdrop-filter: url(#liquid-distortion) blur(0.9px);
+    -webkit-backdrop-filter: url(#liquid-distortion);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+
+    background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%), #0d0a1471;
+    transition: 1s;
+}
+
+.data-section h3 {
+    font: 64px "Nunito";
+    font-weight: 900;
+    color: #7B4BB3;
+}
+
+.data-section p {
+    width: 258px;
+    font: 20px "Nunito";
+    font-weight: 100;
+    color: #fff;
+    text-align: center;
+    text-align: center;
 }
