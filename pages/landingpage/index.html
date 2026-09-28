@@ -76,6 +76,60 @@
         </div>
     </section>
 
+    <section class="about-us">
+        <h2>Deu Bug! E agora? A gente resolve.</h2>
+        <hr style="border: 1px solid #7B4BB3; width: 500px; margin-top: 8px;">
+
+        <div>
+            <p>Somos uma consultoria digital que une tecnologia, design e criatividade para ajudar pequenas e médias empresas a terem uma presença digital profissional, funcional e autêntica.<br/>
+                Do briefing à entrega, criamos soluções que fazem sentido para cada negócio.</p>
+
+            <div class="blocks-wrapper">
+                <div>
+                    <span class="aboutcard1">DESENVOLVIMENTO</span>
+                    <span class="aboutcard2">SITES E SOLUÇÕES DIGITAIS RESPONSIVAS E OTIMIZADAS.</span>
+                </div>
+                <div>
+                    <span class="aboutcard1">DESIGN & IDENTIDADE</span>
+                    <span class="aboutcard2">INTERFACES E IDENTIDADES VISUAIS COM PERSONALIDADE.</span>
+                </div>
+                <div>
+                    <span class="aboutcard1">CONSULTORIA DIGITAL</span>
+                    <span class="aboutcard2">INTERFACES E IDENTIDADES VISUAIS COM PERSONALIDADE.</span>
+                </div>
+                <div>
+                    <span class="aboutcard1">GESTÃO DE PROJETOS</span>
+                    <span class="aboutcard2">SITES E SOLUÇÕES DIGITAIS RESPONSIVAS E OTIMIZADAS.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const cards = document.querySelectorAll('.blocks-wrapper > div');
+        const maxTilt = 10;
+
+        cards.forEach((card) => {
+            card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const rotateY = ((x / rect.width) - 0.5) * maxTilt * 2;
+            const rotateX = -((y / rect.height) - 0.5) * maxTilt * 2;
+
+            card.classList.remove('reset');
+            card.style.transform =
+                `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+            card.classList.add('reset');
+            card.style.transform =
+                'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -233,6 +233,11 @@ header {
     border: 1px solid #fff;
     color: #fff;
 }
+:root {
+  --rx: 0deg;
+  --ry: 0deg;
+}
+
 
 .data-section {
     display: flex;
@@ -240,8 +245,9 @@ header {
     width: 100%;
     justify-content: center;
     align-items: center;
-    padding: 100px 0px;
+    padding-bottom: 100px;
     gap: 64px;
+    perspective: 1000px;
 }
 
 .data-section div {
@@ -255,10 +261,9 @@ header {
     backdrop-filter: url(#liquid-distortion) blur(0.9px);
     -webkit-backdrop-filter: url(#liquid-distortion);
     border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 50px;
+    border-radius: 24px;
 
     background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%), #0d0a1471;
-    transition: 1s;
 }
 
 .data-section h3 {
@@ -274,4 +279,95 @@ header {
     color: #fff;
     text-align: center;
     text-align: center;
+}
+
+.about-us {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-us h2 {
+    font: 48px "Nunito";
+    font-weight: 900;
+    color: #7B4BB3;
+}
+
+.about-us p {
+    width: 678px;
+    font: 32px "Nunito";
+    font-weight: 100;
+    color: #fff;
+}
+
+.about-us > div {
+    display: flex;
+    flex-direction: row;
+    gap: 138px;
+    margin-top: 85px;
+    align-items: center;
+}
+
+.blocks-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 850px;
+    gap: 25px;
+}
+
+.blocks-wrapper div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 368px;
+    height: 200px;
+    background-color: #7B4BB3;
+    border-radius: 24px;
+    font: 24px "Inter";
+    font-weight: 900;
+    color: #2d2b36;
+    position: relative;
+    border: 1px solid #2D2B36;
+
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease-out;
+    will-change: transform;
+    cursor: pointer;
+}
+
+.blocks-wrapper div:hover .aboutcard1 {
+    opacity: 0;
+}
+
+.blocks-wrapper div:hover .aboutcard2 {
+    opacity: 1;
+}
+
+.blocks-wrapper div:nth-child(2), .blocks-wrapper div:nth-child(3) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 368px;
+    height: 200px;
+    background-color: #2d2b3675;
+    border-radius: 24px;
+    font: 24px "Inter";
+    font-weight: 900;
+    color: #7B4BB3;
+}
+
+.aboutcard1 {
+    opacity: 1;
+    transition: 0.2s;
+}
+
+.aboutcard2 {
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    transition: 0.5s;
 }
