@@ -413,6 +413,7 @@ header {
     animation-delay: -0s;
     transition: 0.3s;
     cursor: pointer;
+    content-visibility: auto;
 }
 
 .packages div:hover {
@@ -427,7 +428,7 @@ header {
     translate: 0 -140px;
     background: linear-gradient(180deg, rgba(240, 129, 255, 0.178) 0%, rgba(131, 36, 255, 0.13) 100%), #0d0a1471;
     animation-delay: -2s;
-    box-shadow: 0px -10px 150px 10px #7c4bb35e;
+    box-shadow: 0px -10px 50px 5px #7c4bb35e;
 }
 
 .packages h2 {
