@@ -161,27 +161,27 @@ header {
 
 @keyframes switch-font {
   0% {
-    font-size: 128px;
+    transform: scale(1);
     font-family: "Inter";
   }
   5% {
-    font-size: 168px;
+    transform: scale(1.31) translateX(156px);
     font-family: "Jersey 10";
   }
   10% {
-    font-size: 128px;
+    transform: scale(1);
     font-family: "Inter";
   }
   15% {
-    font-size: 168px;
+    transform: scale(1.31) translateX(156px);
     font-family: "Jersey 10";
   }
   80% {
-    font-size: 128px;
+    transform: scale(1);
     font-family: "Inter";
   }
   100% {
-    font-size: 168px;
+    transform: scale(1.31) translateX(156px);
     font-family: "Jersey 10";
   }
 }
@@ -256,8 +256,7 @@ header {
     align-items: center;
     justify-content: center;
 
-    backdrop-filter: url(#liquid-distortion) blur(0.9px);
-    -webkit-backdrop-filter: url(#liquid-distortion);
+
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 24px;
 
@@ -406,8 +405,6 @@ header {
     height: 488px;
     padding: 42px;
 
-    backdrop-filter: url(#liquid-distortion) blur(0.9px);
-    -webkit-backdrop-filter: url(#liquid-distortion);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 24px;
 
@@ -416,6 +413,7 @@ header {
     animation-delay: -0s;
     transition: 0.3s;
     cursor: pointer;
+    content-visibility: auto;
 }
 
 .packages div:hover {
@@ -430,7 +428,7 @@ header {
     translate: 0 -140px;
     background: linear-gradient(180deg, rgba(240, 129, 255, 0.178) 0%, rgba(131, 36, 255, 0.13) 100%), #0d0a1471;
     animation-delay: -2s;
-    box-shadow: 0px -20px 150px 5px #7c4bb3be;
+    box-shadow: 0px -10px 50px 5px #7c4bb35e;
 }
 
 .packages h2 {
