@@ -161,27 +161,27 @@ header {
 
 @keyframes switch-font {
   0% {
-    font-size: 128px;
+    transform: scale(1);
     font-family: "Inter";
   }
   5% {
-    font-size: 168px;
+    transform: scale(1.31) translateX(156px);
     font-family: "Jersey 10";
   }
   10% {
-    font-size: 128px;
+    transform: scale(1);
     font-family: "Inter";
   }
   15% {
-    font-size: 168px;
+    transform: scale(1.31) translateX(156px);
     font-family: "Jersey 10";
   }
   80% {
-    font-size: 128px;
+    transform: scale(1);
     font-family: "Inter";
   }
   100% {
-    font-size: 168px;
+    transform: scale(1.31) translateX(156px);
     font-family: "Jersey 10";
   }
 }
