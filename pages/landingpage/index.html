@@ -14,119 +14,195 @@
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jersey+10&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Tiny5&display=swap"
         rel="stylesheet">
 
+    <!-- GSAP Core -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
     <title>Deu Bug! - Consultoria Digital</title>
 </head>
 
 <body>
-    <!-- Filtro LiquidGlass -->
-    <svg style="display:none">
-        <filter id="liquid-distortion" x="-20%" y="-20%" width="140%" height="140%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.009 0.009" numOctaves="2" seed="6" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="80" xChannelSelector="R" yChannelSelector="G" />
-        </filter>
-    </svg>
+    <!-- TELA DA INTRO (Onde o bugzinho pequeno faz a animação) -->
+    <div class="intro-screen">
+        <div class="caixa">
+            <img src="/assets/images/bugzin.png" alt="Bugzinho Intro">
+        </div>
+    </div>
 
-    <section class="section-header">
-        <header>
-            <nav class="navbar-header">
+    <!-- CONTEÚDO PRINCIPAL DO SITE (Começa oculto para o Reveal) -->
+    <div class="site-content">
+        <!-- Filtro LiquidGlass -->
+        <svg style="display:none">
+            <filter id="liquid-distortion" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.009 0.009" numOctaves="2" seed="6" result="noise" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="80" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+        </svg>
+
+        <section class="section-header">
+            <header>
+                <nav class="navbar-header">
+                    <div>
+                        <a href="">PROJETOS</a>
+                        <a href="">PACOTES</a>
+                        <a href="">SOBRE</a>
+                    </div>
+                    <img src="/assets/images/ReducedLogo_DeuBug.png" alt="Deu_Bug Logo">
+                    <div></div>
+                </nav>
+                <button id="button-login">Login</button>
+                <button id="button-login">temporario</button>
+            </header>
+
+            <div class="cta-section">
                 <div>
-                    <a href="">PROJETOS</a>
-                    <a href="">PACOTES</a>
-                    <a href="">SOBRE</a>
+                    <div class="hero-header-title">
+                        <h2>CRIE.</h2>
+                        <h2>CONECTE.</h2>
+                        <h2>EVOLUA.</h2>
+                    </div>
+                    <div class="button-swap">
+                        <button>Saiba Mais</button>
+                        <button>Contato</button>
+                    </div>
                 </div>
-                <img src="/assets/images/ReducedLogo_DeuBug.png" alt="Deu_Bug Logo">
-                <div></div>
-            </nav>
-            <button id="button-login">Login</button>
-            <button id="button-login">temporario</button>
-        </header>
+                <!-- Vídeo grande do mascote com a classe .video-hero -->
+                <video class="video-hero" src="/assets/videos/bug-avatar-rotate.webm" autoplay loop muted></video>
+            </div>
+        </section>
 
-        <div class="cta-section">
+        <section class="data-section">
             <div>
-                <div class="hero-header-title">
-                    <h2>CRIE.</h2>
-                    <h2>CONECTE.</h2>
-                    <h2>EVOLUA.</h2>
-                </div>
-                <div class="button-swap">
-                    <button>Saiba Mais</button>
-                    <button>Contato</button>
+                <h3>+150</h3>
+                <p>Projetos Desenvolvidos por nossa Equipe</p>
+            </div>
+            <div>
+                <h3>+150</h3>
+                <p>Projetos Desenvolvidos por nossa Equipe</p>
+            </div>
+            <div>
+                <h3>+150</h3>
+                <p>Projetos Desenvolvidos por nossa Equipe</p>
+            </div>
+            <div>
+                <h3>+150</h3>
+                <p>Projetos Desenvolvidos por nossa Equipe</p>
+            </div>
+        </section>
+
+        <section class="about-us">
+            <h2>Deu Bug! E agora? A gente resolve.</h2>
+            <hr style="border: 1px solid #7B4BB3; width: 500px; margin-top: 8px;">
+
+            <div>
+                <p>Somos uma consultoria digital que une tecnologia, design e criatividade para ajudar pequenas e médias empresas a terem uma presença digital profissional, funcional e autêntica.<br/>
+                    Do briefing à entrega, criamos soluções que fazem sentido para cada negócio.</p>
+
+                <div class="blocks-wrapper">
+                    <div>
+                        <span class="aboutcard1">DESENVOLVIMENTO</span>
+                        <span class="aboutcard2">SITES E SOLUÇÕES DIGITAIS RESPONSIVAS E OTIMIZADAS.</span>
+                    </div>
+                    <div>
+                        <span class="aboutcard1">DESIGN & IDENTIDADE</span>
+                        <span class="aboutcard2">INTERFACES E IDENTIDADES VISUAIS COM PERSONALIDADE.</span>
+                    </div>
+                    <div>
+                        <span class="aboutcard1">CONSULTORIA DIGITAL</span>
+                        <span class="aboutcard2">INTERFACES E IDENTIDADES VISUAIS COM PERSONALIDADE.</span>
+                    </div>
+                    <div>
+                        <span class="aboutcard1">GESTÃO DE PROJETOS</span>
+                        <span class="aboutcard2">SITES E SOLUÇÕES DIGITAIS RESPONSIVAS E OTIMIZADAS.</span>
+                    </div>
                 </div>
             </div>
-            <video src="/assets/videos/bug-avatar-rotate.webm" autoplay loop muted></video>
-        </div>
-    </section>
-
-    <section class="data-section">
-        <div>
-            <h3>+150</h3>
-            <p>Projetos Desenvolvidos por nossa Equipe</p>
-        </div>
-        <div>
-            <h3>+150</h3>
-            <p>Projetos Desenvolvidos por nossa Equipe</p>
-        </div>
-        <div>
-            <h3>+150</h3>
-            <p>Projetos Desenvolvidos por nossa Equipe</p>
-        </div>
-        <div>
-            <h3>+150</h3>
-            <p>Projetos Desenvolvidos por nossa Equipe</p>
-        </div>
-    </section>
-
-    <section class="about-us">
-        <h2>Deu Bug! E agora? A gente resolve.</h2>
-        <hr style="border: 1px solid #7B4BB3; width: 500px; margin-top: 8px;">
-
-        <div>
-            <p>Somos uma consultoria digital que une tecnologia, design e criatividade para ajudar pequenas e médias empresas a terem uma presença digital profissional, funcional e autêntica.<br/>
-                Do briefing à entrega, criamos soluções que fazem sentido para cada negócio.</p>
-
-            <div class="blocks-wrapper">
-                <div>
-                    <span class="aboutcard1">DESENVOLVIMENTO</span>
-                    <span class="aboutcard2">SITES E SOLUÇÕES DIGITAIS RESPONSIVAS E OTIMIZADAS.</span>
-                </div>
-                <div>
-                    <span class="aboutcard1">DESIGN & IDENTIDADE</span>
-                    <span class="aboutcard2">INTERFACES E IDENTIDADES VISUAIS COM PERSONALIDADE.</span>
-                </div>
-                <div>
-                    <span class="aboutcard1">CONSULTORIA DIGITAL</span>
-                    <span class="aboutcard2">INTERFACES E IDENTIDADES VISUAIS COM PERSONALIDADE.</span>
-                </div>
-                <div>
-                    <span class="aboutcard1">GESTÃO DE PROJETOS</span>
-                    <span class="aboutcard2">SITES E SOLUÇÕES DIGITAIS RESPONSIVAS E OTIMIZADAS.</span>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <script>
+        // Impede que o navegador memorize o scroll anterior ao atualizar (F5)
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
+        // --- 1. CONFIGURAÇÃO INICIAL DO VÍDEO GRANDE ---
+        gsap.set(".video-hero", { y: 200, opacity: 0 });
+
+        // --- 2. ANIMAÇÃO DA INTRO + REVEAL DA PÁGINA ---
+        const tl = gsap.timeline({ defaults: { duration: 1 } });
+
+        tl.to(".caixa", { 
+            x: 900,
+            ease: "steps(12)",
+            duration: 2
+        })
+        .to(".caixa", {
+            scale: 5.5,
+            duration: 2, 
+            ease: "expo.out"
+        }) 
+        // --- INÍCIO DO EFEITO DE GLITCH (BUG) ---
+        .to(".caixa", { x: 910, y: -10, rotation: 8, duration: 0.05, ease: "none" })
+        .to(".caixa", { x: 890, y: 10, rotation: -8, duration: 0.05, ease: "none" })
+        .to(".caixa", { x: 905, y: 5, rotation: 12, duration: 0.05, ease: "none" })
+        .to(".caixa", { x: 895, y: -5, rotation: -12, duration: 0.05, ease: "none" })
+        .to(".caixa", { x: 900, y: 0, rotation: 0, duration: 0.05, ease: "none" })
+        // --- FIM DO GLITCH ---
+        // O bugzinho pequeno desce a tela indo embora
+        .to(".caixa", { 
+            y: 800, 
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.in"
+        })
+        // Some a tela da intro suavemente
+        .to(".intro-screen", { 
+            opacity: 0, 
+            duration: 0.4,
+            onComplete: () => {
+                document.querySelector(".intro-screen").style.display = "none";
+            }
+        })
+        // Revela o site completo subindo perfeitamente alinhado
+        .to(".site-content", { 
+            opacity: 1, 
+            visibility: "visible", 
+            y: 0, 
+            duration: 1, 
+            ease: "power3.out" 
+        }, "-=0.3")
+        // O vídeo grande do mascote sobe de baixo para cima encaixando na tela inicial
+        .to(".video-hero", {
+            y: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: "back.out(1.2)"
+        }, "-=0.8");
+
+
+        // --- 3. EFEITO DE TILT DOS CARDS ---
         const cards = document.querySelectorAll('.blocks-wrapper > div');
         const maxTilt = 10;
 
         cards.forEach((card) => {
             card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
 
-            const rotateY = ((x / rect.width) - 0.5) * maxTilt * 2;
-            const rotateX = -((y / rect.height) - 0.5) * maxTilt * 2;
+                const rotateY = ((x / rect.width) - 0.5) * maxTilt * 2;
+                const rotateX = -((y / rect.height) - 0.5) * maxTilt * 2;
 
-            card.classList.remove('reset');
-            card.style.transform =
-                `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+                card.classList.remove('reset');
+                card.style.transform =
+                    `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
             });
 
             card.addEventListener('mouseleave', () => {
-            card.classList.add('reset');
-            card.style.transform =
-                'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+                card.classList.add('reset');
+                card.style.transform =
+                    'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
             });
         });
     </script>
