@@ -120,6 +120,44 @@ header {
     color: #b987f1;
 }
 
+.modals {
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+    min-height: 414px;
+    
+    backdrop-filter: url(#liquid-distortion) blur(5px);
+    -webkit-backdrop-filter: url(#liquid-distortion);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+
+    background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%), #0d0a1471;
+    transform: translateY(100px);
+    transition: 0.5s;
+    align-self: flex-end;
+    margin-right: 215px;
+    z-index: 3;
+    position: fixed;
+    padding: 26px 58px;
+}
+
+.switch-login {
+    display: flex;
+    flex-direction: row;
+    width: 154px;
+    height: 34px;
+    background-color: rgba(255,255,255,0.01);
+    border: 1px solid #ffffff49;
+    border-radius: 50px;
+}
+
+.switch-login button {
+    font: 12px "Inter";
+    font-weight: 900;
+    color: #fff;
+    background-color: #ffffff00;
+}
+
 .cta-section {
     display: flex;
     flex-direction: row;
