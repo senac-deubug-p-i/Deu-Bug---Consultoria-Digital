@@ -150,9 +150,10 @@ header {
     border: 1px solid #ffffff49;
     border-radius: 50px;
     position: relative;
+    cursor: pointer;
 }
 
-.switch-login button {
+.switch-button {
     display: flex;
     flex-direction: row;
     width: 77px;
@@ -164,6 +165,7 @@ header {
     color: #fff;
     background-color: transparent;
     z-index: 3;
+    cursor: pointer;
 }
 
 .switch-bg {
@@ -175,6 +177,11 @@ header {
     border-radius: 50px;
     backdrop-filter: blur(10px);
     border: 1px solid #af6afd1c;
+    transition: 0.5s;
+}
+
+.modals[data-active="cadastro"] .switch-bg {
+  transform: translateX(77px);
 }
 
 .switch-bg::before {
@@ -272,6 +279,11 @@ header {
     flex-direction: column;
     width: 100%;
     height: 100%;
+    padding: 26px 58px;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    position: absolute;
+    pointer-events: none;
 }
 
 .modal-register p {
@@ -326,7 +338,8 @@ header {
     display: flex;
     flex-direction: row;
     width: 100%;
-    justify-content: space-between;
+    gap: 24px;
+
 }
 
 .register-name input {
@@ -340,6 +353,16 @@ header {
     padding-left: 5px;
     outline: 1px solid transparent;
     transition: 0.5s;
+}
+
+.modals[data-active="cadastro"] .modal-login {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modals[data-active="cadastro"] .modal-register {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .cta-section {
