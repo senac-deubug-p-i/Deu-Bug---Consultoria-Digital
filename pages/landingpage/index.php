@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <!-- Filtro LiquidGlass -->
+    <!-- Filter LiquidGlass -->
     <svg style="display:none">
         <filter id="liquid-distortion" x="-20%" y="-20%" width="140%" height="140%">
             <feTurbulence type="fractalNoise" baseFrequency="0.009 0.009" numOctaves="2" seed="6" result="noise" />
@@ -45,6 +45,8 @@
             <button id="">temporario</button>
         </header>
 
+
+        <!-- Modals -->
         <div class="modals" data-active="login">
             <div class="switch-login">
                 <button class="switch-button active" data-value="login">Login</button>
@@ -139,6 +141,8 @@
         </div>
     </section>
 
+    
+    <!-- Datas Information Section -->
     <section class="data-section">
         <div>
             <h3>+150</h3>
@@ -158,6 +162,8 @@
         </div>
     </section>
 
+
+    <!-- About Us Section -->
     <section class="about-us">
         <h2>Deu Bug! E agora? A gente resolve.</h2>
         <hr style="border: 1px solid #7B4BB3; width: 500px; margin-top: 8px;">
@@ -213,6 +219,8 @@
         });
     </script>
 
+
+    <!-- Packages & Services Section -->
     <section class="services">
         <h2>PACOTES & SERVIÇOS</h2>
         <div class="packages">
@@ -257,7 +265,9 @@
         </div>
         <div class="gradient"></div>
     </section>
+    
 
+    <!-- Footer Section -->
     <footer>
         <div class="news-swap">
             <div class="social">
