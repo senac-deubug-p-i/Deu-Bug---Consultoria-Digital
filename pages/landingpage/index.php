@@ -26,7 +26,11 @@
         </filter>
     </svg>
 
+
+    <!-- Header -->
     <section class="section-header">
+
+        <!-- Navigation -->
         <header>
             <nav class="navbar-header">
                 <div>
@@ -34,7 +38,7 @@
                     <a href="">PACOTES</a>
                     <a href="">SOBRE</a>
                 </div>
-                <img src="/assets/images/ReducedLogo_DeuBug.png" alt="Deu_Bug Logo">
+                <img src="../../assets/images/ReducedLogo_DeuBug.png" alt="Deu_Bug Logo">
                 <div></div>
             </nav>
             <button id="button-login">Login</button>
@@ -48,6 +52,7 @@
                 <div class="switch-bg"></div>
             </div>
 
+            <!-- Login Modal -->
             <div class="modal-login">
                 <p>E-mail</p>
                 <input type="text">
@@ -58,6 +63,7 @@
                 <a href="" id="google-btn"><img src="../../assets/images/Google Logo.svg" alt=""></a>
             </div>
 
+            <!-- Register Modal -->
             <div class="modal-register">
                 <div class="register-name">
                     <div>
@@ -129,7 +135,7 @@
                     <button>Contato</button>
                 </div>
             </div>
-            <video src="/assets/videos/bug-avatar-rotate.webm" autoplay loop muted></video>
+            <video src="../../assets/videos/bug-avatar-rotate.webm" autoplay loop muted></video>
         </div>
     </section>
 
@@ -255,10 +261,10 @@
     <footer>
         <div class="news-swap">
             <div class="social">
-                <a href=""><img src="/assets/images/Github Icon.svg" alt="GitHub Icon"></a>
-                <a href=""><img src="/assets/images/Instagram Icon.svg" alt="Instagram Logo"></a>
-                <a href=""><img src="/assets/images/LinkedIn Icon.svg" alt="LinkedIn Logo"></a>
-                <a href=""><img src="/assets/images/Whatsapp Icon.svg" alt="Whatsapp Logo"></a>
+                <a href=""><img src="../../assets/images/Github Icon.svg" alt="GitHub Icon"></a>
+                <a href=""><img src="../../assets/images/Instagram Icon.svg" alt="Instagram Logo"></a>
+                <a href=""><img src="../../assets/images/LinkedIn Icon.svg" alt="LinkedIn Logo"></a>
+                <a href=""><img src="../../assets/images/Whatsapp Icon.svg" alt="Whatsapp Logo"></a>
             </div>
             <div class="newsletter">
                 <h2>Assine nossa Newsletter!</h2>
