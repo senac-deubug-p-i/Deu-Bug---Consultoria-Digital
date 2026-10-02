@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/images/DeuBug_Logo.png" alt="Logo Escopo Facil" width="280">
+  <img src="assets/images/DeuBug-Logo.png" alt="Logo Escopo Facil" width="280">
 </p>
 
 <p align="center">
