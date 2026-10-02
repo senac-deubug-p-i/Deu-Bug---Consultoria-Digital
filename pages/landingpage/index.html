@@ -38,7 +38,7 @@
                 <div></div>
             </nav>
             <button id="button-login">Login</button>
-            <button id="button-login">temporario</button>
+            <button id="">temporario</button>
         </header>
 
         <div class="modals" data-active="login">
@@ -58,7 +58,6 @@
                 <a href="" id="google-btn"><img src="../../assets/images/Google Logo.svg" alt=""></a>
             </div>
 
-            
             <div class="modal-register">
                 <div class="register-name">
                     <div>
@@ -84,6 +83,7 @@
             </div>
         </div>
 
+        <!-- Função para trocar Modal de Login para o de Registro -->
         <script>
             const modals = document.querySelector('.modals');
             const toggle = modals.querySelector('.switch-login');
@@ -97,6 +97,23 @@
                 options.forEach((b) => b.classList.remove('active'));
                 btn.classList.add('active');
             });
+            });
+        </script>
+
+        <!-- Função para esconder e mostrar o modal -->
+        <script>
+            const loginBtn = document.getElementById('button-login');
+            const modal = document.querySelector('.modals');
+
+            loginBtn.addEventListener('click', () => {
+            modal.classList.toggle('active');
+            });
+
+            document.addEventListener('click', (e) => {
+            const clickedInside = modals.contains(e.target) || loginBtn.contains(e.target);
+            if (!clickedInside && modals.classList.contains('active')) {
+                modals.classList.remove('active');
+            }
             });
         </script>
 

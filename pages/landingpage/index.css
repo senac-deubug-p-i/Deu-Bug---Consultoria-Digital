@@ -139,6 +139,17 @@ header {
     z-index: 3;
     position: fixed;
     padding: 26px 58px;
+
+    transform: translateY(80px);
+    opacity: 0;
+    pointer-events: none; /* impede clicar nos campos enquanto escondido */
+    transition: 0.5s;
+}
+
+.modals.active {
+    transform: translateY(100px);
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .switch-login {
