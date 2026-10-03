@@ -14,6 +14,8 @@ body {
     background-color: #08070C;
 }
 
+
+/* Header */
 .section-header {
     display: flex;
     flex-direction: column;
@@ -120,6 +122,7 @@ header {
     color: #b987f1;
 }
 
+/* Modals */
 .modals {
     display: flex;
     flex-direction: column;
@@ -363,6 +366,8 @@ header {
     transition: 0.5s;
 }
 
+/* Swap Modal "Function" */
+
 .modals[data-active="cadastro"] .modal-login {
   opacity: 0;
   pointer-events: none;
@@ -374,6 +379,8 @@ header {
   display: flex;
   pointer-events: auto;
 }
+
+/* Hero Header CTA Section */
 
 .cta-section {
     display: flex;
@@ -492,6 +499,9 @@ header {
     color: #fff;
 }
 
+
+/* Data Information Section */
+
 .data-section {
     display: flex;
     flex-direction: row;
@@ -532,6 +542,9 @@ header {
     text-align: center;
     text-align: center;
 }
+
+
+/* About Us Section */
 
 .about-us {
     display: flex;
@@ -623,6 +636,8 @@ header {
     text-align: center;
     transition: 0.5s;
 }
+
+/* Packages & Services Section */
 
 .services {
     display: flex;
@@ -729,6 +744,8 @@ header {
     font: 20px "Inter";
     color: #F5F5F5;
 }
+
+/* Footer */
 
 footer {
     display: flex;

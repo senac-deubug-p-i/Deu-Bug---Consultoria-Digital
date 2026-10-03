@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <!-- Filtro LiquidGlass -->
+    <!-- Filter LiquidGlass -->
     <svg style="display:none">
         <filter id="liquid-distortion" x="-20%" y="-20%" width="140%" height="140%">
             <feTurbulence type="fractalNoise" baseFrequency="0.009 0.009" numOctaves="2" seed="6" result="noise" />
@@ -26,7 +26,11 @@
         </filter>
     </svg>
 
+
+    <!-- Header -->
     <section class="section-header">
+
+        <!-- Navigation -->
         <header>
             <nav class="navbar-header">
                 <div>
@@ -34,13 +38,15 @@
                     <a href="">PACOTES</a>
                     <a href="">SOBRE</a>
                 </div>
-                <img src="/assets/images/ReducedLogo_DeuBug.png" alt="Deu_Bug Logo">
+                <img src="../../assets/images/ReducedLogo_DeuBug.png" alt="Deu_Bug Logo">
                 <div></div>
             </nav>
             <button id="button-login">Login</button>
             <button id="">temporario</button>
         </header>
 
+
+        <!-- Modals -->
         <div class="modals" data-active="login">
             <div class="switch-login">
                 <button class="switch-button active" data-value="login">Login</button>
@@ -48,6 +54,7 @@
                 <div class="switch-bg"></div>
             </div>
 
+            <!-- Login Modal -->
             <div class="modal-login">
                 <p>E-mail</p>
                 <input type="text">
@@ -58,6 +65,7 @@
                 <a href="" id="google-btn"><img src="../../assets/images/Google Logo.svg" alt=""></a>
             </div>
 
+            <!-- Register Modal -->
             <div class="modal-register">
                 <div class="register-name">
                     <div>
@@ -85,19 +93,7 @@
 
         <!-- Função para trocar Modal de Login para o de Registro -->
         <script>
-            const modals = document.querySelector('.modals');
-            const toggle = modals.querySelector('.switch-login');
-            const options = toggle.querySelectorAll('.switch-button');
 
-            options.forEach((btn) => {
-            btn.addEventListener('click', () => {
-                const value = btn.dataset.value;
-                modals.dataset.active = value; // muda no .modals, não no .switch-login
-
-                options.forEach((b) => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-            });
         </script>
 
         <!-- Função para esconder e mostrar o modal -->
@@ -129,10 +125,12 @@
                     <button>Contato</button>
                 </div>
             </div>
-            <video src="/assets/videos/bug-avatar-rotate.webm" autoplay loop muted></video>
+            <video src="../../assets/videos/bug-avatar-rotate.webm" autoplay loop muted></video>
         </div>
     </section>
 
+
+    <!-- Datas Information Section -->
     <section class="data-section">
         <div>
             <h3>+150</h3>
@@ -152,6 +150,8 @@
         </div>
     </section>
 
+
+    <!-- About Us Section -->
     <section class="about-us">
         <h2>Deu Bug! E agora? A gente resolve.</h2>
         <hr style="border: 1px solid #7B4BB3; width: 500px; margin-top: 8px;">
@@ -207,6 +207,8 @@
         });
     </script>
 
+
+    <!-- Packages & Services Section -->
     <section class="services">
         <h2>PACOTES & SERVIÇOS</h2>
         <div class="packages">
@@ -251,14 +253,16 @@
         </div>
         <div class="gradient"></div>
     </section>
+    
 
+    <!-- Footer Section -->
     <footer>
         <div class="news-swap">
             <div class="social">
-                <a href=""><img src="/assets/images/Github Icon.svg" alt="GitHub Icon"></a>
-                <a href=""><img src="/assets/images/Instagram Icon.svg" alt="Instagram Logo"></a>
-                <a href=""><img src="/assets/images/LinkedIn Icon.svg" alt="LinkedIn Logo"></a>
-                <a href=""><img src="/assets/images/Whatsapp Icon.svg" alt="Whatsapp Logo"></a>
+                <a href=""><img src="../../assets/images/Github Icon.svg" alt="GitHub Icon"></a>
+                <a href=""><img src="../../assets/images/Instagram Icon.svg" alt="Instagram Logo"></a>
+                <a href=""><img src="../../assets/images/LinkedIn Icon.svg" alt="LinkedIn Logo"></a>
+                <a href=""><img src="../../assets/images/Whatsapp Icon.svg" alt="Whatsapp Logo"></a>
             </div>
             <div class="newsletter">
                 <h2>Assine nossa Newsletter!</h2>
