@@ -38,8 +38,84 @@
                 <div></div>
             </nav>
             <button id="button-login">Login</button>
-            <button id="button-login">temporario</button>
+            <button id="">temporario</button>
         </header>
+
+        <div class="modals" data-active="login">
+            <div class="switch-login">
+                <button class="switch-button active" data-value="login">Login</button>
+                <button class="switch-button" data-value="cadastro">Cadastro</button>
+                <div class="switch-bg"></div>
+            </div>
+
+            <div class="modal-login">
+                <p>E-mail</p>
+                <input type="text">
+                <p>Senha</p>
+                <input type="text">
+                <a href="">Esqueci minha senha</a>
+                <button>Login</button>
+                <a href="" id="google-btn"><img src="../../assets/images/Google Logo.svg" alt=""></a>
+            </div>
+
+            <div class="modal-register">
+                <div class="register-name">
+                    <div>
+                        <p>Primeiro Nome</p>
+                        <input type="text">
+                    </div>
+                    <div>
+                        <p>Sobrenome</p>
+                        <input type="text">
+                    </div>
+                </div>
+                <p>E-mail</p>
+                <input type="text">
+                <p>Telefone</p>
+                <input type="text">
+                <hr style="border-width: 1px; background-color: #ffffff67; width: 100%; height: 1px; margin-top: 13px;">
+                <p>Senha</p>
+                <input type="text">
+                <p>Confirme sua senha</p>
+                <input type="text">
+
+                <button>Cadastro</button>
+            </div>
+        </div>
+
+        <!-- Função para trocar Modal de Login para o de Registro -->
+        <script>
+            const modals = document.querySelector('.modals');
+            const toggle = modals.querySelector('.switch-login');
+            const options = toggle.querySelectorAll('.switch-button');
+
+            options.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const value = btn.dataset.value;
+                modals.dataset.active = value; // muda no .modals, não no .switch-login
+
+                options.forEach((b) => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+            });
+        </script>
+
+        <!-- Função para esconder e mostrar o modal -->
+        <script>
+            const loginBtn = document.getElementById('button-login');
+            const modal = document.querySelector('.modals');
+
+            loginBtn.addEventListener('click', () => {
+            modal.classList.toggle('active');
+            });
+
+            document.addEventListener('click', (e) => {
+            const clickedInside = modals.contains(e.target) || loginBtn.contains(e.target);
+            if (!clickedInside && modals.classList.contains('active')) {
+                modals.classList.remove('active');
+            }
+            });
+        </script>
 
         <div class="cta-section">
             <div>
