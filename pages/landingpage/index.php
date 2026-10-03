@@ -93,19 +93,7 @@
 
         <!-- Função para trocar Modal de Login para o de Registro -->
         <script>
-            const modals = document.querySelector('.modals');
-            const toggle = modals.querySelector('.switch-login');
-            const options = toggle.querySelectorAll('.switch-button');
 
-            options.forEach((btn) => {
-            btn.addEventListener('click', () => {
-                const value = btn.dataset.value;
-                modals.dataset.active = value; // muda no .modals, não no .switch-login
-
-                options.forEach((b) => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-            });
         </script>
 
         <!-- Função para esconder e mostrar o modal -->
@@ -141,7 +129,7 @@
         </div>
     </section>
 
-    
+
     <!-- Datas Information Section -->
     <section class="data-section">
         <div>
