@@ -1,132 +1,66 @@
-.intro-portfolio{
-  display: flex;
-  flex-direction: row;
-  
-  width: 100%;
-  height: 900px;
-  
-  padding: 0px 164px;
+@import "tailwindcss";
 
-  background-image: url("../../assets/videos/laptop-animation-gif.gif");
-  background-repeat: no-repeat;
-  background-size: cover;
+@theme {
+  --color-fundo: #08070c;
+  --color-superficie: #2d2d36;
+  --color-roxo: #7b4bb3;
+  --color-roxo-claro: #9d7ec0;
+  --color-lilas: #d6c7e7;
+  --color-cinza: #e6e6e6;
 
+  --font-inter: "Inter", sans-serif;
+  --font-nunito: "Nunito", sans-serif;
+  --font-jersey: "Jersey 10", sans-serif;
+  --font-tiny5: "Tiny5", sans-serif;
 
-}
+  --animate-switch-font: switch-font 5s step-end infinite alternate;
+  --animate-scrolldown: scrolldown-anim 2s infinite;
+  --animate-chevron: pulse54012 500ms ease infinite alternate;
+  --animate-chevron-delay: pulse54012 500ms ease 250ms infinite alternate;
 
-.intro-portfolio > div{
-    margin-top: 150px;
-}
-
-#portfolio-title {
-    animation: 5s step-end infinite alternate switch-font;
-    margin-left: 120px;
-}
-
-/* botão de scroll da intro do portfolio */
-.scrolldown {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    width: 100%;
-    --color: #D6C7E7;
-    --sizeX: 30px;
-    --sizeY: 50px;
-    position: relative;
-    width: var(--sizeX);
-    height: var(--sizeY);
-    margin-left: var(sizeX / 2);
-    border: calc(var(--sizeX) / 10) solid #7B4BB3;
-    border-radius: 50px;
-    box-sizing: border-box;
-    margin-bottom: 16px;
-    cursor: pointer;
-    align-self: self-end;
+  @keyframes switch-font {
+    0%   { transform: scale(1); font-family: "Inter"; }
+    5%   { transform: scale(1.31) translateX(156px); font-family: "Jersey 10"; }
+    10%  { transform: scale(1); font-family: "Inter"; }
+    15%  { transform: scale(1.31) translateX(156px); font-family: "Jersey 10"; }
+    80%  { transform: scale(1); font-family: "Inter"; }
+    100% { transform: scale(1.31) translateX(156px); font-family: "Jersey 10"; }
   }
-  
-  .scrolldown::before {
+
+  @keyframes scrolldown-anim {
+    0%   { opacity: 0; height: 6px; }
+    40%  { opacity: 1; height: 10px; }
+    80%  { transform: translate(0, 20px); height: 10px; opacity: 0; }
+    100% { height: 3px; opacity: 0; }
+  }
+
+  @keyframes pulse54012 {
+    from { opacity: 0; }
+    to   { opacity: 0.5; }
+  }
+}
+
+/* Liquid glass: filtro SVG + borda degradê. */
+@layer components {
+  .liquid-glass {
+    backdrop-filter: url(#liquid-distortion) blur(0.9px);
+    -webkit-backdrop-filter: url(#liquid-distortion);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%),
+      #0d0a1471;
+  }
+
+  .liquid-glass::before {
     content: "";
     position: absolute;
-    bottom: 30px;
-    left: 50%;
-    width: 6px;
-    height: 6px;
-    margin-left: -3px;
-    background-color: #9D7EC0;
-    border-radius: 100%;
-    animation: scrolldown-anim 2s infinite;
-    box-sizing: border-box;
-    box-shadow: 0px -5px 3px 1px #2a547066;
+    inset: 0;
+    border-radius: 50px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.05) 30%, rgba(255,255,255,0.02) 60%, rgba(255,255,255,0.25) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
   }
-  
-  @keyframes scrolldown-anim {
-    0% {
-      opacity: 0;
-      height: 6px;
-    }
-  
-    40% {
-      opacity: 1;
-      height: 10px;
-    }
-  
-    80% {
-      transform: translate(0, 20px);
-      height: 10px;
-      opacity: 0;
-    }
-  
-    100% {
-      height: 3px;
-      opacity: 0;
-    }
-  }
-  
-  .chevrons {
-    padding: 6px 0 0 0;
-    margin-left: -3px;
-    margin-top: 48px;
-    width: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .chevrondown {
-    margin-top: -6px;
-    position: relative;
-    border: solid #7B4BB3;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    transform: rotate(45deg);
-  }
-  
-  .chevrondown:nth-child(odd) {
-    animation: pulse54012 500ms ease infinite alternate;
-  }
-  
-  .chevrondown:nth-child(even) {
-    animation: pulse54012 500ms ease infinite alternate 250ms;
-  }
-  
-  @keyframes pulse54012 {
-    from {
-      opacity: 0;
-    }
-  
-    to {
-      opacity: 0.5;
-    }
-  }
-
-  .btn-scroll{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-  }
-
-  /* fim do botão de scroll */
+}
