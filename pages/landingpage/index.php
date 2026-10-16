@@ -22,11 +22,11 @@
     <svg style="display:none">
         <filter id="liquid-distortion" x="-20%" y="-20%" width="140%" height="140%">
             <feTurbulence type="fractalNoise" baseFrequency="0.009 0.009" numOctaves="2" seed="6" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="80" xChannelSelector="R" yChannelSelector="G" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="40" xChannelSelector="R" yChannelSelector="G" />
         </filter>
     </svg>
 
-    <!-- Importing Functions of Modals -->
+    <!-- Importing Functions of JS -->
     <script src="index.js" defer></script>
 
     <!-- Header -->
