@@ -260,6 +260,12 @@ nav a:focus {
     gap: 10px;
     border: 1px solid #7B4BB3;
     border-radius: 10px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.hero-contact button:hover {
+    border: 1px solid #fff;
 }
 
 .hero-contact img {
