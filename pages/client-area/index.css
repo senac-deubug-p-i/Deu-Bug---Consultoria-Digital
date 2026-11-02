@@ -207,3 +207,61 @@ nav a:focus {
     font-weight: 400;
     color: #CFA6FF;
 }
+
+.hero-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 80px 116px;
+    justify-content: space-between;
+}
+
+.hero-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-title h3 {
+    font: 20px "Nunito";
+    font-weight: 100;
+    color: #CFA6FF;
+}
+
+.hero-title h2{
+    font: 36px "Nunito";
+    font-weight: 800;
+    color: #CFA6FF;
+}
+
+.hero-title p {
+    font: 20px "Nunito";
+    font-weight: 600;
+    color: #CFA6FF;
+}
+
+.hero-contact {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    gap: 32px;
+}
+
+.hero-contact button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 270px;
+    height: 55px;
+    background-color: #7B4BB3;
+    color: #fff;
+    font: 20px "Nunito";
+    font-weight: 800;
+    gap: 10px;
+    border: 1px solid #7B4BB3;
+    border-radius: 10px;
+}
+
+.hero-contact img {
+    height: 34px;
+}
