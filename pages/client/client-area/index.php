@@ -65,7 +65,7 @@
 
             <div class="hero-contact">
                 <button>
-                    <img src="../../assets/images/chat-message-icon.svg" alt="">
+                    <img src="../../../assets/images/chat-message-icon.svg" alt="">
                     Falar com a equipe
                 </button>
                 <button style="background-color: transparent;">Abrir Solicitação</button>

@@ -207,3 +207,94 @@ nav a:focus {
     font-weight: 400;
     color: #CFA6FF;
 }
+
+.hero-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 116px 80px;
+    justify-content: space-between;
+}
+
+.hero-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-title h3 {
+    font: 20px "Nunito";
+    font-weight: 100;
+    color: #CFA6FF;
+}
+
+.hero-title h2{
+    font: 36px "Nunito";
+    font-weight: 800;
+    color: #CFA6FF;
+}
+
+.hero-title p {
+    font: 20px "Nunito";
+    font-weight: 600;
+    color: #CFA6FF;
+}
+
+.hero-contact {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    gap: 32px;
+}
+
+.hero-contact button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 270px;
+    height: 55px;
+    background-color: #7B4BB3;
+    color: #fff;
+    font: 20px "Nunito";
+    font-weight: 600;
+    gap: 10px;
+    border: 1px solid #7B4BB3;
+    border-radius: 10px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.hero-contact button:hover {
+    border: 1px solid #fff;
+}
+
+.hero-contact img {
+    height: 34px;
+}
+
+.project-status {
+    display: flex;
+    flex-direction: row;
+    width: 216px;
+    height: 42px;
+    background-color: #725C1B;
+    border: 1px solid #facc15;
+    border-radius: 30px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 14px;
+    gap: 12px;
+}
+
+.project-status div {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: #FACC15;
+}
+
+.project-status p {
+    font: 16px "Nunito";
+    font-weight: 700;
+    color: #facc15;
+}
