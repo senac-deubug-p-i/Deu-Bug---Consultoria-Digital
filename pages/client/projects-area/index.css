@@ -1,0 +1,348 @@
+* {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    overflow-x: hidden;
+    background-color: #08070C;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 80px;
+    background-color: #08070C;
+    border-bottom: 1px solid #7B4BB3;
+    border-radius: 0px 0px 15px 15px;
+    align-items: center;
+    padding: 0px 42px;
+    position: relative;
+    justify-content: space-between;
+}
+
+.logoheader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+.logoheader img {
+    width: 54px;
+    height: 54px;
+    border-radius: 10px;
+    background-color: #7B4BB3;
+    padding: 7px;
+}
+
+.logoheader h2 {
+    font: 24px "Nunito";
+    color: #fff;
+    font-weight: 900;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+nav a {
+    display: flex;
+    flex-direction: column;
+    font: 15px "Nunito";
+    color: #917AAB;
+    padding: 12px 27px;
+    font-weight: 600;
+}
+
+nav a:focus {
+    padding: 12px 27px;
+    background-color: #7B4BB3;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.user-group {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+    gap: 22px;
+}
+
+.user-group button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 40px;
+    background-color: transparent;
+    border: 1px solid #7B4BB3;
+    border-radius: 8px;
+    color: #fff;
+    font: 14px "Nunito";
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.user-group button:hover {
+    border-color: #ffffff85;
+}
+
+.notification-group {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    height: 100%;
+    align-items: center;
+}
+
+.notifications-screen {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 500px;
+    background-color: transparent;
+    border: 1px solid #7B4BB3;
+    border-radius: 13px;
+    top: 70px;
+    backdrop-filter: blur(3px);
+    position: absolute;
+    right: 1px;
+    transition: 0.5s;
+    opacity: 0;
+}
+
+.notification-group:active .notifications-screen {
+    opacity: 1;
+}
+
+
+.bell-group {
+    display: flex;
+    flex-direction: row;
+    width: 45px;
+    height: 45px;
+    background-color: #bc81ff36;
+    border: 1px solid #d0a6ff4f;
+    border-radius: 5px;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.bell-group h2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    font: 11px "Nunito";
+    font-weight: 800;
+    color: #917AAB;
+    background-color: #4d277a;
+    border: 1px solid #d0a6ff4f;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    top: -7px;
+    right: -7px;
+}
+
+.bell-group svg {
+    height: 35px;
+}
+
+.bell-group path {
+    fill: #7B4BB3;
+}
+
+.user-section {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-section h2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    background-color: #7B4BB3;
+    border: 1px solid #d0a6ff79;
+    border-radius: 100%;
+    color: #CFA6FF;
+    font: 16px "Nunito";
+    font-weight: 900;
+}
+
+.user-section div {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-section h3 {
+    font: 16px "Nunito";
+    font-weight: 800;
+    color: #CFA6FF;
+}
+
+.user-section p {
+    font: 16px "Nunito";
+    font-weight: 400;
+    color: #CFA6FF;
+}
+
+.projects {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 80px 110px;
+}
+
+.title-projects {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title-projects > h2 {
+    font: 36px "Nunito";
+    color: #917AAB;
+    font-weight: 700;
+}
+
+.title-projects button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 270px;
+    height: 60px;
+    background-color: #7B4BB3;
+    border-radius: 10px;
+    font: 20px "Nunito";
+    font-weight: 800;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.5s;
+    border: 1px solid transparent;
+}
+
+.title-projects button:hover {
+    border: 1px solid #fff;
+}
+
+.project-grid {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: 1400px;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+    overflow-x: scroll;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.project-grid::-webkit-scrollbar {
+  height: 6px;
+}
+
+.project-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.project-grid::-webkit-scrollbar-thumb {
+  background-color: #7B4BB3;
+  border-radius: 20px;
+}
+
+.project-card {
+    display: flex;
+    flex-direction: row;
+    width: 845px;
+    height: 200px;
+    background-color: #17111F;
+    border: 1px solid #695583;
+    border-radius: 24px;
+    padding: 30px 38px;
+    justify-content: space-between;
+}
+
+.project-card img {
+    width: 138px;
+    height: 138px;
+    background-color: #4d277a;
+    border-radius: 10px;
+}
+
+.project-card div {
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card h2 {
+    font: 36px "Nunito";
+    font-weight: 800;
+    color: #fff;
+}
+
+.project-card p {
+    font: 16px "Nunito";
+    font-weight: 200;
+    color: #CFA6FF;
+}
+
+.project-card button {
+    width: 180px;
+    height: 55px;
+    background-color: transparent;
+    border: 1px solid #7B4BB3;
+    border-radius: 10px;
+    font: 20px "Nunito";
+    color: #fff;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.5s;
+}
+
+.project-card button:hover {
+    border: 1px solid #fff;
+}
+
+.project-status {
+    display: flex;
+    flex-direction: column;
+    width: 230px;
+    height: 50px;
+    background-color: #725C1B;
+    border: 1px solid #facc15;
+    border-radius: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-status p {
+    font: 18px "Nunito";
+    font-weight: 700;
+    color: #facc15;
+}

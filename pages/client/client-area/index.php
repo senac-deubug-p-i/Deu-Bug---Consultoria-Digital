@@ -19,7 +19,7 @@
     <body>
         <header>
             <div class="logoheader">
-                <img src="../../assets/images/WhiteLogo_DeuBug.svg" alt="DeuBug-Logo">
+                <img src="../../../assets/images/WhiteLogo_DeuBug.svg" alt="DeuBug-Logo">
                 <h2>Deu Bug!</h2>
             </div>
 
