@@ -212,7 +212,7 @@ nav a:focus {
     display: flex;
     flex-direction: row;
     width: 100%;
-    padding: 116px 80px;
+    padding: 116px 80px 40px 80px;
     justify-content: space-between;
 }
 
@@ -297,4 +297,138 @@ nav a:focus {
     font: 16px "Nunito";
     font-weight: 700;
     color: #facc15;
+}
+
+.progress-status {
+    display: flex;
+    flex-direction: column;
+    width: 92%;
+    height: 274px;
+    background-color: #1C1328;
+    align-self: center;
+    border-radius: 24px;
+    border: 1px solid #7B4BB3;
+    padding: 40px 50px;
+}
+
+.data-progress {
+    display: flex;
+    flex-direction: row;
+    gap: 38px;
+}
+
+.progress-percent {
+    display: flex;
+    flex-direction: column;
+    width: 1060px;
+}
+
+.progress-percent div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.progress-percent h3 {
+    font: 20px "Nunito";
+    font-weight: 800;
+    color: #fff;
+}
+
+.progress-percent h2 {
+    font: 36px "Nunito";
+    font-weight: 800;
+    color: #fff;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 15px;
+    background-color: #472D65;
+    border-radius: 15px;
+    justify-content: inherit;
+    margin-top: 12px;
+}
+
+.progress-bar div {
+    width: 62%;
+    height: 15px;
+    background-color: #7B4BB3;
+    border-radius: 15px;
+}
+
+.data-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.data-info p {
+    font: 16px "Nunito";
+    font-weight: 200;
+    color: #BB81FF;
+}
+
+.data-info h3 {
+    font: 20px "Nunito";
+    font-weight: 700;
+    color: #FFF;
+}
+
+.data-status {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 32px;
+    position: relative;
+}
+
+.progress-stage {
+    display: flex;
+    flex-direction: row;
+    width: 97.9%;
+    height: 5px;
+    background-color: #472D65;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 80px;
+    z-index: 1;
+}
+
+.progress-stage div {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    height: 5px;
+    background-color: #7B4BB3;
+    border-radius: 5px;
+}
+
+.data-stage {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+.data-stage div {
+    width: 45px;
+    height: 45px;
+    background-color: #7B4BB3;
+    border-radius: 100%;
+}
+
+.data-stage p {
+    font: 16px "Nunito";
+    font-weight: 200;
+    color: #BB81FF;
+}
+
+.data-stage h3 {
+    font: 20px "Nunito";
+    font-weight: 700;
+    color: #FFF;
+    margin-top: 10px;
 }
