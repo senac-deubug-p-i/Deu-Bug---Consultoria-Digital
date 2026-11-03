@@ -439,6 +439,8 @@ nav a:focus {
     width: 100%;
     padding: 0px 108px 0px 145px;
     margin-top: 40px;
+    gap: 150px;
+    justify-content: center;
 }
 
 .left-stages {
@@ -631,4 +633,84 @@ nav a:focus {
     border-radius: 100%;
     background-color: #7B4BB3;
     margin-right: 45px;
+}
+
+.right-stages {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.approved-deliveries {
+    display: flex;
+    flex-direction: column;
+    width: 860px;
+    height: 395px;
+    background-color: #1C1328;
+    border: 1px solid #7E7B97;
+    border-radius: 24px;
+    padding: 20px 36px 10px 36px;
+}
+
+.approved-deliveries > h2 {
+    font: 36px "Nunito";
+    font-weight: 900;
+    color: #7B4BB3;
+}
+
+.deliveries-grid {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 20px;
+    overflow-y: scroll;
+    padding: 10px;
+}
+
+.deliveries-grid::-webkit-scrollbar {
+    width: 5px;
+}
+ 
+.deliveries-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+ 
+.deliveries-grid::-webkit-scrollbar-thumb {
+    background-color: #7B4BB3;
+    border-radius: 20px;
+}
+
+.deliveries-card {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: 64px;
+    background-color: #100B17;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 25px;
+    border: 1px solid #7B4BB3;
+}
+
+.deliveries-card h3 {
+    font: 16px "Nunito";
+    font-weight: 900;
+    color: #fff;
+}
+
+.deliveries-card p {
+    font: 14px "Nunito";
+    font-weight: 200;
+    color: #CFA6FF;
+}
+
+.deliveries-card button {
+    background-color: transparent;
+    font: 16px "Nunito";
+    font-weight: 800;
+    color: #CFA6FF;
+    text-decoration: underline;
+    cursor: pointer;
 }
