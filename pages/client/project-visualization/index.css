@@ -389,7 +389,7 @@ nav a:focus {
 .progress-stage {
     display: flex;
     flex-direction: row;
-    width: 97.9%;
+    width: 96.7%;
     height: 5px;
     background-color: #472D65;
     border-radius: 5px;
@@ -401,7 +401,7 @@ nav a:focus {
 .progress-stage div {
     display: flex;
     flex-direction: row;
-    width: 50%;
+    width: 48%;
     height: 5px;
     background-color: #7B4BB3;
     border-radius: 5px;
@@ -431,4 +431,74 @@ nav a:focus {
     font-weight: 700;
     color: #FFF;
     margin-top: 10px;
+}
+
+.stage-previews {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 0px 108px 0px 145px;
+    margin-top: 40px;
+}
+
+.left-stages {
+    display: flex;
+    flex-direction: column;
+}
+
+.to-approve {
+    display: flex;
+    flex-direction: column;
+    width: 660px;
+    height: 594px;
+    background-color: #1C1328;
+    border: 1px solid #7E7B97;
+    border-radius: 24px;
+    padding: 24px;
+}
+
+.to-approve h2 {
+    font: 36px "Nunito";
+    font-weight: 900;
+    color: #FFF;
+}
+
+.to-approve p {
+    font: 16px "Nunito";
+    font-weight: 900;
+    color: #FFF;
+    align-self: center;
+    margin-top: 28px;
+}
+
+.to-approve img {
+    width: 418px;
+    height: 324px;
+    align-self: center;
+    margin-top: 24px;
+}
+
+.to-approve div {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    gap: 55px;
+    margin-top: 30px;
+}
+
+.to-approve button {
+    width: 208px;
+    height: 60px;
+    background-color: #7B4BB3;
+    border: 1px solid #7B4BB3;
+    border-radius: 10px;
+    font: 20px "Nunito";
+    font-weight: 900;
+    transition: 0.5s;
+    color: #fff;
+    cursor: pointer;
+}
+
+.to-approve button:hover {
+    border: 1px solid #FFF;
 }
