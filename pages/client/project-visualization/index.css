@@ -502,3 +502,61 @@ nav a:focus {
 .to-approve button:hover {
     border: 1px solid #FFF;
 }
+
+.project-team {
+    display: flex;
+    flex-direction: column;
+    width: 575px;
+    min-height: 355px;
+    margin-top: 60px;
+    gap: 15px;
+    padding: 0px 36px;
+}
+
+.project-team h2 {
+    font: 36px "Nunito";
+    font-weight: 900;
+    color: #fff;
+}
+
+.project-partner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project-partner img {
+    width: 55px;
+    height: 55px;
+    background-color: #7B4BB3;
+    border: 1px solid #CFA6FF;
+    border-radius: 100%;
+    margin-right: 10px;
+}
+
+.project-partner > div {
+    display: flex;
+    align-items: center;
+}
+
+.project-partner h3 {
+    font: 16px "Nunito";
+    font-weight: 800;
+    color: #CFA6FF;
+}
+
+.project-partner p {
+    font: 16px "Nunito";
+    font-weight: 200;
+    color: #CFA6FF;
+}
+
+.project-partner button {
+    background-color: transparent;
+    font: 16px "Nunito";
+    font-weight: 800;
+    color: #CFA6FF;
+    text-decoration: underline;
+    cursor: pointer;
+}
