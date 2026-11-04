@@ -437,7 +437,7 @@ nav a:focus {
     display: flex;
     flex-direction: row;
     width: 100%;
-    padding: 0px 108px 0px 145px;
+    padding: 0px 108px 20px 145px;
     margin-top: 40px;
     gap: 150px;
     justify-content: center;
