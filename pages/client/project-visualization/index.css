@@ -879,3 +879,59 @@ nav a:focus {
     width: 10px;
     height: 10px;
 }
+
+.briefing-stage {
+    display: flex;
+    flex-direction: column;
+    width: 860px;
+    height: 170px;
+    background-color: #1C1328;
+    border: 1px solid #7E7B97;
+    border-radius: 24px;
+    padding: 40px;
+}
+
+.briefing-stage > p {
+    font: 20px "Nunito";
+    font-weight: 700;
+    color: #D0C5DC;
+    margin-top: 10px;
+}
+
+.briefing-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.briefing-title h2 {
+    font: 36px "Nunito";
+    font-weight: 900;
+    color: #FFF;
+}
+
+.briefing-status {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 216px;
+    height: 42px;
+    border-radius: 30px;
+    background-color: #2A714C;
+    border: 1px solid #49FF92;
+    gap: 13px;
+}
+
+.briefing-status p {
+    font: 16px "Nunito";
+    font-weight: 700;
+    color: #49FF92;
+}
+
+.briefing-status div {
+    background-color: #49FF92;
+    border-radius: 100%;
+    width: 10px;
+    height: 10px;
+}
