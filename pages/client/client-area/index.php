@@ -24,7 +24,7 @@
             </div>
 
             <nav>
-                <a  href="">Visão Geral</a>
+                <a href="">Visão Geral</a>
                 <a href="">Meus Projetos</a>
                 <a href="">Suporte</a>
                 <a href="">Configurações</a>
