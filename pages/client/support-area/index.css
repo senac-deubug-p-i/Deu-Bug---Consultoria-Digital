@@ -238,6 +238,7 @@ nav a:focus {
     display: flex;
     flex-direction: row;
     width: 100%;
+    gap: 65px;
 }
 
 .chats-request {
@@ -402,4 +403,160 @@ nav a:focus {
 .input-request textarea::-webkit-scrollbar-thumb {
   background-color: #7B4BB3;
   border-radius: 20px;
+}
+
+.contact-modals {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-modal {
+    display: flex;
+    flex-direction: column;
+    width: 1060px;
+    height: 820px;
+    background-color: #1D1726;
+    border-radius: 24px;
+    border: 1px solid #7E7B97;
+}
+
+.chat-modal-header {
+    display: flex;
+    flex-direction: row;
+    height: 75px;
+    width: 100%;
+    border-bottom: 1px solid #7E7B97;
+    border-radius: 24px 25px 0px 0px;
+    align-items: center;
+    padding: 0px 30px;
+    gap: 24px;
+}
+
+.chat-modal-header img {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #986BCE;
+    border-radius: 100%;
+    background-color: #7B4BB3;
+}
+
+.chat-modal-header {
+    font: 16px "Nunito";
+    font-weight: 700;
+    color: #CFA6FF;
+}
+
+.chat-modal-messages {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-grow: 1;
+    padding: 10px 48px;
+    gap: 10px;
+}
+
+.left-message {
+    display: flex;
+    flex-direction: column;
+    max-width: 450px;
+    background-color: #271E32;
+    border-radius: 24px 24px 24px 5px;
+    padding: 15px 25px;
+}
+
+.left-message h3 {
+    font: 16px "Nunito";
+    font-weight: 700;
+    color: #CFA6FF;
+}
+
+.left-message p {
+    font: 16px "Nunito";
+    font-weight: 200;
+    color: #CFA6FF;
+}
+
+.right-message {
+    display: flex;
+    flex-direction: column;
+    max-width: 450px;
+    background-color: #271E32;
+    border-radius: 24px 24px 5px 24px;
+    padding: 15px 25px;
+    align-self: flex-end;
+}
+
+.right-message h3 {
+    font: 16px "Nunito";
+    font-weight: 700;
+    color: #CFA6FF;
+}
+
+.right-message p {
+    font: 16px "Nunito";
+    font-weight: 200;
+    color: #CFA6FF;
+}
+
+.chat-modal-inputs {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 75px;
+    border-radius: 0px 0px 24px 24px;
+    border-top: 1px solid #7E7B97;
+    gap: 20px;
+    align-items: center;
+    padding: 0px 30px;
+}
+
+.chat-modal-inputs button {
+    width: 95px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #7B4BB3;
+    font: 16px "Nunito";
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+}
+
+#btn-archive {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #1D122A;
+    cursor: pointer;
+    border: 1px solid #291E34;
+}
+
+#btn-archive svg {
+    height: 22px;
+}
+
+#btn-archive path {
+    fill: #543F6C;
+}
+
+.chat-modal-inputs input {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #1D122A;
+    font: 16px "Nunito";
+    font-weight: 700;
+    color: #fff;
+    padding: 0px 20px;
+    outline: none;
+    border: 1px solid #451D74;
+}
+
+.chat-modal-inputs input::placeholder {
+    color: #543F6C;
 }
