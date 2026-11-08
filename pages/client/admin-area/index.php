@@ -1,1553 +1,286 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script>
-      tailwind = { config: { corePlugins: { preflight: false } } };
-    </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans%3Awght%40200..800&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      *, ::before, ::after {
-        box-sizing: border-box;
-      }
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin - Projetos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap" rel="stylesheet" />
+<style>
+*,::before,::after{box-sizing:border-box}
+body{margin:0;background:#08080A;color:#F2F2F6;font-family:'Plus Jakarta Sans',system-ui,sans-serif;min-height:100vh}
+button,input,select{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer;padding:0}
+a{text-decoration:none;color:inherit}
+.ic{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.app{display:flex;min-height:100vh;width:100%}
+/* sidebar */
+.side{width:220px;flex-shrink:0;height:100vh;position:sticky;top:0;background:#0B0B0F;border-right:1px solid #1E1E26;padding:20px 14px;display:flex;flex-direction:column;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;padding:0 6px 18px}
+.logo{width:34px;height:34px;border-radius:10px;background:#7C3AED;display:grid;place-items:center;font-weight:800;font-size:13px;letter-spacing:-.5px;color:#fff}
+.bn{font-weight:800;font-size:14.5px}.br{font-size:8px;font-weight:700;letter-spacing:1.6px;color:#6B6B78;margin-top:1px}
+nav{display:flex;flex-direction:column;gap:3px;padding-top:10px}
+.nav{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:9px;font-size:12.5px;font-weight:500;color:#9A9AA6;transition:background .15s,color .15s}
+.nav .ic{color:#6B6B78;transition:color .15s}
+.nav span{flex:1}
+.nav:hover{background:#15151B;color:#F2F2F6}.nav:hover .ic{color:#C9C9D4}
+.nav.on{background:#7C3AED;color:#fff;font-weight:600}.nav.on .ic{color:#fff}
+.badge{background:#4C1D95;color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:999px}
+.side-b{display:flex;flex-direction:column;gap:10px}
+.asc{display:flex;justify-content:center;padding:9px 12px;border-radius:10px;background:#15151B;outline:1px solid #26262E;outline-offset:-.5px;font-size:11.5px;font-weight:500;color:#C9C9D4;transition:.15s}
+.asc:hover{background:#1c1c24;outline-color:#7C3AED;color:#fff}
+.user{display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:10px;background:#15151B;cursor:pointer;transition:background .15s;width:100%;text-align:left}
+.user:hover{background:#1c1c24}
+.av{border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;flex-shrink:0}
+.user .av{width:28px;height:28px;font-size:9.5px;background:#6D28D9}
+.ut{flex:1}.un{font-size:11.5px;font-weight:600}.ur{font-size:9px;font-weight:500;color:#6B6B78;margin-top:1px}
+.user .ic{width:13px;height:13px;color:#5f5f68}
+/* main */
+main{flex:1;min-width:0;padding:26px 30px;display:flex;flex-direction:column;gap:18px}
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+h1{margin:0 0 7px;font-size:38px;font-weight:800;letter-spacing:-1.2px;line-height:normal;background:linear-gradient(0deg,#CBAAFF 0%,#9B6BF8 60%,#7C3AED 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;width:fit-content}
+.sub{font-size:12.5px;font-weight:500;color:#7C7C88}
+.btn{display:flex;align-items:center;gap:7px;padding:10px 16px;border-radius:9px;background:#7C3AED;color:#fff;font-size:12px;font-weight:600;white-space:nowrap;transition:background .15s,transform .1s,box-shadow .15s}
+.btn .ic{width:14px;height:14px}
+.btn:hover{background:#8B4CF5;box-shadow:0 6px 20px -6px #7C3AED}.btn:active{transform:scale(.97)}
+.filters{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.fl{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.search{width:300px;max-width:100%;height:36px;display:flex;align-items:center;gap:8px;padding:0 12px;background:#121217;outline:1px solid #22222A;outline-offset:-.5px;border-radius:10px;transition:.15s}
+.search:focus-within{outline-color:#7C3AED}
+.search .ic{width:13px;height:13px;color:#5f5f68}
+.search input{flex:1;min-width:0;background:none;border:0;outline:0;font-size:11.5px;font-weight:500}
+.search input::placeholder{color:#5F5F68}
+.pill{padding:9px 14px;border-radius:999px;background:#121217;outline:1px solid #22222A;outline-offset:-.5px;font-size:11.5px;font-weight:500;color:#A3A3AE;white-space:nowrap;transition:.15s}
+.pill:hover{background:#1a1a22;color:#fff}
+.pill.on{background:#7C3AED;color:#fff;font-weight:600;outline-color:transparent}
+.dd{position:relative}
+.dd-b{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:9px 14px;border-radius:10px;background:#121217;outline:1px solid #22222A;outline-offset:-.5px;font-size:11.5px;font-weight:500;color:#A3A3AE;transition:.15s}
+.dd-b:hover,.dd.open .dd-b{outline-color:#7C3AED;color:#fff}
+.dd-b .ic{width:13px;height:13px;color:#5f5f68;transition:transform .15s}.dd.open .dd-b .ic{transform:rotate(180deg)}
+.menu{display:none;position:absolute;right:0;top:calc(100% + 6px);min-width:100%;z-index:20;background:#15151B;outline:1px solid #26262E;border-radius:10px;padding:5px;box-shadow:0 14px 34px rgba(0,0,0,.5)}
+.dd.open .menu{display:block}
+.menu button{display:block;width:100%;text-align:left;padding:8px 10px;border-radius:7px;font-size:11.5px;font-weight:500;color:#A3A3AE;white-space:nowrap}
+.menu button:hover{background:#1f1f28;color:#fff}.menu button.on{color:#fff;background:#4C1D95}
+/* kanban */
+.kan{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;align-items:start}
+.col{background:#0E0E12;outline:1px solid #1D1D24;outline-offset:-.5px;border-radius:14px;overflow:hidden;transition:outline-color .15s,background .15s}
+.col.over{outline:1px dashed #7C3AED;background:#13101c}
+.ch{display:flex;justify-content:space-between;align-items:center;padding:13px;background:#15151B}
+.ct{font-size:12.5px;font-weight:700;color:#E8E8EE}
+.cc{background:#232329;color:#A0A0AA;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px}
+.cards{display:flex;flex-direction:column;gap:10px;padding:10px;min-height:60px}
+.card{display:flex;flex-direction:column;gap:7px;padding:12px;background:#15151A;outline:1px solid #23232B;outline-offset:-.5px;border-radius:12px;cursor:grab;transition:transform .15s,outline-color .15s,background .15s,box-shadow .15s;user-select:none}
+.card:hover{background:#18181f;outline-color:#4C1D95;transform:translateY(-2px);box-shadow:0 10px 24px -10px rgba(124,58,237,.35)}
+.card.drag{opacity:.35;cursor:grabbing}
+.cl{font-size:9.5px;line-height:12px;font-weight:600;color:#75757F}
+.cti{font-size:12.5px;line-height:16px;font-weight:700;color:#EDEDF3}
+.tag{width:fit-content;padding:3px 8px;border-radius:999px;font-size:9px;font-weight:700;white-space:nowrap}
+.t-warn{background:#2F260F;color:#E5C465}.t-red{background:#33131B;color:#F0777C}.t-org{background:#33190D;color:#F0944E}.t-ok{background:#0D2A1C;color:#54D68E}
+.pm{display:flex;justify-content:space-between;align-items:center;padding-top:3px}
+.pc{font-size:10px;font-weight:700;color:#C9C9D2}.pz{font-size:9.5px;font-weight:500;color:#6B6B76}.pz.late{color:#F0777C}
+.trk{height:3px;background:#23232B;border-radius:2px}
+.fill{height:3px;background:#7C3AED;border-radius:2px;transition:width .3s}.fill.g{background:#22C55E}
+.as{display:flex;align-items:center;gap:6px;padding-top:3px;font-size:9.5px;font-weight:500;color:#9A9AA4}
+.as .av{width:18px;height:18px;font-size:7.5px}
+.empty{font-size:10.5px;font-weight:500;color:#5F5F68;text-align:center;padding:18px 0;border:1px dashed #23232B;border-radius:10px}
+/* modal + toast */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);display:none;place-items:center;z-index:50;padding:20px}
+.ov.open{display:grid}
+.modal{width:100%;max-width:440px;background:#0E0E12;outline:1px solid #26262E;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:14px;box-shadow:0 30px 70px rgba(0,0,0,.6)}
+.modal h2{margin:0;font-size:18px;font-weight:800;letter-spacing:-.4px}
+.f{display:flex;flex-direction:column;gap:6px;font-size:11px;font-weight:600;color:#9A9AA6}
+.f input,.f select{height:38px;padding:0 12px;border-radius:9px;background:#121217;border:0;outline:1px solid #22222A;outline-offset:-.5px;font-size:12px;font-weight:500;color:#F2F2F6;color-scheme:dark;transition:.15s}
+.f input:focus,.f select:focus{outline-color:#7C3AED}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.acts{display:flex;justify-content:flex-end;gap:8px;padding-top:4px}
+.btn.ghost{background:#15151B;outline:1px solid #26262E;color:#C9C9D4}.btn.ghost:hover{background:#1c1c24;box-shadow:none}
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);background:#15151B;outline:1px solid #4C1D95;color:#F2F2F6;font-size:12px;font-weight:600;padding:10px 16px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;z-index:60}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:1180px){.kan{grid-template-columns:repeat(5,260px);overflow-x:auto;padding-bottom:8px}}
+@media(max-width:760px){.side{display:none}main{padding:20px 16px}h1{font-size:30px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="i-dash" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+<symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+<symbol id="i-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></symbol>
+<symbol id="i-ud" viewBox="0 0 24 24"><path d="m7 15 5 5 5-5M7 9l5-5 5 5"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+</defs></svg>
 
-      body {
-        margin: 0;
-      }
-    </style>
+<div class="app">
+  <aside class="side">
+    <div>
+      <div class="brand"><div class="logo">DI</div><div><div class="bn">Deu Bug!</div><div class="br">ADMIN</div></div></div>
+      <nav>
+        <a class="nav" href="#"><svg class="ic"><use href="#i-dash"/></svg><span>Visão geral</span></a>
+        <a class="nav on" href="#"><svg class="ic"><use href="#i-folder"/></svg><span>Projetos</span></a>
+        <a class="nav" href="#"><svg class="ic"><use href="#i-users"/></svg><span>Clientes</span></a>
+        <a class="nav" href="#"><svg class="ic"><use href="#i-inbox"/></svg><span>Solicitações</span><i class="badge">5</i></a>
+        <a class="nav" href="#"><svg class="ic"><use href="#i-card"/></svg><span>Financeiro</span></a>
+      </nav>
+    </div>
+    <div class="side-b">
+      <a class="asc" href="#">Ver como cliente</a>
+      <button class="user"><div class="av">RL</div><div class="ut"><div class="un">Rafael Lima</div><div class="ur">Gerente de projetos</div></div><svg class="ic"><use href="#i-ud"/></svg></button>
+    </div>
+  </aside>
 
-    <style>
-      body {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-    </style>
-  </head>
-  <body style="background-color: #08080A">
-    <div
-      data-pencil-name="Admin - Projetos"
-      class="box-border w-[1440px] h-[920px] flex flex-row gap-0 justify-start items-start bg-[#08080A] overflow-hidden"
-    >
-      <div
-        data-pencil-name="Sidebar"
-        class="[box-sizing:content-box] w-[211.5px] shrink-0 h-[920px] flex flex-col gap-0 p-[20px_14px] justify-between items-start bg-[#0B0B0F] [border-width:0px_1px_0px_0px] [border-style:solid] [border-color:#1E1E26] [margin:0px_-0.5px_0px_0px]"
-      >
-        <div
-          data-pencil-name="Sidebar Top"
-          class="box-border w-full h-fit shrink-0 flex flex-col gap-[4px] justify-start items-start"
-        >
-          <div
-            data-pencil-name="Brand"
-            class="box-border w-fit h-fit shrink-0 flex flex-row gap-[10px] p-[0px_6px_18px_6px] justify-start items-center"
-          >
-            <div
-              data-pencil-name="Logo Mark"
-              class="box-border w-[34px] shrink-0 h-[34px] flex flex-col gap-0 justify-center items-center bg-[#7C3AED] rounded-[10px]"
-            >
-              <div
-                data-pencil-name="Logo Text"
-                class="text-[13px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-extrabold tracking-[-0.5px] text-left [white-space:nowrap]"
-              >
-                DI
-              </div>
-            </div>
-            <div
-              data-pencil-name="Brand Text"
-              class="box-border w-fit shrink-0 h-fit flex flex-col gap-[1px] justify-start items-start"
-            >
-              <div
-                data-pencil-name="Brand Name"
-                class="text-[14.5px]/[normal] box-border text-[#F2F2F6] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-extrabold text-left [white-space:nowrap]"
-              >
-                Deu Bug!
-              </div>
-              <div
-                data-pencil-name="Brand Role"
-                class="text-[8px]/[normal] box-border text-[#6B6B78] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold tracking-[1.6px] text-left [white-space:nowrap]"
-              >
-                ADMIN
-              </div>
-            </div>
-          </div>
-          <div
-            data-pencil-name="Nav"
-            class="box-border w-full h-fit shrink-0 flex flex-col gap-[3px] p-[10px_0px_0px_0px] justify-start items-start"
-          >
-            <div
-              data-pencil-name="Visão geral"
-              class="box-border w-full h-fit shrink-0 flex flex-row gap-[10px] p-[9px_10px] justify-start items-center rounded-[9px]"
-            >
-              <svg
-                data-pencil-name="Icon"
-                viewBox="0 0 15 15"
-                preserveAspectRatio="xMidYMid meet"
-                data-icon-name="layout-dashboard"
-                data-icon-set="lucide"
-                xmlns="http://www.w3.org/2000/svg"
-                class="box-border w-[15px] shrink-0 h-[15px] overflow-visible"
-              >
-                <path
-                  d="M2.175 1.289q-.241 .077-.457 .249-.217 .172-.323 .396l-.029 .047q-.062 .117-.077 .224-.029 .15-.029 .6v3.765q0 .45 .029 .6 .015 .107 .077 .224l.029 .047q.106 .238 .33 .411 .223 .172 .48 .234 .12 .044 1.853 .037 1.732-.008 1.867-.037 .315-.077 .572-.33 .131-.135 .205-.249 .077-.113 .124-.293l.044-.135v-4.783l-.044-.135q-.047-.18-.124-.293-.074-.114-.205-.249-.165-.165-.315-.238l-.019-.015q-.131-.062-.238-.077-.135-.029-.509-.029h-1.23-1.637q-.267 .014-.374 .029zM9.075 1.289q-.301 .062-.572 .33-.131 .135-.208 .249-.074 .113-.121 .293l-.044 .135v2.307l.044 .15q.091 .242 .264 .436 .172 .194 .38 .3l.019 .015q.146 .077 .238 .092 .15 .014 .523 .029l3.135-.015 .15-.044q.286-.091 .502-.307 .22-.22 .311-.487 .03-.092 .03-.271l.014-1.022v-.93q0-.253-.029-.374-.015-.077-.092-.227l-.014-.014q-.106-.238-.322-.403-.217-.165-.473-.242-.106-.029-.359-.029h-1.516q-1.739 0-1.86 .029zM5.625 4.68v2.205h-3.135v-4.395h3.135zM12.51 3.435v.93h-3.135v-1.875h3.135zM9.075 6.914q-.301 .062-.572 .33-.131 .135-.208 .249-.074 .113-.121 .293l-.044 .135v4.783l.044 .135q.047 .18 .121 .293 .077 .114 .208 .249 .257 .253 .572 .33 .135 .029 1.867 .037 1.733 .007 1.853-.037 .33-.077 .583-.33 .256-.256 .333-.586 .029-.12 .037-2.482 .007-2.363-.037-2.483-.077-.33-.326-.575-.245-.249-.575-.341-.106-.029-.359-.029h-1.516q-1.739 0-1.86 .029zM12.51 10.305v2.205h-3.135v-4.395h3.135zM2.282 9.39q-.334 .058-.605 .293-.267 .23-.373 .545-.03 .092-.03 .271l-.014 1.022v.93q0 .253 .029 .374 .015 .077 .092 .227l.014 .014q.106 .238 .33 .411 .223 .172 .48 .234 .12 .044 1.853 .037 1.732-.008 1.867-.037 .315-.077 .572-.33 .131-.135 .205-.249 .077-.113 .124-.293l.044-.135v-2.307l-.044-.15q-.091-.242-.263-.436-.173-.194-.381-.3l-.019-.015q-.131-.062-.238-.092-.15-.014-.523-.029h-1.352q-1.666 0-1.768 .015zM5.625 11.565v.945h-3.135v-1.875h3.135z"
-                  fill="#6b6b78"
-                />
-              </svg>
-              <div
-                data-pencil-name="Label"
-                class="text-[12.5px]/[normal] box-border [flex:1_1_0] text-[#9A9AA6] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left"
-              >
-                Visão geral
-              </div>
-            </div>
-            <div
-              data-pencil-name="Projetos"
-              class="box-border w-full h-fit shrink-0 flex flex-row gap-[10px] p-[9px_10px] justify-start items-center bg-[#7C3AED] rounded-[9px]"
-            >
-              <svg
-                data-pencil-name="Icon"
-                viewBox="0 0 15 15"
-                preserveAspectRatio="xMidYMid meet"
-                data-icon-name="folder"
-                data-icon-set="lucide"
-                xmlns="http://www.w3.org/2000/svg"
-                class="box-border w-[15px] shrink-0 h-[15px] overflow-visible"
-              >
-                <path
-                  d="M2.117 1.289q-.513 .106-.898 .476-.38 .366-.531 .861-.043 .15-.043 .373-.015 .286-.03 1.216l.015 6.676q.015 .659 .029 .747 .15 .586 .553 .971 .407 .381 .978 .487 .179 .029 5.31 .029 5.131 0 5.31-.029 .571-.106 .982-.487 .413-.385 .549-.971 .015-.088 .029-.611v-2.776q.015-3.256 0-3.435-.077-.542-.373-.945-.392-.509-1.037-.692l-.15-.044-5.402-.015-.102-.044q-.121-.062-.183-.121-.059-.058-.359-.509-.238-.348-.374-.512-.135-.165-.271-.268-.12-.091-.285-.187-.165-.098-.282-.128-.227-.077-.462-.084-.23-.007-1.369-.007h-1.245q-.257 .014-.359 .029zM5.204 2.549q.121 .062 .187 .139 .069 .073 .362 .509 .293 .432 .473 .612 .359 .362 .853 .512l.15 .044h2.703q2.699 .015 2.757 .037 .063 .022 .15 .084 .092 .059 .136 .106 .044 .044 .091 .147l.044 .106v6.57l-.044 .106q-.12 .223-.347 .315l-.103 .029h-10.232l-.102-.029q-.228-.092-.348-.315l-.044-.106v-8.445l.044-.106q.062-.136 .179-.231 .121-.099 .271-.113 .106-.015 1.395-.015h1.308z"
-                  fill="#ffffff"
-                />
-              </svg>
-              <div
-                data-pencil-name="Label"
-                class="text-[12.5px]/[normal] box-border [flex:1_1_0] text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-semibold text-left"
-              >
-                Projetos
-              </div>
-            </div>
-            <div
-              data-pencil-name="Clientes"
-              class="box-border w-full h-fit shrink-0 flex flex-row gap-[10px] p-[9px_10px] justify-start items-center rounded-[9px]"
-            >
-              <svg
-                data-pencil-name="Icon"
-                viewBox="0 0 15 15"
-                preserveAspectRatio="xMidYMid meet"
-                data-icon-name="users"
-                data-icon-set="lucide"
-                xmlns="http://www.w3.org/2000/svg"
-                class="box-border w-[15px] shrink-0 h-[15px] overflow-visible"
-              >
-                <path
-                  d="M5.189 1.289q-.868 .121-1.531 .663-.659 .538-.959 1.333-.194 .524-.194 1.095 0 .3 .044 .542 .047 .238 .15 .524 .165 .494 .502 .908 .34 .41 .772 .681 .392 .242 .788 .348 .399 .102 .864 .102 .242 0 .388-.014 .15-.015 .377-.063 .645-.164 1.183-.596 .542-.436 .857-1.052 .209-.421 .286-.944 .029-.15 .029-.436 0-.286-.029-.436-.106-.703-.498-1.289-.388-.586-1.004-.959-.465-.286-1.051-.392-.164-.03-.487-.037-.322-.007-.487 .022zM9.84 1.351q-.15 .044-.271 .15-.121 .103-.165 .286-.044 .18 0 .344 .044 .165 .165 .271 .121 .103 .363 .194 .267 .088 .432 .187 .165 .095 .329 .279 .363 .358 .487 .823 .129 .466 .015 .931-.11 .465-.447 .824-.337 .359-.835 .523-.208 .077-.307 .154-.095 .073-.172 .224-.059 .106-.059 .256 0 .146 .059 .253 .091 .208 .3 .315 .135 .062 .271 .054 .135-.011 .359-.084 .377-.121 .652-.293 .278-.172 .549-.458 .839-.838 .916-1.981 .106-1.274-.751-2.278-.524-.629-1.366-.915-.359-.121-.524-.059zM5.834 2.52q.436 .029 .838 .307 .407 .278 .623 .707 .22 .425 .198 .945-.022 .516-.308 .923-.165 .252-.406 .443-.238 .186-.495 .289-.209 .062-.307 .084-.096 .022-.352 .022-.256 0-.355-.022-.095-.022-.304-.084-.421-.15-.729-.502-.308-.351-.428-.787-.118-.494 .014-.974 .136-.48 .487-.824 .356-.348 .85-.484 .091-.029 .264-.051 .172-.022 .23-.007zM3.314 8.789q-1.032 .15-1.769 .886-.586 .586-.809 1.41-.077 .257-.091 .473-.015 .216-.015 .879v.824l.044 .12q.062 .103 .15 .194 .227 .209 .542 .158 .315-.051 .45-.337l.044-.106 .015-.853q.015-.663 .029-.828 .015-.165 .077-.374 .15-.406 .502-.728 .351-.323 .787-.444 .165-.043 .575-.058 .414-.015 1.78-.015 1.366 0 1.776 .015 .414 .015 .579 .058 .45 .121 .809 .462 .363 .337 .494 .769 .063 .179 .07 .348 .007 .165 .022 .795l.015 .853 .044 .106q.135 .286 .45 .337 .315 .051 .542-.158 .088-.091 .15-.194l.044-.12v-.824q0-.663-.014-.879-.015-.216-.092-.473-.088-.344-.253-.659-.285-.557-.791-.967-.501-.414-1.098-.578l-.048-.015q-.179-.062-.315-.077-.165-.015-.601-.015l-1.724-.014q-2.205 0-2.37 .029zM11.73 8.851q-.257 .059-.392 .293-.132 .231-.059 .487 .063 .209 .227 .33 .074 .044 .301 .135 .267 .088 .432 .187 .165 .095 .348 .293 .359 .374 .479 .839 .03 .121 .037 .263 .007 .143 .022 .759l.015 .853 .044 .106q.135 .286 .45 .337 .315 .051 .542-.158 .088-.091 .15-.194l.044-.12 .015-.693q0-.688-.029-1.025-.03-.337-.136-.637-.15-.451-.458-.868-.307-.421-.696-.707-.333-.242-.747-.384-.41-.143-.589-.096z"
-                  fill="#6b6b78"
-                />
-              </svg>
-              <div
-                data-pencil-name="Label"
-                class="text-[12.5px]/[normal] box-border [flex:1_1_0] text-[#9A9AA6] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left"
-              >
-                Clientes
-              </div>
-            </div>
-            <div
-              data-pencil-name="Solicitações"
-              class="box-border w-full h-fit shrink-0 flex flex-row gap-[10px] p-[9px_10px] justify-start items-center rounded-[9px]"
-            >
-              <svg
-                data-pencil-name="Icon"
-                viewBox="0 0 15 15"
-                preserveAspectRatio="xMidYMid meet"
-                data-icon-name="inbox"
-                data-icon-set="lucide"
-                xmlns="http://www.w3.org/2000/svg"
-                class="box-border w-[15px] shrink-0 h-[15px] overflow-visible"
-              >
-                <path
-                  d="M4.259 1.89q-.373 .058-.729 .278-.351 .216-.545 .516-.107 .15-1.216 2.388-1.11 2.234-1.132 2.318-.022 .081-.007 2.106v1.71q.015 .344 .029 .432 .136 .571 .546 .963 .414 .389 .985 .495 .179 .029 5.31 .029 5.131 0 5.31-.029 .571-.106 .982-.495 .413-.392 .549-.963 .015-.088 .029-.432v-1.71q.015-2.025-.007-2.106-.022-.084-1.132-2.318-1.109-2.238-1.201-2.373-.209-.315-.571-.538-.359-.227-.733-.271-.15-.015-3.241-.015-3.09 0-3.226 .015zM10.693 3.164q.107 .048 .198 .136 .073 .062 .209 .325 .135 .26 .765 1.491 .868 1.739 .868 1.754 0 .015-1.424 .015h-1.245q-.209 0-.301 .04-.088 .037-.172 .114-.08 .073-.622 .897l-.553 .824h-1.831l-.553-.824q-.542-.824-.627-.897-.08-.077-.172-.114-.088-.04-.296-.04h-1.246q-1.428 0-1.428-.015 0-.015 .872-1.754 .63-1.231 .765-1.491 .136-.263 .209-.325 .091-.088 .172-.118 .084-.033 .505-.047h2.714 2.714q.406 0 .479 .029zM5.219 8.939q.542 .824 .622 .901 .084 .073 .172 .114 .092 .036 .286 .036h1.201 1.201q.194 0 .282-.036 .092-.041 .172-.114 .085-.077 .627-.901l.553-.824h2.79l-.015 3.3-.044 .106q-.12 .223-.347 .315l-.103 .029h-10.232l-.102-.029q-.228-.092-.348-.315l-.044-.106-.015-3.3h2.791z"
-                  fill="#6b6b78"
-                />
-              </svg>
-              <div
-                data-pencil-name="Label"
-                class="text-[12.5px]/[normal] box-border [flex:1_1_0] text-[#9A9AA6] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left"
-              >
-                Solicitações
-              </div>
-              <div
-                data-pencil-name="Badge"
-                class="box-border w-fit shrink-0 h-fit flex flex-col gap-0 p-[2px_6px] justify-center items-center bg-[#4C1D95] rounded-[999px]"
-              >
-                <div
-                  data-pencil-name="Badge Text"
-                  class="text-[9px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                >
-                  5
-                </div>
-              </div>
-            </div>
-            <div
-              data-pencil-name="Financeiro"
-              class="box-border w-full h-fit shrink-0 flex flex-row gap-[10px] p-[9px_10px] justify-start items-center rounded-[9px]"
-            >
-              <svg
-                data-pencil-name="Icon"
-                viewBox="0 0 15 15"
-                preserveAspectRatio="xMidYMid meet"
-                data-icon-name="credit-card"
-                data-icon-set="lucide"
-                xmlns="http://www.w3.org/2000/svg"
-                class="box-border w-[15px] shrink-0 h-[15px] overflow-visible"
-              >
-                <path
-                  d="M2.311 2.52q-.315 .029-.63 .179-.315 .15-.542 .406-.33 .345-.465 .854l-.044 .183v6.749l.044 .18q.077 .271 .194 .472 .121 .201 .315 .399 .198 .194 .399 .315 .201 .117 .472 .194l.18 .044h10.532l.18-.044q.271-.077 .472-.194 .201-.121 .396-.315 .197-.198 .314-.399 .121-.201 .198-.472l.044-.18v-6.782l-.044-.18q-.135-.494-.465-.824-.48-.523-1.216-.6-.179-.015-5.16-.015-4.98 0-5.174 .03zM12.752 3.809q.208 .106 .314 .315l.044 .106 .015 1.395h-11.25l.015-1.395 .044-.106q.12-.268 .406-.345 .092-.029 5.204-.029l5.101 .015zM13.125 8.818l-.015 1.952-.029 .092q-.135 .282-.406 .359-.088 .029-5.175 .029-5.087 0-5.175-.029-.271-.077-.406-.359l-.029-.092-.015-3.885h11.25z"
-                  fill="#6b6b78"
-                />
-              </svg>
-              <div
-                data-pencil-name="Label"
-                class="text-[12.5px]/[normal] box-border [flex:1_1_0] text-[#9A9AA6] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left"
-              >
-                Financeiro
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          data-pencil-name="Sidebar Bottom"
-          class="box-border w-full h-fit shrink-0 flex flex-col gap-[10px] justify-start items-start"
-        >
-          <div
-            data-pencil-name="Ver como cliente"
-            class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[9px_12px] justify-center items-center bg-[#15151B] [outline:1px_solid_#26262E] [outline-offset:-0.5px] rounded-[10px]"
-          >
-            <div
-              data-pencil-name="Label"
-              class="text-[11.5px]/[normal] box-border text-[#C9C9D4] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-            >
-              Ver como cliente
-            </div>
-          </div>
-          <div
-            data-pencil-name="User"
-            class="box-border w-full h-fit shrink-0 flex flex-row gap-[9px] p-[7px_8px] justify-start items-center bg-[#15151B] rounded-[10px]"
-          >
-            <div
-              data-pencil-name="Avatar"
-              class="box-border w-[28px] shrink-0 h-[28px] flex flex-col gap-0 justify-center items-center bg-[#6D28D9] rounded-[14px]"
-            >
-              <div
-                data-pencil-name="Initials"
-                class="text-[9.5px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-              >
-                RL
-              </div>
-            </div>
-            <div
-              data-pencil-name="User Text"
-              class="box-border [flex:1_1_0] h-fit flex flex-col gap-[1px] justify-start items-start"
-            >
-              <div
-                data-pencil-name="User Name"
-                class="text-[11.5px]/[normal] box-border text-[#F2F2F6] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
-              >
-                Rafael Lima
-              </div>
-              <div
-                data-pencil-name="User Role"
-                class="text-[9px]/[normal] box-border text-[#6B6B78] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-              >
-                Gerente de projetos
-              </div>
-            </div>
-            <svg
-              data-pencil-name="Switch Icon"
-              viewBox="0 0 13 13"
-              preserveAspectRatio="xMidYMid meet"
-              data-icon-name="chevrons-up-down"
-              data-icon-set="lucide"
-              xmlns="http://www.w3.org/2000/svg"
-              class="box-border w-[13px] shrink-0 h-[13px] overflow-visible"
-            >
-              <path
-                d="M6.357 1.65q-.079 .013-.136 .054-.057 .038-1.476 1.454l-1.13 1.146q-.26 .26-.314 .362-.051 .066-.038 .171v.051q0 .13 .038 .222 .092 .181 .292 .26 .203 .076 .397 .013 .066-.026 .253-.206 .191-.185 1.048-1.042l1.209-1.196 1.209 1.196q.857 .857 1.044 1.042 .191 .18 .258 .206 .193 .063 .393-.013 .203-.079 .295-.26 .038-.092 .038-.222v-.051q.013-.105-.038-.171-.054-.102-.314-.362l-1.13-1.146q-1.431-1.428-1.517-1.473-.082-.047-.194-.054-.107-.006-.187 .019zM3.602 7.617q-.092 .041-.177 .121-.083 .076-.118 .149-.032 .07-.038 .108-.006 .038-.006 .13v.038q-.013 .105 .038 .184 .066 .102 .339 .375 .181 .196 .899 .911l1.39 1.377q.26 .248 .362 .314 .066 .051 .171 .038h.076q.105 .013 .172-.038 .101-.066 .361-.314l1.39-1.377q.718-.715 .899-.911 .273-.273 .339-.375 .051-.079 .038-.184v-.038q0-.092-.006-.13-.006-.038-.032-.105-.041-.089-.127-.159-.082-.073-.174-.104-.089-.035-.213-.035-.124 0-.209 .041-.083 .038-1.279 1.232l-1.197 1.196-1.197-1.196q-1.196-1.194-1.282-1.232-.082-.041-.212-.041-.131 0-.207 .025z"
-                fill="#5f5f68"
-              />
-            </svg>
-          </div>
-        </div>
+  <main>
+    <div class="head">
+      <div><h1>Projetos</h1><div class="sub">Arraste os cards entre as colunas para mudar a etapa.</div></div>
+      <button class="btn" id="novo"><svg class="ic"><use href="#i-plus"/></svg>Novo projeto</button>
+    </div>
+    <div class="filters">
+      <div class="fl">
+        <label class="search"><svg class="ic"><use href="#i-search"/></svg><input id="q" placeholder="Buscar projeto ou cliente" autocomplete="off" /></label>
+        <button class="pill on" data-f="todos">Todos</button>
+        <button class="pill" data-f="meus">Meus projetos</button>
+        <button class="pill" data-f="pend">Com pendência</button>
+        <button class="pill" data-f="atr">Atrasados</button>
       </div>
-      <div
-        data-pencil-name="Main"
-        class="box-border [flex:1_1_0] h-full flex flex-col gap-[18px] p-[26px_30px] justify-start items-start"
-      >
-        <div
-          data-pencil-name="Header"
-          class="box-border w-full h-fit shrink-0 flex flex-row gap-[16px] justify-between items-start"
-        >
-          <div
-            data-pencil-name="Header Text"
-            class="box-border [flex:1_1_0] h-fit flex flex-col gap-[7px] justify-start items-start"
-          >
-            <div
-              data-pencil-name="Page Title"
-              class="text-[38px]/[normal] box-border font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-extrabold tracking-[-1.2px] text-left [white-space:nowrap]"
-              style="-webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; background-image: linear-gradient(0deg, #CBAAFF 0%, #9B6BF8 60%, #7C3AED 100%); background-repeat: no-repeat; background-size: 100% 100%; color: transparent"
-            >
-              Projetos
-            </div>
-            <div
-              data-pencil-name="Page Subtitle"
-              class="text-[12.5px]/[normal] box-border text-[#7C7C88] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-            >
-              Arraste os cards entre as colunas para mudar a etapa.
-            </div>
-          </div>
-          <div
-            data-pencil-name="Novo projeto"
-            class="box-border w-fit shrink-0 h-fit flex flex-row gap-[7px] p-[10px_16px] justify-start items-center bg-[#7C3AED] rounded-[9px]"
-          >
-            <svg
-              data-pencil-name="Plus"
-              viewBox="0 0 14 14"
-              preserveAspectRatio="xMidYMid meet"
-              data-icon-name="plus"
-              data-icon-set="lucide"
-              xmlns="http://www.w3.org/2000/svg"
-              class="box-border w-[14px] shrink-0 h-[14px] overflow-visible"
-            >
-              <path
-                d="M6.901 2.352q-.096 .013-.174 .051-.076 .034-.154 .126-.075 .089-.113 .168-.034 .075-.034 .328v3.401h-3.668l-.085 .041q-.222 .113-.301 .338-.075 .222 .007 .434 .058 .096 .14 .181 .086 .082 .168 .12 .085 .034 .338 .034h3.401v3.401q0 .253 .034 .338 .038 .083 .12 .168 .085 .082 .188 .133 .106 .048 .232 .048 .126 0 .229-.048 .106-.051 .188-.133 .085-.085 .12-.168 .037-.085 .037-.338v-3.401h3.401q.253 0 .335-.034 .086-.038 .168-.12 .085-.085 .133-.188 .051-.106 .051-.232 0-.126-.041-.239-.099-.195-.294-.294l-.085-.041h-3.668v-3.387q0-.267-.027-.322-.072-.198-.253-.301-.181-.105-.393-.064z"
-                fill="#ffffff"
-              />
-            </svg>
-            <div
-              data-pencil-name="Label"
-              class="text-[12px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
-            >
-              Novo projeto
-            </div>
-          </div>
-        </div>
-        <div
-          data-pencil-name="Filters"
-          class="box-border w-full h-fit shrink-0 flex flex-row gap-[12px] justify-between items-center"
-        >
-          <div
-            data-pencil-name="Filters Left"
-            class="box-border [flex:1_1_0] h-fit flex flex-row gap-[8px] justify-start items-center"
-          >
-            <div
-              data-pencil-name="Search"
-              class="box-border w-[300px] shrink-0 h-[36px] flex flex-row gap-[8px] p-[0px_12px] justify-start items-center bg-[#121217] [outline:1px_solid_#22222A] [outline-offset:-0.5px] rounded-[10px]"
-            >
-              <svg
-                data-pencil-name="Search Icon"
-                viewBox="0 0 13 13"
-                preserveAspectRatio="xMidYMid meet"
-                data-icon-name="search"
-                data-icon-set="lucide"
-                xmlns="http://www.w3.org/2000/svg"
-                class="box-border w-[13px] shrink-0 h-[13px] overflow-visible"
-              >
-                <path
-                  d="M5.576 1.092q-.038 .012-.219 .025-.533 .067-1.079 .27-.546 .2-1.015 .511-.365 .247-.695 .568-.33 .317-.578 .654-.6 .857-.806 1.885-.054 .26-.073 .429-.019 .168-.019 .533 0 .403 .025 .631 .026 .226 .118 .553 .181 .701 .558 1.333 .378 .628 .898 1.098 .378 .336 .759 .558 .384 .223 .854 .403 .987 .365 2.06 .273 1.072-.092 1.996-.612 .117-.064 .311-.194 .194-.13 .273-.197l.051-.05 1.028 1.028q1.041 1.025 1.117 1.073 .08 .044 .222 .044 .143 0 .219-.032 .08-.034 .169-.123 .092-.092 .123-.169 .035-.079 .035-.222 0-.142-.047-.219-.045-.079-1.07-1.12l-1.028-1.028 .051-.064q.053-.051 .184-.235 .764-1.142 .828-2.513 .067-1.371-.594-2.568-.495-.898-1.32-1.527-.825-.631-1.815-.866-.273-.064-.502-.089-.225-.029-.562-.041-.403 0-.457 0zM6.265 2.184q.352 .012 .736 .13 .385 .117 .734 .298 .688 .365 1.196 1.003 .508 .635 .702 1.39 .066 .26 .085 .464 .019 .199 .019 .472 0 .651-.181 1.21-.365 1.079-1.244 1.774-.876 .695-2.006 .812-.184 .013-.457 .007-.273-.007-.453-.032-.496-.079-.965-.286-.467-.209-.87-.52-.13-.118-.327-.318-.193-.203-.308-.346-.533-.714-.688-1.574-.08-.403-.061-.844 .019-.441 .111-.832 .273-1.066 1.105-1.818 .831-.756 1.91-.952 .169-.026 .391-.038 .222-.013 .324-.013z"
-                  fill="#5f5f68"
-                />
-              </svg>
-              <div
-                data-pencil-name="Placeholder"
-                class="text-[11.5px]/[normal] box-border text-[#5F5F68] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-              >
-                Buscar projeto ou cliente
-              </div>
-            </div>
-            <div
-              data-pencil-name="Filter Todos"
-              class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[9px_14px] justify-center items-center bg-[#7C3AED] rounded-[999px]"
-            >
-              <div
-                data-pencil-name="Label"
-                class="text-[11.5px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
-              >
-                Todos
-              </div>
-            </div>
-            <div
-              data-pencil-name="Filter Meus projetos"
-              class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[9px_14px] justify-center items-center bg-[#121217] [outline:1px_solid_#22222A] [outline-offset:-0.5px] rounded-[999px]"
-            >
-              <div
-                data-pencil-name="Label"
-                class="text-[11.5px]/[normal] box-border text-[#A3A3AE] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-              >
-                Meus projetos
-              </div>
-            </div>
-            <div
-              data-pencil-name="Filter Com pendência"
-              class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[9px_14px] justify-center items-center bg-[#121217] [outline:1px_solid_#22222A] [outline-offset:-0.5px] rounded-[999px]"
-            >
-              <div
-                data-pencil-name="Label"
-                class="text-[11.5px]/[normal] box-border text-[#A3A3AE] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-              >
-                Com pendência
-              </div>
-            </div>
-            <div
-              data-pencil-name="Filter Atrasados"
-              class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[9px_14px] justify-center items-center bg-[#121217] [outline:1px_solid_#22222A] [outline-offset:-0.5px] rounded-[999px]"
-            >
-              <div
-                data-pencil-name="Label"
-                class="text-[11.5px]/[normal] box-border text-[#A3A3AE] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-              >
-                Atrasados
-              </div>
-            </div>
-          </div>
-          <div
-            data-pencil-name="Responsáveis"
-            class="box-border w-fit shrink-0 h-fit flex flex-row gap-[24px] p-[9px_14px] justify-between items-center bg-[#121217] [outline:1px_solid_#22222A] [outline-offset:-0.5px] rounded-[10px]"
-          >
-            <div
-              data-pencil-name="Label"
-              class="text-[11.5px]/[normal] box-border text-[#A3A3AE] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-            >
-              Todos os responsáveis
-            </div>
-            <svg
-              data-pencil-name="Chevron"
-              viewBox="0 0 13 13"
-              preserveAspectRatio="xMidYMid meet"
-              data-icon-name="chevron-down"
-              data-icon-set="lucide"
-              xmlns="http://www.w3.org/2000/svg"
-              class="box-border w-[13px] shrink-0 h-[13px] overflow-visible"
-            >
-              <path
-                d="M3.107 4.354q-.235 .08-.352 .286-.038 .079-.038 .235 0 .156 .044 .241 .048 .083 1.73 1.768 1.685 1.682 1.768 1.73 .086 .044 .241 .044 .156 0 .238-.044 .086-.048 1.768-1.73 1.685-1.685 1.73-1.768 .047-.085 .047-.241 0-.156-.038-.235-.092-.155-.26-.247-.054-.026-.092-.039-.038-.012-.143-.012-.105 0-.143 .012-.038 .013-.105 .039-.092 .054-1.545 1.51l-1.457 1.454-2.625-2.612q-.289-.273-.39-.352-.079-.051-.184-.051h-.026q-.13 0-.168 .012z"
-                fill="#5f5f68"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          data-pencil-name="Kanban"
-          class="box-border w-full h-fit shrink-0 flex flex-row gap-[12px] justify-start items-start"
-        >
-          <div
-            data-pencil-name="Coluna Briefing"
-            class="box-border [flex:1_1_0] h-fit flex flex-col gap-0 justify-start items-start bg-[#0E0E12] [outline:1px_solid_#1D1D24] [outline-offset:-0.5px] rounded-[14px] overflow-hidden"
-          >
-            <div
-              data-pencil-name="Header"
-              class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[13px] justify-between items-center bg-[#15151B]"
-            >
-              <div
-                data-pencil-name="Title"
-                class="text-[12.5px]/[normal] box-border text-[#E8E8EE] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-              >
-                Briefing
-              </div>
-              <div
-                data-pencil-name="Count"
-                class="box-border w-fit shrink-0 h-fit flex flex-col gap-0 p-[2px_7px] justify-center items-center bg-[#232329] rounded-[999px]"
-              >
-                <div
-                  data-pencil-name="Count Text"
-                  class="text-[10px]/[normal] box-border text-[#A0A0AA] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                >
-                  3
-                </div>
-              </div>
-            </div>
-            <div
-              data-pencil-name="Cards"
-              class="box-border w-full h-fit shrink-0 flex flex-col gap-[10px] p-[10px] justify-start items-start"
-            >
-              <div
-                data-pencil-name="Landing Aurora Pilates"
-                class="box-border w-full h-fit shrink-0 flex flex-col gap-[7px] p-[12px] justify-start items-start bg-[#15151A] [outline:1px_solid_#23232B] [outline-offset:-0.5px] rounded-[12px]"
-              >
-                <div
-                  data-pencil-name="Client"
-                  class="text-[9.5px]/[12px] box-border w-full text-[#75757F] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-semibold text-left"
-                >
-                  Studio Aurora Pilates
-                </div>
-                <div
-                  data-pencil-name="Title"
-                  class="text-[12.5px]/[16px] box-border w-full text-[#EDEDF3] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left"
-                >
-                  Landing Aurora Pilates
-                </div>
-                <div
-                  data-pencil-name="Tag"
-                  class="box-border w-fit h-fit shrink-0 flex flex-col gap-0 p-[3px_8px] justify-center items-center bg-[#2F260F] rounded-[999px]"
-                >
-                  <div
-                    data-pencil-name="Tag Text"
-                    class="text-[9px]/[normal] box-border text-[#E5C465] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                  >
-                    Fotos pendentes
-                  </div>
-                </div>
-                <div
-                  data-pencil-name="Progress Meta"
-                  class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[3px_0px_0px_0px] justify-between items-center"
-                >
-                  <div
-                    data-pencil-name="Pct"
-                    class="text-[10px]/[normal] box-border text-[#C9C9D2] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                  >
-                    15%
-                  </div>
-                  <div
-                    data-pencil-name="Prazo"
-                    class="text-[9.5px]/[normal] box-border text-[#6B6B76] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Prazo 05 nov
-                  </div>
-                </div>
-                <div
-                  data-pencil-name="Track"
-                  class="box-border w-full h-[3px] shrink-0 flex flex-row gap-0 justify-start items-start bg-[#23232B] rounded-[2px]"
-                >
-                  <div
-                    data-pencil-name="Fill"
-                    class="box-border w-[27px] shrink-0 h-[3px] flex flex-row gap-0 justify-start items-start bg-[#7C3AED] rounded-[2px]"
-                  ></div>
-                </div>
-                <div
-                  data-pencil-name="Assignee"
-                  class="box-border w-fit h-fit shrink-0 flex flex-row gap-[6px] p-[3px_0px_0px_0px] justify-start items-center"
-                >
-                  <div
-                    data-pencil-name="Avatar"
-                    class="box-border w-[18px] shrink-0 h-[18px] flex flex-col gap-0 justify-center items-center bg-[#5B21B6] rounded-[9px]"
-                  >
-                    <div
-                      data-pencil-name="Initials"
-                      class="text-[7.5px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                    >
-                      RL
-                    </div>
-                  </div>
-                  <div
-                    data-pencil-name="Name"
-                    class="text-[9.5px]/[normal] box-border text-[#9A9AA4] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Rafael Lima
-                  </div>
-                </div>
-              </div>
-              <div
-                data-pencil-name="Catálogo online"
-                class="box-border w-full h-fit shrink-0 flex flex-col gap-[7px] p-[12px] justify-start items-start bg-[#15151A] [outline:1px_solid_#23232B] [outline-offset:-0.5px] rounded-[12px]"
-              >
-                <div
-                  data-pencil-name="Client"
-                  class="text-[9.5px]/[12px] box-border w-full text-[#75757F] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-semibold text-left"
-                >
-                  Móveis Pereira
-                </div>
-                <div
-                  data-pencil-name="Title"
-                  class="text-[12.5px]/[16px] box-border w-full text-[#EDEDF3] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left"
-                >
-                  Catálogo online
-                </div>
-                <div
-                  data-pencil-name="Progress Meta"
-                  class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[3px_0px_0px_0px] justify-between items-center"
-                >
-                  <div
-                    data-pencil-name="Pct"
-                    class="text-[10px]/[normal] box-border text-[#C9C9D2] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                  >
-                    8%
-                  </div>
-                  <div
-                    data-pencil-name="Prazo"
-                    class="text-[9.5px]/[normal] box-border text-[#6B6B76] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Prazo 28 nov
-                  </div>
-                </div>
-                <div
-                  data-pencil-name="Track"
-                  class="box-border w-full h-[3px] shrink-0 flex flex-row gap-0 justify-start items-start bg-[#23232B] rounded-[2px]"
-                >
-                  <div
-                    data-pencil-name="Fill"
-                    class="box-border w-[14px] shrink-0 h-[3px] flex flex-row gap-0 justify-start items-start bg-[#7C3AED] rounded-[2px]"
-                  ></div>
-                </div>
-                <div
-                  data-pencil-name="Assignee"
-                  class="box-border w-fit h-fit shrink-0 flex flex-row gap-[6px] p-[3px_0px_0px_0px] justify-start items-center"
-                >
-                  <div
-                    data-pencil-name="Avatar"
-                    class="box-border w-[18px] shrink-0 h-[18px] flex flex-col gap-0 justify-center items-center bg-[#5B21B6] rounded-[9px]"
-                  >
-                    <div
-                      data-pencil-name="Initials"
-                      class="text-[7.5px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                    >
-                      RL
-                    </div>
-                  </div>
-                  <div
-                    data-pencil-name="Name"
-                    class="text-[9.5px]/[normal] box-border text-[#9A9AA4] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Rafael Lima
-                  </div>
-                </div>
-              </div>
-              <div
-                data-pencil-name="Site institucional"
-                class="box-border w-full h-fit shrink-0 flex flex-col gap-[7px] p-[12px] justify-start items-start bg-[#15151A] [outline:1px_solid_#23232B] [outline-offset:-0.5px] rounded-[12px]"
-              >
-                <div
-                  data-pencil-name="Client"
-                  class="text-[9.5px]/[12px] box-border w-full text-[#75757F] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-semibold text-left"
-                >
-                  Escola Pequeno Mundo
-                </div>
-                <div
-                  data-pencil-name="Title"
-                  class="text-[12.5px]/[16px] box-border w-full text-[#EDEDF3] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left"
-                >
-                  Site institucional
-                </div>
-                <div
-                  data-pencil-name="Progress Meta"
-                  class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[3px_0px_0px_0px] justify-between items-center"
-                >
-                  <div
-                    data-pencil-name="Pct"
-                    class="text-[10px]/[normal] box-border text-[#C9C9D2] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                  >
-                    5%
-                  </div>
-                  <div
-                    data-pencil-name="Prazo"
-                    class="text-[9.5px]/[normal] box-border text-[#6B6B76] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Prazo 10 dez
-                  </div>
-                </div>
-                <div
-                  data-pencil-name="Track"
-                  class="box-border w-full h-[3px] shrink-0 flex flex-row gap-0 justify-start items-start bg-[#23232B] rounded-[2px]"
-                >
-                  <div
-                    data-pencil-name="Fill"
-                    class="box-border w-[9px] shrink-0 h-[3px] flex flex-row gap-0 justify-start items-start bg-[#7C3AED] rounded-[2px]"
-                  ></div>
-                </div>
-                <div
-                  data-pencil-name="Assignee"
-                  class="box-border w-fit h-fit shrink-0 flex flex-row gap-[6px] p-[3px_0px_0px_0px] justify-start items-center"
-                >
-                  <div
-                    data-pencil-name="Avatar"
-                    class="box-border w-[18px] shrink-0 h-[18px] flex flex-col gap-0 justify-center items-center bg-[#4C1D95] rounded-[9px]"
-                  >
-                    <div
-                      data-pencil-name="Initials"
-                      class="text-[7.5px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                    >
-                      DN
-                    </div>
-                  </div>
-                  <div
-                    data-pencil-name="Name"
-                    class="text-[9.5px]/[normal] box-border text-[#9A9AA4] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Diego Nunes
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            data-pencil-name="Coluna Design"
-            class="box-border [flex:1_1_0] h-fit flex flex-col gap-0 justify-start items-start bg-[#0E0E12] [outline:1px_solid_#1D1D24] [outline-offset:-0.5px] rounded-[14px] overflow-hidden"
-          >
-            <div
-              data-pencil-name="Header"
-              class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[13px] justify-between items-center bg-[#15151B]"
-            >
-              <div
-                data-pencil-name="Title"
-                class="text-[12.5px]/[normal] box-border text-[#E8E8EE] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-              >
-                Design
-              </div>
-              <div
-                data-pencil-name="Count"
-                class="box-border w-fit shrink-0 h-fit flex flex-col gap-0 p-[2px_7px] justify-center items-center bg-[#232329] rounded-[999px]"
-              >
-                <div
-                  data-pencil-name="Count Text"
-                  class="text-[10px]/[normal] box-border text-[#A0A0AA] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                >
-                  3
-                </div>
-              </div>
-            </div>
-            <div
-              data-pencil-name="Cards"
-              class="box-border w-full h-fit shrink-0 flex flex-col gap-[10px] p-[10px] justify-start items-start"
-            >
-              <div
-                data-pencil-name="Site Clínica Vida Plena"
-                class="box-border w-full h-fit shrink-0 flex flex-col gap-[7px] p-[12px] justify-start items-start bg-[#15151A] [outline:1px_solid_#23232B] [outline-offset:-0.5px] rounded-[12px]"
-              >
-                <div
-                  data-pencil-name="Client"
-                  class="text-[9.5px]/[12px] box-border w-full text-[#75757F] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-semibold text-left"
-                >
-                  Clínica Vida Plena
-                </div>
-                <div
-                  data-pencil-name="Title"
-                  class="text-[12.5px]/[16px] box-border w-full text-[#EDEDF3] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left"
-                >
-                  Site Clínica Vida Plena
-                </div>
-                <div
-                  data-pencil-name="Tag"
-                  class="box-border w-fit h-fit shrink-0 flex flex-col gap-0 p-[3px_8px] justify-center items-center bg-[#33131B] rounded-[999px]"
-                >
-                  <div
-                    data-pencil-name="Tag Text"
-                    class="text-[9px]/[normal] box-border text-[#F0777C] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                  >
-                    Vence em 2 dias
-                  </div>
-                </div>
-                <div
-                  data-pencil-name="Progress Meta"
-                  class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[3px_0px_0px_0px] justify-between items-center"
-                >
-                  <div
-                    data-pencil-name="Pct"
-                    class="text-[10px]/[normal] box-border text-[#C9C9D2] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                  >
-                    35%
-                  </div>
-                  <div
-                    data-pencil-name="Prazo"
-                    class="text-[9.5px]/[normal] box-border text-[#6B6B76] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Prazo 21 out
-                  </div>
-                </div>
-                <div
-                  data-pencil-name="Track"
-                  class="box-border w-full h-[3px] shrink-0 flex flex-row gap-0 justify-start items-start bg-[#23232B] rounded-[2px]"
-                >
-                  <div
-                    data-pencil-name="Fill"
-                    class="box-border w-[63px] shrink-0 h-[3px] flex flex-row gap-0 justify-start items-start bg-[#7C3AED] rounded-[2px]"
-                  ></div>
-                </div>
-                <div
-                  data-pencil-name="Assignee"
-                  class="box-border w-fit h-fit shrink-0 flex flex-row gap-[6px] p-[3px_0px_0px_0px] justify-start items-center"
-                >
-                  <div
-                    data-pencil-name="Avatar"
-                    class="box-border w-[18px] shrink-0 h-[18px] flex flex-col gap-0 justify-center items-center bg-[#4C1D95] rounded-[9px]"
-                  >
-                    <div
-                      data-pencil-name="Initials"
-                      class="text-[7.5px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                    >
-                      AC
-                    </div>
-                  </div>
-                  <div
-                    data-pencil-name="Name"
-                    class="text-[9.5px]/[normal] box-border text-[#9A9AA4] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Ana Costa
-                  </div>
-                </div>
-              </div>
-              <div
-                data-pencil-name="Promoção de Natal"
-                class="box-border w-full h-fit shrink-0 flex flex-col gap-[7px] p-[12px] justify-start items-start bg-[#15151A] [outline:1px_solid_#23232B] [outline-offset:-0.5px] rounded-[12px]"
-              >
-                <div
-                  data-pencil-name="Client"
-                  class="text-[9.5px]/[12px] box-border w-full text-[#75757F] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-semibold text-left"
-                >
-                  Padaria Doce Trigo
-                </div>
-                <div
-                  data-pencil-name="Title"
-                  class="text-[12.5px]/[16px] box-border w-full text-[#EDEDF3] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left"
-                >
-                  Promoção de Natal
-                </div>
-                <div
-                  data-pencil-name="Progress Meta"
-                  class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[3px_0px_0px_0px] justify-between items-center"
-                >
-                  <div
-                    data-pencil-name="Pct"
-                    class="text-[10px]/[normal] box-border text-[#C9C9D2] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                  >
-                    22%
-                  </div>
-                  <div
-                    data-pencil-name="Prazo"
-                    class="text-[9.5px]/[normal] box-border text-[#6B6B76] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Prazo 20 dez
-                  </div>
-                </div>
-                <div
-                  data-pencil-name="Track"
-                  class="box-border w-full h-[3px] shrink-0 flex flex-row gap-0 justify-start items-start bg-[#23232B] rounded-[2px]"
-                >
-                  <div
-                    data-pencil-name="Fill"
-                    class="box-border w-[40px] shrink-0 h-[3px] flex flex-row gap-0 justify-start items-start bg-[#7C3AED] rounded-[2px]"
-                  ></div>
-                </div>
-                <div
-                  data-pencil-name="Assignee"
-                  class="box-border w-fit h-fit shrink-0 flex flex-row gap-[6px] p-[3px_0px_0px_0px] justify-start items-center"
-                >
-                  <div
-                    data-pencil-name="Avatar"
-                    class="box-border w-[18px] shrink-0 h-[18px] flex flex-col gap-0 justify-center items-center bg-[#4C1D95] rounded-[9px]"
-                  >
-                    <div
-                      data-pencil-name="Initials"
-                      class="text-[7.5px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                    >
-                      AC
-                    </div>
-                  </div>
-                  <div
-                    data-pencil-name="Name"
-                    class="text-[9.5px]/[normal] box-border text-[#9A9AA4] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Ana Costa
-                  </div>
-                </div>
-              </div>
-              <div
-                data-pencil-name="Identidade para o cardápio digital"
-                class="box-border w-full h-fit shrink-0 flex flex-col gap-[7px] p-[12px] justify-start items-start bg-[#15151A] [outline:1px_solid_#23232B] [outline-offset:-0.5px] rounded-[12px]"
-              >
-                <div
-                  data-pencil-name="Client"
-                  class="text-[9.5px]/[12px] box-border w-full text-[#75757F] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-semibold text-left"
-                >
-                  Café Girassol
-                </div>
-                <div
-                  data-pencil-name="Title"
-                  class="text-[12.5px]/[16px] box-border w-full text-[#EDEDF3] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left"
-                >
-                  Identidade para o cardápio digital
-                </div>
-                <div
-                  data-pencil-name="Progress Meta"
-                  class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[3px_0px_0px_0px] justify-between items-center"
-                >
-                  <div
-                    data-pencil-name="Pct"
-                    class="text-[10px]/[normal] box-border text-[#C9C9D2] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                  >
-                    40%
-                  </div>
-                  <div
-                    data-pencil-name="Prazo"
-                    class="text-[9.5px]/[normal] box-border text-[#6B6B76] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Prazo 14 nov
-                  </div>
-                </div>
-                <div
-                  data-pencil-name="Track"
-                  class="box-border w-full h-[3px] shrink-0 flex flex-row gap-0 justify-start items-start bg-[#23232B] rounded-[2px]"
-                >
-                  <div
-                    data-pencil-name="Fill"
-                    class="box-border w-[72px] shrink-0 h-[3px] flex flex-row gap-0 justify-start items-start bg-[#7C3AED] rounded-[2px]"
-                  ></div>
-                </div>
-                <div
-                  data-pencil-name="Assignee"
-                  class="box-border w-fit h-fit shrink-0 flex flex-row gap-[6px] p-[3px_0px_0px_0px] justify-start items-center"
-                >
-                  <div
-                    data-pencil-name="Avatar"
-                    class="box-border w-[18px] shrink-0 h-[18px] flex flex-col gap-0 justify-center items-center bg-[#4C1D95] rounded-[9px]"
-                  >
-                    <div
-                      data-pencil-name="Initials"
-                      class="text-[7.5px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                    >
-                      AC
-                    </div>
-                  </div>
-                  <div
-                    data-pencil-name="Name"
-                    class="text-[9.5px]/[normal] box-border text-[#9A9AA4] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Ana Costa
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            data-pencil-name="Coluna Desenvolvimento"
-            class="box-border [flex:1_1_0] h-fit flex flex-col gap-0 justify-start items-start bg-[#0E0E12] [outline:1px_solid_#1D1D24] [outline-offset:-0.5px] rounded-[14px] overflow-hidden"
-          >
-            <div
-              data-pencil-name="Header"
-              class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[13px] justify-between items-center bg-[#15151B]"
-            >
-              <div
-                data-pencil-name="Title"
-                class="text-[12.5px]/[normal] box-border text-[#E8E8EE] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-              >
-                Desenvolvimento
-              </div>
-              <div
-                data-pencil-name="Count"
-                class="box-border w-fit shrink-0 h-fit flex flex-col gap-0 p-[2px_7px] justify-center items-center bg-[#232329] rounded-[999px]"
-              >
-                <div
-                  data-pencil-name="Count Text"
-                  class="text-[10px]/[normal] box-border text-[#A0A0AA] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                >
-                  5
-                </div>
-              </div>
-            </div>
-            <div
-              data-pencil-name="Cards"
-              class="box-border w-full h-fit shrink-0 flex flex-col gap-[10px] p-[10px] justify-start items-start"
-            >
-              <div
-                data-pencil-name="Loja online Doce Trigo"
-                class="box-border w-full h-fit shrink-0 flex flex-col gap-[7px] p-[12px] justify-start items-start bg-[#15151A] [outline:1px_solid_#23232B] [outline-offset:-0.5px] rounded-[12px]"
-              >
-                <div
-                  data-pencil-name="Client"
-                  class="text-[9.5px]/[12px] box-border w-full text-[#75757F] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-semibold text-left"
-                >
-                  Padaria Doce Trigo
-                </div>
-                <div
-                  data-pencil-name="Title"
-                  class="text-[12.5px]/[16px] box-border w-full text-[#EDEDF3] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left"
-                >
-                  Loja online Doce Trigo
-                </div>
-                <div
-                  data-pencil-name="Progress Meta"
-                  class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[3px_0px_0px_0px] justify-between items-center"
-                >
-                  <div
-                    data-pencil-name="Pct"
-                    class="text-[10px]/[normal] box-border text-[#C9C9D2] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                  >
-                    62%
-                  </div>
-                  <div
-                    data-pencil-name="Prazo"
-                    class="text-[9.5px]/[normal] box-border text-[#6B6B76] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Prazo 14 nov
-                  </div>
-                </div>
-                <div
-                  data-pencil-name="Track"
-                  class="box-border w-full h-[3px] shrink-0 flex flex-row gap-0 justify-start items-start bg-[#23232B] rounded-[2px]"
-                >
-                  <div
-                    data-pencil-name="Fill"
-                    class="box-border w-[112px] shrink-0 h-[3px] flex flex-row gap-0 justify-start items-start bg-[#7C3AED] rounded-[2px]"
-                  ></div>
-                </div>
-                <div
-                  data-pencil-name="Assignee"
-                  class="box-border w-fit h-fit shrink-0 flex flex-row gap-[6px] p-[3px_0px_0px_0px] justify-start items-center"
-                >
-                  <div
-                    data-pencil-name="Avatar"
-                    class="box-border w-[18px] shrink-0 h-[18px] flex flex-col gap-0 justify-center items-center bg-[#6D28D9] rounded-[9px]"
-                  >
-                    <div
-                      data-pencil-name="Initials"
-                      class="text-[7.5px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                    >
-                      LA
-                    </div>
-                  </div>
-                  <div
-                    data-pencil-name="Name"
-                    class="text-[9.5px]/[normal] box-border text-[#9A9AA4] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Lucas Almeida
-                  </div>
-                </div>
-              </div>
-              <div
-                data-pencil-name="Loja Café Girassol"
-                class="box-border w-full h-fit shrink-0 flex flex-col gap-[7px] p-[12px] justify-start items-start bg-[#15151A] [outline:1px_solid_#23232B] [outline-offset:-0.5px] rounded-[12px]"
-              >
-                <div
-                  data-pencil-name="Client"
-                  class="text-[9.5px]/[12px] box-border w-full text-[#75757F] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-semibold text-left"
-                >
-                  Café Girassol
-                </div>
-                <div
-                  data-pencil-name="Title"
-                  class="text-[12.5px]/[16px] box-border w-full text-[#EDEDF3] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left"
-                >
-                  Loja Café Girassol
-                </div>
-                <div
-                  data-pencil-name="Tag"
-                  class="box-border w-fit h-fit shrink-0 flex flex-col gap-0 p-[3px_8px] justify-center items-center bg-[#33190D] rounded-[999px]"
-                >
-                  <div
-                    data-pencil-name="Tag Text"
-                    class="text-[9px]/[normal] box-border text-[#F0944E] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                  >
-                    Fatura em atraso
-                  </div>
-                </div>
-                <div
-                  data-pencil-name="Progress Meta"
-                  class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[3px_0px_0px_0px] justify-between items-center"
-                >
-                  <div
-                    data-pencil-name="Pct"
-                    class="text-[10px]/[normal] box-border text-[#C9C9D2] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                  >
-                    48%
-                  </div>
-                  <div
-                    data-pencil-name="Prazo"
-                    class="text-[9.5px]/[normal] box-border text-[#6B6B76] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Prazo 12 nov
-                  </div>
-                </div>
-                <div
-                  data-pencil-name="Track"
-                  class="box-border w-full h-[3px] shrink-0 flex flex-row gap-0 justify-start items-start bg-[#23232B] rounded-[2px]"
-                >
-                  <div
-                    data-pencil-name="Fill"
-                    class="box-border w-[86px] shrink-0 h-[3px] flex flex-row gap-0 justify-start items-start bg-[#7C3AED] rounded-[2px]"
-                  ></div>
-                </div>
-                <div
-                  data-pencil-name="Assignee"
-                  class="box-border w-fit h-fit shrink-0 flex flex-row gap-[6px] p-[3px_0px_0px_0px] justify-start items-center"
-                >
-                  <div
-                    data-pencil-name="Avatar"
-                    class="box-border w-[18px] shrink-0 h-[18px] flex flex-col gap-0 justify-center items-center bg-[#6D28D9] rounded-[9px]"
-                  >
-                    <div
-                      data-pencil-name="Initials"
-                      class="text-[7.5px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                    >
-                      LA
-                    </div>
-                  </div>
-                  <div
-                    data-pencil-name="Name"
-                    class="text-[9.5px]/[normal] box-border text-[#9A9AA4] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Lucas Almeida
-                  </div>
-                </div>
-              </div>
-              <div
-                data-pencil-name="Agendamento de aulas"
-                class="box-border w-full h-fit shrink-0 flex flex-col gap-[7px] p-[12px] justify-start items-start bg-[#15151A] [outline:1px_solid_#23232B] [outline-offset:-0.5px] rounded-[12px]"
-              >
-                <div
-                  data-pencil-name="Client"
-                  class="text-[9.5px]/[12px] box-border w-full text-[#75757F] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-semibold text-left"
-                >
-                  Studio Aurora Pilates
-                </div>
-                <div
-                  data-pencil-name="Title"
-                  class="text-[12.5px]/[16px] box-border w-full text-[#EDEDF3] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left"
-                >
-                  Agendamento de aulas
-                </div>
-                <div
-                  data-pencil-name="Progress Meta"
-                  class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[3px_0px_0px_0px] justify-between items-center"
-                >
-                  <div
-                    data-pencil-name="Pct"
-                    class="text-[10px]/[normal] box-border text-[#C9C9D2] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                  >
-                    70%
-                  </div>
-                  <div
-                    data-pencil-name="Prazo"
-                    class="text-[9.5px]/[normal] box-border text-[#6B6B76] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Prazo 02 nov
-                  </div>
-                </div>
-                <div
-                  data-pencil-name="Track"
-                  class="box-border w-full h-[3px] shrink-0 flex flex-row gap-0 justify-start items-start bg-[#23232B] rounded-[2px]"
-                >
-                  <div
-                    data-pencil-name="Fill"
-                    class="box-border w-[126px] shrink-0 h-[3px] flex flex-row gap-0 justify-start items-start bg-[#7C3AED] rounded-[2px]"
-                  ></div>
-                </div>
-                <div
-                  data-pencil-name="Assignee"
-                  class="box-border w-fit h-fit shrink-0 flex flex-row gap-[6px] p-[3px_0px_0px_0px] justify-start items-center"
-                >
-                  <div
-                    data-pencil-name="Avatar"
-                    class="box-border w-[18px] shrink-0 h-[18px] flex flex-col gap-0 justify-center items-center bg-[#0F766E] rounded-[9px]"
-                  >
-                    <div
-                      data-pencil-name="Initials"
-                      class="text-[7.5px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                    >
-                      BT
-                    </div>
-                  </div>
-                  <div
-                    data-pencil-name="Name"
-                    class="text-[9.5px]/[normal] box-border text-[#9A9AA4] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Bruna Teixeira
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            data-pencil-name="Coluna Revisão"
-            class="box-border [flex:1_1_0] h-fit flex flex-col gap-0 justify-start items-start bg-[#0E0E12] [outline:1px_solid_#1D1D24] [outline-offset:-0.5px] rounded-[14px] overflow-hidden"
-          >
-            <div
-              data-pencil-name="Header"
-              class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[13px] justify-between items-center bg-[#15151B]"
-            >
-              <div
-                data-pencil-name="Title"
-                class="text-[12.5px]/[normal] box-border text-[#E8E8EE] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-              >
-                Revisão
-              </div>
-              <div
-                data-pencil-name="Count"
-                class="box-border w-fit shrink-0 h-fit flex flex-col gap-0 p-[2px_7px] justify-center items-center bg-[#232329] rounded-[999px]"
-              >
-                <div
-                  data-pencil-name="Count Text"
-                  class="text-[10px]/[normal] box-border text-[#A0A0AA] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                >
-                  3
-                </div>
-              </div>
-            </div>
-            <div
-              data-pencil-name="Cards"
-              class="box-border w-full h-fit shrink-0 flex flex-col gap-[10px] p-[10px] justify-start items-start"
-            >
-              <div
-                data-pencil-name="Site Doce Trigo"
-                class="box-border w-full h-fit shrink-0 flex flex-col gap-[7px] p-[12px] justify-start items-start bg-[#15151A] [outline:1px_solid_#23232B] [outline-offset:-0.5px] rounded-[12px]"
-              >
-                <div
-                  data-pencil-name="Client"
-                  class="text-[9.5px]/[12px] box-border w-full text-[#75757F] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-semibold text-left"
-                >
-                  Padaria Doce Trigo
-                </div>
-                <div
-                  data-pencil-name="Title"
-                  class="text-[12.5px]/[16px] box-border w-full text-[#EDEDF3] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left"
-                >
-                  Site Doce Trigo
-                </div>
-                <div
-                  data-pencil-name="Tag"
-                  class="box-border w-fit h-fit shrink-0 flex flex-col gap-0 p-[3px_8px] justify-center items-center bg-[#2F260F] rounded-[999px]"
-                >
-                  <div
-                    data-pencil-name="Tag Text"
-                    class="text-[9px]/[normal] box-border text-[#E5C465] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                  >
-                    Aguardando cliente
-                  </div>
-                </div>
-                <div
-                  data-pencil-name="Progress Meta"
-                  class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[3px_0px_0px_0px] justify-between items-center"
-                >
-                  <div
-                    data-pencil-name="Pct"
-                    class="text-[10px]/[normal] box-border text-[#C9C9D2] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                  >
-                    88%
-                  </div>
-                  <div
-                    data-pencil-name="Prazo"
-                    class="text-[9.5px]/[normal] box-border text-[#6B6B76] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Prazo 30 out
-                  </div>
-                </div>
-                <div
-                  data-pencil-name="Track"
-                  class="box-border w-full h-[3px] shrink-0 flex flex-row gap-0 justify-start items-start bg-[#23232B] rounded-[2px]"
-                >
-                  <div
-                    data-pencil-name="Fill"
-                    class="box-border w-[158px] shrink-0 h-[3px] flex flex-row gap-0 justify-start items-start bg-[#7C3AED] rounded-[2px]"
-                  ></div>
-                </div>
-                <div
-                  data-pencil-name="Assignee"
-                  class="box-border w-fit h-fit shrink-0 flex flex-row gap-[6px] p-[3px_0px_0px_0px] justify-start items-center"
-                >
-                  <div
-                    data-pencil-name="Avatar"
-                    class="box-border w-[18px] shrink-0 h-[18px] flex flex-col gap-0 justify-center items-center bg-[#4C1D95] rounded-[9px]"
-                  >
-                    <div
-                      data-pencil-name="Initials"
-                      class="text-[7.5px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                    >
-                      AC
-                    </div>
-                  </div>
-                  <div
-                    data-pencil-name="Name"
-                    class="text-[9.5px]/[normal] box-border text-[#9A9AA4] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Ana Costa
-                  </div>
-                </div>
-              </div>
-              <div
-                data-pencil-name="Área de exames online"
-                class="box-border w-full h-fit shrink-0 flex flex-col gap-[7px] p-[12px] justify-start items-start bg-[#15151A] [outline:1px_solid_#23232B] [outline-offset:-0.5px] rounded-[12px]"
-              >
-                <div
-                  data-pencil-name="Client"
-                  class="text-[9.5px]/[12px] box-border w-full text-[#75757F] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-semibold text-left"
-                >
-                  Clínica Vida Plena
-                </div>
-                <div
-                  data-pencil-name="Title"
-                  class="text-[12.5px]/[16px] box-border w-full text-[#EDEDF3] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left"
-                >
-                  Área de exames online
-                </div>
-                <div
-                  data-pencil-name="Progress Meta"
-                  class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[3px_0px_0px_0px] justify-between items-center"
-                >
-                  <div
-                    data-pencil-name="Pct"
-                    class="text-[10px]/[normal] box-border text-[#C9C9D2] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                  >
-                    92%
-                  </div>
-                  <div
-                    data-pencil-name="Prazo"
-                    class="text-[9.5px]/[normal] box-border text-[#6B6B76] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Prazo 26 out
-                  </div>
-                </div>
-                <div
-                  data-pencil-name="Track"
-                  class="box-border w-full h-[3px] shrink-0 flex flex-row gap-0 justify-start items-start bg-[#23232B] rounded-[2px]"
-                >
-                  <div
-                    data-pencil-name="Fill"
-                    class="box-border w-[166px] shrink-0 h-[3px] flex flex-row gap-0 justify-start items-start bg-[#7C3AED] rounded-[2px]"
-                  ></div>
-                </div>
-                <div
-                  data-pencil-name="Assignee"
-                  class="box-border w-fit h-fit shrink-0 flex flex-row gap-[6px] p-[3px_0px_0px_0px] justify-start items-center"
-                >
-                  <div
-                    data-pencil-name="Avatar"
-                    class="box-border w-[18px] shrink-0 h-[18px] flex flex-col gap-0 justify-center items-center bg-[#0F766E] rounded-[9px]"
-                  >
-                    <div
-                      data-pencil-name="Initials"
-                      class="text-[7.5px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                    >
-                      BT
-                    </div>
-                  </div>
-                  <div
-                    data-pencil-name="Name"
-                    class="text-[9.5px]/[normal] box-border text-[#9A9AA4] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Bruna Teixeira
-                  </div>
-                </div>
-              </div>
-              <div
-                data-pencil-name="Site institucional"
-                class="box-border w-full h-fit shrink-0 flex flex-col gap-[7px] p-[12px] justify-start items-start bg-[#15151A] [outline:1px_solid_#23232B] [outline-offset:-0.5px] rounded-[12px]"
-              >
-                <div
-                  data-pencil-name="Client"
-                  class="text-[9.5px]/[12px] box-border w-full text-[#75757F] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-semibold text-left"
-                >
-                  Móveis Pereira
-                </div>
-                <div
-                  data-pencil-name="Title"
-                  class="text-[12.5px]/[16px] box-border w-full text-[#EDEDF3] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left"
-                >
-                  Site institucional
-                </div>
-                <div
-                  data-pencil-name="Progress Meta"
-                  class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[3px_0px_0px_0px] justify-between items-center"
-                >
-                  <div
-                    data-pencil-name="Pct"
-                    class="text-[10px]/[normal] box-border text-[#C9C9D2] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                  >
-                    95%
-                  </div>
-                  <div
-                    data-pencil-name="Prazo"
-                    class="text-[9.5px]/[normal] box-border text-[#6B6B76] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Prazo 24 out
-                  </div>
-                </div>
-                <div
-                  data-pencil-name="Track"
-                  class="box-border w-full h-[3px] shrink-0 flex flex-row gap-0 justify-start items-start bg-[#23232B] rounded-[2px]"
-                >
-                  <div
-                    data-pencil-name="Fill"
-                    class="box-border w-[171px] shrink-0 h-[3px] flex flex-row gap-0 justify-start items-start bg-[#7C3AED] rounded-[2px]"
-                  ></div>
-                </div>
-                <div
-                  data-pencil-name="Assignee"
-                  class="box-border w-fit h-fit shrink-0 flex flex-row gap-[6px] p-[3px_0px_0px_0px] justify-start items-center"
-                >
-                  <div
-                    data-pencil-name="Avatar"
-                    class="box-border w-[18px] shrink-0 h-[18px] flex flex-col gap-0 justify-center items-center bg-[#6D28D9] rounded-[9px]"
-                  >
-                    <div
-                      data-pencil-name="Initials"
-                      class="text-[7.5px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                    >
-                      LA
-                    </div>
-                  </div>
-                  <div
-                    data-pencil-name="Name"
-                    class="text-[9.5px]/[normal] box-border text-[#9A9AA4] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Lucas Almeida
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            data-pencil-name="Coluna Publicado"
-            class="box-border [flex:1_1_0] h-fit flex flex-col gap-0 justify-start items-start bg-[#0E0E12] [outline:1px_solid_#1D1D24] [outline-offset:-0.5px] rounded-[14px] overflow-hidden"
-          >
-            <div
-              data-pencil-name="Header"
-              class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[13px] justify-between items-center bg-[#15151B]"
-            >
-              <div
-                data-pencil-name="Title"
-                class="text-[12.5px]/[normal] box-border text-[#E8E8EE] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-              >
-                Publicado
-              </div>
-              <div
-                data-pencil-name="Count"
-                class="box-border w-fit shrink-0 h-fit flex flex-col gap-0 p-[2px_7px] justify-center items-center bg-[#232329] rounded-[999px]"
-              >
-                <div
-                  data-pencil-name="Count Text"
-                  class="text-[10px]/[normal] box-border text-[#A0A0AA] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                >
-                  2
-                </div>
-              </div>
-            </div>
-            <div
-              data-pencil-name="Cards"
-              class="box-border w-full h-fit shrink-0 flex flex-col gap-[10px] p-[10px] justify-start items-start"
-            >
-              <div
-                data-pencil-name="Site Mecânica Irmãos Souza"
-                class="box-border w-full h-fit shrink-0 flex flex-col gap-[7px] p-[12px] justify-start items-start bg-[#15151A] [outline:1px_solid_#23232B] [outline-offset:-0.5px] rounded-[12px]"
-              >
-                <div
-                  data-pencil-name="Client"
-                  class="text-[9.5px]/[12px] box-border w-full text-[#75757F] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-semibold text-left"
-                >
-                  Mecânica Irmãos Souza
-                </div>
-                <div
-                  data-pencil-name="Title"
-                  class="text-[12.5px]/[16px] box-border w-full text-[#EDEDF3] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left"
-                >
-                  Site Mecânica Irmãos Souza
-                </div>
-                <div
-                  data-pencil-name="Tag"
-                  class="box-border w-fit h-fit shrink-0 flex flex-col gap-0 p-[3px_8px] justify-center items-center bg-[#0D2A1C] rounded-[999px]"
-                >
-                  <div
-                    data-pencil-name="Tag Text"
-                    class="text-[9px]/[normal] box-border text-[#54D68E] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                  >
-                    No ar desde 18 out
-                  </div>
-                </div>
-                <div
-                  data-pencil-name="Track"
-                  class="box-border w-full h-[3px] shrink-0 flex flex-row gap-0 justify-start items-start bg-[#23232B] rounded-[2px]"
-                >
-                  <div
-                    data-pencil-name="Fill"
-                    class="box-border w-[180px] shrink-0 h-[3px] flex flex-row gap-0 justify-start items-start bg-[#22C55E] rounded-[2px]"
-                  ></div>
-                </div>
-                <div
-                  data-pencil-name="Assignee"
-                  class="box-border w-fit h-fit shrink-0 flex flex-row gap-[6px] p-[3px_0px_0px_0px] justify-start items-center"
-                >
-                  <div
-                    data-pencil-name="Avatar"
-                    class="box-border w-[18px] shrink-0 h-[18px] flex flex-col gap-0 justify-center items-center bg-[#0F766E] rounded-[9px]"
-                  >
-                    <div
-                      data-pencil-name="Initials"
-                      class="text-[7.5px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                    >
-                      BT
-                    </div>
-                  </div>
-                  <div
-                    data-pencil-name="Name"
-                    class="text-[9.5px]/[normal] box-border text-[#9A9AA4] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Bruna Teixeira
-                  </div>
-                </div>
-              </div>
-              <div
-                data-pencil-name="Página de matrículas"
-                class="box-border w-full h-fit shrink-0 flex flex-col gap-[7px] p-[12px] justify-start items-start bg-[#15151A] [outline:1px_solid_#23232B] [outline-offset:-0.5px] rounded-[12px]"
-              >
-                <div
-                  data-pencil-name="Client"
-                  class="text-[9.5px]/[12px] box-border w-full text-[#75757F] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-semibold text-left"
-                >
-                  Escola Pequeno Mundo
-                </div>
-                <div
-                  data-pencil-name="Title"
-                  class="text-[12.5px]/[16px] box-border w-full text-[#EDEDF3] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left"
-                >
-                  Página de matrículas
-                </div>
-                <div
-                  data-pencil-name="Tag"
-                  class="box-border w-fit h-fit shrink-0 flex flex-col gap-0 p-[3px_8px] justify-center items-center bg-[#0D2A1C] rounded-[999px]"
-                >
-                  <div
-                    data-pencil-name="Tag Text"
-                    class="text-[9px]/[normal] box-border text-[#54D68E] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                  >
-                    No ar desde 02 out
-                  </div>
-                </div>
-                <div
-                  data-pencil-name="Track"
-                  class="box-border w-full h-[3px] shrink-0 flex flex-row gap-0 justify-start items-start bg-[#23232B] rounded-[2px]"
-                >
-                  <div
-                    data-pencil-name="Fill"
-                    class="box-border w-[180px] shrink-0 h-[3px] flex flex-row gap-0 justify-start items-start bg-[#22C55E] rounded-[2px]"
-                  ></div>
-                </div>
-                <div
-                  data-pencil-name="Assignee"
-                  class="box-border w-fit h-fit shrink-0 flex flex-row gap-[6px] p-[3px_0px_0px_0px] justify-start items-center"
-                >
-                  <div
-                    data-pencil-name="Avatar"
-                    class="box-border w-[18px] shrink-0 h-[18px] flex flex-col gap-0 justify-center items-center bg-[#6D28D9] rounded-[9px]"
-                  >
-                    <div
-                      data-pencil-name="Initials"
-                      class="text-[7.5px]/[normal] box-border text-[#FFFFFF] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
-                    >
-                      LA
-                    </div>
-                  </div>
-                  <div
-                    data-pencil-name="Name"
-                    class="text-[9.5px]/[normal] box-border text-[#9A9AA4] font-['Plus_Jakarta_Sans',system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
-                  >
-                    Lucas Almeida
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="dd" id="dd">
+        <button class="dd-b" id="ddb"><span id="ddl">Todos os responsáveis</span><svg class="ic"><use href="#i-down"/></svg></button>
+        <div class="menu" id="menu"></div>
       </div>
     </div>
-  </body>
+    <div class="kan" id="kan"></div>
+  </main>
+</div>
+
+<div class="ov" id="ov">
+  <div class="modal" role="dialog" aria-modal="true">
+    <h2>Novo projeto</h2>
+    <label class="f">Título<input id="m-t" placeholder="Ex.: Landing page" /></label>
+    <label class="f">Cliente<input id="m-c" placeholder="Ex.: Padaria Doce Trigo" /></label>
+    <div class="row">
+      <label class="f">Responsável<select id="m-o"></select></label>
+      <label class="f">Prazo<input id="m-p" type="date" /></label>
+    </div>
+    <label class="f">Etapa<select id="m-s"></select></label>
+    <div class="acts"><button class="btn ghost" id="m-x">Cancelar</button><button class="btn" id="m-ok">Criar projeto</button></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const STAGES=['Briefing','Design','Desenvolvimento','Revisão','Publicado'];
+const OWN={RL:['Rafael Lima','#5B21B6'],DN:['Diego Nunes','#4C1D95'],AC:['Ana Costa','#4C1D95'],LA:['Lucas Almeida','#6D28D9'],BT:['Bruna Teixeira','#0F766E']};
+const ME='RL', MES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const YEAR=new Date().getFullYear();
+let uid=0;
+const P=(s,c,t,pct,d,m,o,tag,tt)=>({id:++uid,s,c,t,pct,d,m,o,tag:tag||null,tt:tt||null});
+let data=[
+ P(0,'Studio Aurora Pilates','Landing Aurora Pilates',15,5,10,'RL','Fotos pendentes','warn'),
+ P(0,'Móveis Pereira','Catálogo online',8,28,10,'RL'),
+ P(0,'Escola Pequeno Mundo','Site institucional',5,10,11,'DN'),
+ P(1,'Clínica Vida Plena','Site Clínica Vida Plena',35,21,9,'AC','Vence em 2 dias','red'),
+ P(1,'Padaria Doce Trigo','Promoção de Natal',22,20,11,'AC'),
+ P(1,'Café Girassol','Identidade para o cardápio digital',40,14,10,'AC'),
+ P(2,'Padaria Doce Trigo','Loja online Doce Trigo',62,14,10,'LA'),
+ P(2,'Café Girassol','Loja Café Girassol',48,12,10,'LA','Fatura em atraso','org'),
+ P(2,'Studio Aurora Pilates','Agendamento de aulas',70,2,10,'BT'),
+ P(3,'Padaria Doce Trigo','Site Doce Trigo',88,30,9,'AC','Aguardando cliente','warn'),
+ P(3,'Clínica Vida Plena','Área de exames online',92,26,9,'BT'),
+ P(3,'Móveis Pereira','Site institucional',95,24,9,'LA'),
+ P(4,'Mecânica Irmãos Souza','Site Mecânica Irmãos Souza',100,18,9,'BT','No ar desde 18 out','ok'),
+ P(4,'Escola Pequeno Mundo','Página de matrículas',100,2,9,'LA','No ar desde 02 out','ok'),
+];
+const st={q:'',f:'todos',o:'all'};
+const $=s=>document.querySelector(s), pad=n=>String(n).padStart(2,'0');
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const date=p=>new Date(YEAR,p.m,p.d);
+const late=p=>p.s<4&&date(p)<new Date(new Date().setHours(0,0,0,0));
+const pend=p=>p.tag&&p.tt!=='ok';
+function visible(p){
+  const q=st.q.trim().toLowerCase();
+  if(q&&!(p.t+' '+p.c).toLowerCase().includes(q))return false;
+  if(st.o!=='all'&&p.o!==st.o)return false;
+  if(st.f==='meus'&&p.o!==ME)return false;
+  if(st.f==='pend'&&!pend(p))return false;
+  if(st.f==='atr'&&!late(p))return false;
+  return true;
+}
+function cardHTML(p){
+  const [name,col]=OWN[p.o], pub=p.s===4;
+  return `<div class="card" draggable="true" data-id="${p.id}">
+    <div class="cl">${esc(p.c)}</div><div class="cti">${esc(p.t)}</div>
+    ${p.tag?`<div class="tag t-${p.tt}">${esc(p.tag)}</div>`:''}
+    ${pub?'':`<div class="pm"><span class="pc">${p.pct}%</span><span class="pz ${late(p)?'late':''}">Prazo ${pad(p.d)} ${MES[p.m]}</span></div>`}
+    <div class="trk"><div class="fill ${pub?'g':''}" style="width:${p.pct}%"></div></div>
+    <div class="as"><div class="av" style="background:${col}">${p.o}</div>${name}</div></div>`;
+}
+function render(){
+  $('#kan').innerHTML=STAGES.map((n,i)=>{
+    const l=data.filter(p=>p.s===i&&visible(p));
+    return `<section class="col" data-s="${i}"><div class="ch"><span class="ct">${n}</span><span class="cc">${l.length}</span></div>
+    <div class="cards">${l.map(cardHTML).join('')||'<div class="empty">Nenhum projeto</div>'}</div></section>`;
+  }).join('');
+}
+/* drag & drop (delegação) */
+let dragId=null;
+const kan=$('#kan');
+kan.addEventListener('dragstart',e=>{const c=e.target.closest('.card');if(!c)return;dragId=+c.dataset.id;c.classList.add('drag');e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',dragId)});
+kan.addEventListener('dragend',()=>{dragId=null;document.querySelectorAll('.drag,.over').forEach(x=>x.classList.remove('drag','over'))});
+kan.addEventListener('dragover',e=>{const c=e.target.closest('.col');if(!c||dragId==null)return;e.preventDefault();document.querySelectorAll('.over').forEach(x=>x!==c&&x.classList.remove('over'));c.classList.add('over')});
+kan.addEventListener('drop',e=>{
+  const c=e.target.closest('.col');if(!c||dragId==null)return;e.preventDefault();
+  const p=data.find(x=>x.id===dragId), to=+c.dataset.s;
+  if(p.s!==to){
+    const from=p.s;p.s=to;
+    if(to===4){const n=new Date();p.pct=100;p.tag='No ar desde '+pad(n.getDate())+' '+MES[n.getMonth()];p.tt='ok'}
+    else if(from===4){p.pct=Math.min(p.pct,95);p.tag=null;p.tt=null}
+    data=data.filter(x=>x!==p);data.push(p);
+    toast(`“${p.t}” movido para ${STAGES[to]}`);
+  }
+  render();
+});
+/* filtros */
+$('#q').addEventListener('input',e=>{st.q=e.target.value;render()});
+document.querySelectorAll('.pill').forEach(b=>b.addEventListener('click',()=>{
+  st.f=b.dataset.f;document.querySelectorAll('.pill').forEach(x=>x.classList.toggle('on',x===b));render();
+}));
+/* responsáveis */
+const owners=[['all','Todos os responsáveis'],...Object.entries(OWN).map(([k,v])=>[k,v[0]])];
+$('#menu').innerHTML=owners.map(([k,n])=>`<button data-o="${k}" class="${k==='all'?'on':''}">${n}</button>`).join('');
+$('#ddb').addEventListener('click',e=>{e.stopPropagation();$('#dd').classList.toggle('open')});
+$('#menu').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  st.o=b.dataset.o;$('#ddl').textContent=b.textContent;
+  document.querySelectorAll('#menu button').forEach(x=>x.classList.toggle('on',x===b));
+  $('#dd').classList.remove('open');render();
+});
+document.addEventListener('click',()=>$('#dd').classList.remove('open'));
+/* modal */
+$('#m-o').innerHTML=Object.entries(OWN).map(([k,v])=>`<option value="${k}">${v[0]}</option>`).join('');
+$('#m-s').innerHTML=STAGES.slice(0,4).map((n,i)=>`<option value="${i}">${n}</option>`).join('');
+const ov=$('#ov'), close=()=>ov.classList.remove('open');
+$('#novo').addEventListener('click',()=>{
+  ['m-t','m-c'].forEach(i=>$('#'+i).value='');
+  const d=new Date();d.setDate(d.getDate()+14);
+  $('#m-p').value=`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  $('#m-o').value=ME;$('#m-s').value=0;ov.classList.add('open');$('#m-t').focus();
+});
+$('#m-x').addEventListener('click',close);
+ov.addEventListener('mousedown',e=>{if(e.target===ov)close()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')close();if(e.key==='Enter'&&ov.classList.contains('open')&&e.target.tagName==='INPUT')$('#m-ok').click()});
+$('#m-ok').addEventListener('click',()=>{
+  const t=$('#m-t').value.trim(),c=$('#m-c').value.trim();
+  if(!t||!c){toast('Preencha título e cliente');(!t?$('#m-t'):$('#m-c')).focus();return}
+  const [y,m,d]=($('#m-p').value||'').split('-').map(Number);
+  const dt=d?{d,m:m-1}:{d:new Date().getDate(),m:new Date().getMonth()};
+  data.push(P(+$('#m-s').value,c,t,0,dt.d,dt.m,$('#m-o').value));
+  close();render();toast('Projeto criado');
+});
+/* toast */
+let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2200)}
+render();
+</script>
+</body>
 </html>
