@@ -408,6 +408,7 @@ nav a:focus {
 .contact-modals {
     display: flex;
     flex-direction: column;
+    gap: 45px;
 }
 
 .chat-modal {
@@ -559,4 +560,45 @@ nav a:focus {
 
 .chat-modal-inputs input::placeholder {
     color: #543F6C;
+}
+
+.contact-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 240px;
+    background-color: #1E142B;
+    border-radius: 24px;
+    border: 1px solid #7E7B97;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.contact-card p {
+    font: 16px "Nunito";
+    font-weight: 600;
+    color: #fff;
+}
+
+.contact-card h3 {
+    font: 24px "Nunito";
+    font-weight: 900;
+    color: #fff;
+}
+
+.contact-card > div {
+    display: flex;
+    flex-direction: row;
+    gap: 150px;
+}
+
+.contact-card div {
+    display: flex;
+    flex-direction: row;
+}
+
+.contact-card img {
+    height: 20px;
+    margin-right: 10px;
 }
