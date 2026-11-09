@@ -23,10 +23,9 @@
             </div>
 
             <nav>
-                <a  href="">Visão Geral</a>
-                <a href="">Meus Projetos</a>
-                <a href="">Suporte</a>
-                <a href="">Configurações</a>
+                <a href="../client-area/index.php">Visão Geral</a>
+                <a href="../projects-area/index.php">Meus Projetos</a>
+                <a href="../support-area/index.php">Suporte</a>
             </nav>
 
             <div class="user-group">
