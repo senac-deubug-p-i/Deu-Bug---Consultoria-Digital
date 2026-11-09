@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="index.css">
-        <link rel="shortcut icon" href="../../assets/images/DeuBug_favIcon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="../../../assets/images/DeuBug_favIcon.ico" type="image/x-icon">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,10 +24,9 @@
             </div>
 
             <nav>
-                <a  href="">Visão Geral</a>
-                <a href="">Meus Projetos</a>
-                <a href="">Suporte</a>
-                <a href="">Configurações</a>
+                <a href="../client-area/index.php">Visão Geral</a>
+                <a href="../projects-area/index.php">Meus Projetos</a>
+                <a href="../support-area/index.php">Suporte</a>
             </nav>
 
             <div class="user-group">
@@ -65,7 +64,7 @@
 
             <div class="hero-contact">
                 <button>
-                    <img src="../../assets/images/chat-message-icon.svg" alt="">
+                    <img src="../../../assets/images/chat-message-icon.svg" alt="">
                     Falar com a equipe
                 </button>
                 <button style="background-color: transparent;">Abrir Solicitação</button>

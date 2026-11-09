@@ -1,0 +1,967 @@
+* {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    overflow-x: hidden;
+    background-color: #08070C;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 80px;
+    background-color: #08070C;
+    border-bottom: 1px solid #7B4BB3;
+    border-radius: 0px 0px 15px 15px;
+    align-items: center;
+    padding: 0px 42px;
+    position: relative;
+    justify-content: space-between;
+}
+
+.logoheader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+.logoheader img {
+    width: 54px;
+    height: 54px;
+    border-radius: 10px;
+    background-color: #7B4BB3;
+    padding: 7px;
+}
+
+.logoheader h2 {
+    font: 24px "Nunito";
+    color: #fff;
+    font-weight: 900;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+nav a {
+    display: flex;
+    flex-direction: column;
+    font: 15px "Nunito";
+    color: #917AAB;
+    padding: 12px 27px;
+    font-weight: 600;
+}
+
+nav a:focus {
+    padding: 12px 27px;
+    background-color: #7B4BB3;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.user-group {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+    gap: 22px;
+}
+
+.user-group button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 40px;
+    background-color: transparent;
+    border: 1px solid #7B4BB3;
+    border-radius: 8px;
+    color: #fff;
+    font: 14px "Nunito";
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.user-group button:hover {
+    border-color: #ffffff85;
+}
+
+.notification-group {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    height: 100%;
+    align-items: center;
+}
+
+.notifications-screen {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 500px;
+    background-color: transparent;
+    border: 1px solid #7B4BB3;
+    border-radius: 13px;
+    top: 70px;
+    backdrop-filter: blur(3px);
+    position: absolute;
+    right: 1px;
+    transition: 0.5s;
+    opacity: 0;
+}
+
+.notification-group:active .notifications-screen {
+    opacity: 1;
+}
+
+
+.bell-group {
+    display: flex;
+    flex-direction: row;
+    width: 45px;
+    height: 45px;
+    background-color: #bc81ff36;
+    border: 1px solid #d0a6ff4f;
+    border-radius: 5px;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.bell-group h2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    font: 11px "Nunito";
+    font-weight: 800;
+    color: #917AAB;
+    background-color: #4d277a;
+    border: 1px solid #d0a6ff4f;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    top: -7px;
+    right: -7px;
+}
+
+.bell-group svg {
+    height: 35px;
+}
+
+.bell-group path {
+    fill: #7B4BB3;
+}
+
+.user-section {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-section h2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    background-color: #7B4BB3;
+    border: 1px solid #d0a6ff79;
+    border-radius: 100%;
+    color: #CFA6FF;
+    font: 16px "Nunito";
+    font-weight: 900;
+}
+
+.user-section div {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-section h3 {
+    font: 16px "Nunito";
+    font-weight: 800;
+    color: #CFA6FF;
+}
+
+.user-section p {
+    font: 16px "Nunito";
+    font-weight: 400;
+    color: #CFA6FF;
+}
+
+.hero-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 116px 80px 40px 80px;
+    justify-content: space-between;
+}
+
+.hero-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-title h3 {
+    font: 20px "Nunito";
+    font-weight: 100;
+    color: #CFA6FF;
+}
+
+.hero-title h2{
+    font: 36px "Nunito";
+    font-weight: 800;
+    color: #CFA6FF;
+}
+
+.hero-title p {
+    font: 20px "Nunito";
+    font-weight: 600;
+    color: #CFA6FF;
+}
+
+.hero-contact {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    gap: 32px;
+}
+
+.hero-contact button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 270px;
+    height: 55px;
+    background-color: #7B4BB3;
+    color: #fff;
+    font: 20px "Nunito";
+    font-weight: 600;
+    gap: 10px;
+    border: 1px solid #7B4BB3;
+    border-radius: 10px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.hero-contact button:hover {
+    border: 1px solid #fff;
+}
+
+.hero-contact img {
+    height: 34px;
+}
+
+.project-status {
+    display: flex;
+    flex-direction: row;
+    width: 216px;
+    height: 42px;
+    background-color: #725C1B;
+    border: 1px solid #facc15;
+    border-radius: 30px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 14px;
+    gap: 12px;
+}
+
+.project-status div {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: #FACC15;
+}
+
+.project-status p {
+    font: 16px "Nunito";
+    font-weight: 700;
+    color: #facc15;
+}
+
+.progress-status {
+    display: flex;
+    flex-direction: column;
+    width: 92%;
+    height: 274px;
+    background-color: #1C1328;
+    align-self: center;
+    border-radius: 24px;
+    border: 1px solid #7B4BB3;
+    padding: 40px 50px;
+}
+
+.data-progress {
+    display: flex;
+    flex-direction: row;
+    gap: 38px;
+}
+
+.progress-percent {
+    display: flex;
+    flex-direction: column;
+    width: 1060px;
+}
+
+.progress-percent div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.progress-percent h3 {
+    font: 20px "Nunito";
+    font-weight: 800;
+    color: #fff;
+}
+
+.progress-percent h2 {
+    font: 36px "Nunito";
+    font-weight: 800;
+    color: #fff;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 15px;
+    background-color: #472D65;
+    border-radius: 15px;
+    justify-content: inherit;
+    margin-top: 12px;
+}
+
+.progress-bar div {
+    width: 62%;
+    height: 15px;
+    background-color: #7B4BB3;
+    border-radius: 15px;
+}
+
+.data-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.data-info p {
+    font: 16px "Nunito";
+    font-weight: 200;
+    color: #BB81FF;
+}
+
+.data-info h3 {
+    font: 20px "Nunito";
+    font-weight: 700;
+    color: #FFF;
+}
+
+.data-status {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 32px;
+    position: relative;
+}
+
+.progress-stage {
+    display: flex;
+    flex-direction: row;
+    width: 96.7%;
+    height: 5px;
+    background-color: #472D65;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 80px;
+    z-index: 1;
+}
+
+.progress-stage div {
+    display: flex;
+    flex-direction: row;
+    width: 48%;
+    height: 5px;
+    background-color: #7B4BB3;
+    border-radius: 5px;
+}
+
+.data-stage {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+.data-stage div {
+    width: 45px;
+    height: 45px;
+    background-color: #7B4BB3;
+    border-radius: 100%;
+}
+
+.data-stage p {
+    font: 16px "Nunito";
+    font-weight: 200;
+    color: #BB81FF;
+}
+
+.data-stage h3 {
+    font: 20px "Nunito";
+    font-weight: 700;
+    color: #FFF;
+    margin-top: 10px;
+}
+
+.stage-previews {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 0px 108px 20px 145px;
+    margin-top: 40px;
+    gap: 150px;
+    justify-content: center;
+}
+
+.left-stages {
+    display: flex;
+    flex-direction: column;
+}
+
+.to-approve {
+    display: flex;
+    flex-direction: column;
+    width: 660px;
+    height: 594px;
+    background-color: #1C1328;
+    border: 1px solid #7E7B97;
+    border-radius: 24px;
+    padding: 24px;
+}
+
+.to-approve h2 {
+    font: 36px "Nunito";
+    font-weight: 900;
+    color: #FFF;
+}
+
+.to-approve p {
+    font: 16px "Nunito";
+    font-weight: 900;
+    color: #FFF;
+    align-self: center;
+    margin-top: 28px;
+}
+
+.to-approve img {
+    width: 418px;
+    height: 324px;
+    align-self: center;
+    margin-top: 24px;
+}
+
+.to-approve div {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    gap: 55px;
+    margin-top: 30px;
+}
+
+.to-approve button {
+    width: 208px;
+    height: 60px;
+    background-color: #7B4BB3;
+    border: 1px solid #7B4BB3;
+    border-radius: 10px;
+    font: 20px "Nunito";
+    font-weight: 900;
+    transition: 0.5s;
+    color: #fff;
+    cursor: pointer;
+}
+
+.to-approve button:hover {
+    border: 1px solid #FFF;
+}
+
+.project-team {
+    display: flex;
+    flex-direction: column;
+    width: 575px;
+    min-height: 355px;
+    margin-top: 60px;
+    gap: 15px;
+    padding: 0px 36px;
+}
+
+.project-team h2 {
+    font: 36px "Nunito";
+    font-weight: 900;
+    color: #fff;
+}
+
+.project-partner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project-partner img {
+    width: 55px;
+    height: 55px;
+    background-color: #7B4BB3;
+    border: 1px solid #CFA6FF;
+    border-radius: 100%;
+    margin-right: 10px;
+}
+
+.project-partner > div {
+    display: flex;
+    align-items: center;
+}
+
+.project-partner h3 {
+    font: 16px "Nunito";
+    font-weight: 800;
+    color: #CFA6FF;
+}
+
+.project-partner p {
+    font: 16px "Nunito";
+    font-weight: 200;
+    color: #CFA6FF;
+}
+
+.project-partner button {
+    background-color: transparent;
+    font: 16px "Nunito";
+    font-weight: 800;
+    color: #CFA6FF;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.update-history {
+    display: flex;
+    flex-direction: column;
+    width: 660px;
+    height: 395px;
+    background-color: #1C1328;
+    border: 1px solid #7E7B97;
+    border-radius: 24px;
+    padding: 40px;
+    gap: 40px;
+}
+
+.update-history h2 {
+    font: 26px "Nunito";
+    font-weight: 900;
+    color: #7B4BB3;
+}
+
+.cards-grid {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 40px;
+    overflow-y: scroll;
+}
+
+.cards-grid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cards-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cards-grid::-webkit-scrollbar-thumb {
+  background-color: #7B4BB3;
+  border-radius: 20px;
+}
+
+.update-card {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+}
+
+.update-card div {
+    display: flex;
+    flex-direction: column;
+}
+
+.update-card h3 {
+    font: 20px "Nunito";
+    font-weight: 900;
+    color:#FFF;
+}
+
+.update-card p {
+    font: 16px "Nunito";
+    font-weight: 200;
+    color:#CFA6FF;
+}
+
+.status-history {
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    background-color: #7B4BB3;
+    margin-right: 45px;
+}
+
+.right-stages {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 30px;
+}
+
+.approved-deliveries {
+    display: flex;
+    flex-direction: column;
+    width: 860px;
+    height: 395px;
+    background-color: #1C1328;
+    border: 1px solid #7E7B97;
+    border-radius: 24px;
+    padding: 20px 36px 10px 36px;
+}
+
+.approved-deliveries > h2 {
+    font: 36px "Nunito";
+    font-weight: 900;
+    color: #7B4BB3;
+}
+
+.deliveries-grid {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 20px;
+    overflow-y: scroll;
+    padding: 10px;
+}
+
+.deliveries-grid::-webkit-scrollbar {
+    width: 5px;
+}
+ 
+.deliveries-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+ 
+.deliveries-grid::-webkit-scrollbar-thumb {
+    background-color: #7B4BB3;
+    border-radius: 20px;
+}
+
+.deliveries-card {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: 64px;
+    background-color: #100B17;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 25px;
+    border: 1px solid #7B4BB3;
+}
+
+.deliveries-card h3 {
+    font: 16px "Nunito";
+    font-weight: 900;
+    color: #fff;
+}
+
+.deliveries-card p {
+    font: 14px "Nunito";
+    font-weight: 200;
+    color: #CFA6FF;
+}
+
+.deliveries-card button {
+    background-color: transparent;
+    font: 16px "Nunito";
+    font-weight: 800;
+    color: #CFA6FF;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.development-stage {
+    display: flex;
+    flex-direction: column;
+    width: 860px;
+    height: 395px;
+    background-color: #1C1328;
+    border: 1px solid #7E7B97;
+    border-radius: 24px;
+    padding: 40px;
+}
+
+.development-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.development-title h2 {
+    font: 36px "Nunito";
+    font-weight: 900;
+    color: #FFF;
+}
+
+.development-status {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 216px;
+    height: 42px;
+    border-radius: 30px;
+    background-color: #725C1B;
+    border: 1px solid #FACC15;
+    gap: 13px;
+}
+
+.development-status p {
+    font: 16px "Nunito";
+    font-weight: 700;
+    color: #FACC15;
+}
+
+.development-status div {
+    background-color: #FACC15;
+    border-radius: 100%;
+    width: 10px;
+    height: 10px;
+}
+
+.development-grid {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 20px;
+    overflow-y: scroll;
+    padding: 10px;
+}
+
+.development-grid::-webkit-scrollbar {
+    width: 5px;
+}
+ 
+.development-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+ 
+.development-grid::-webkit-scrollbar-thumb {
+    background-color: #7B4BB3;
+    border-radius: 20px;
+}
+
+.development-processes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 50px;
+    align-items: center;
+}
+
+.development-processes div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+}
+
+.development-processes h2 {
+    font: 16px "Nunito";
+    font-weight: 800;
+    color: #fff;
+}
+
+.development-processes h3 {
+    font: 16px "Nunito";
+    font-weight: 200;
+    color: #CFA6FF;
+}
+
+.development-status-ball {
+    border-radius: 100%;
+    background-color: #49FF92;
+    width: 30px;
+    height: 30px;
+}
+
+.design-stage {
+    display: flex;
+    flex-direction: column;
+    width: 860px;
+    height: 170px;
+    background-color: #1C1328;
+    border: 1px solid #7E7B97;
+    border-radius: 24px;
+    padding: 40px;
+}
+
+.design-stage > p {
+    font: 20px "Nunito";
+    font-weight: 700;
+    color: #D0C5DC;
+    margin-top: 10px;
+}
+
+.design-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.design-title h2 {
+    font: 36px "Nunito";
+    font-weight: 900;
+    color: #FFF;
+}
+
+.design-status {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 216px;
+    height: 42px;
+    border-radius: 30px;
+    background-color: #2A714C;
+    border: 1px solid #49FF92;
+    gap: 13px;
+}
+
+.design-status p {
+    font: 16px "Nunito";
+    font-weight: 700;
+    color: #49FF92;
+}
+
+.design-status div {
+    background-color: #49FF92;
+    border-radius: 100%;
+    width: 10px;
+    height: 10px;
+}
+
+.briefing-stage {
+    display: flex;
+    flex-direction: column;
+    width: 860px;
+    height: 170px;
+    background-color: #1C1328;
+    border: 1px solid #7E7B97;
+    border-radius: 24px;
+    padding: 40px;
+}
+
+.briefing-stage > p {
+    font: 20px "Nunito";
+    font-weight: 700;
+    color: #D0C5DC;
+    margin-top: 10px;
+}
+
+.briefing-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.briefing-title h2 {
+    font: 36px "Nunito";
+    font-weight: 900;
+    color: #FFF;
+}
+
+.briefing-status {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 216px;
+    height: 42px;
+    border-radius: 30px;
+    background-color: #2A714C;
+    border: 1px solid #49FF92;
+    gap: 13px;
+}
+
+.briefing-status p {
+    font: 16px "Nunito";
+    font-weight: 700;
+    color: #49FF92;
+}
+
+.briefing-status div {
+    background-color: #49FF92;
+    border-radius: 100%;
+    width: 10px;
+    height: 10px;
+}
+
+.review-stage {
+    display: flex;
+    flex-direction: column;
+    width: 860px;
+    height: 170px;
+    background-color: transparent;
+    border: 1px solid #7E7B97;
+    border-radius: 24px;
+    padding: 30px;
+}
+
+.review-stage > p {
+    font: 20px "Nunito";
+    font-weight: 700;
+    color: #D0C5DC;
+    margin-top: 10px;
+}
+
+.review-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.review-title h2 {
+    font: 36px "Nunito";
+    font-weight: 900;
+    color: #FFF;
+}

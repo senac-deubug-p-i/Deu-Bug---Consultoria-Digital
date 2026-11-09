@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="index.css">
+        <link rel="shortcut icon" href="../../../assets/images/DeuBug_favIcon.ico" type="image/x-icon">
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jersey+10&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Tiny5&display=swap"
+            rel="stylesheet">
+
+        <title>Deu Bug! - Consultoria Digital</title>
+    </head>
+    <body>
+        <header>
+            <div class="logoheader">
+                <img src="../../../assets/images/WhiteLogo_DeuBug.svg" alt="DeuBug-Logo">
+                <h2>Deu Bug!</h2>
+            </div>
+
+            <nav>
+                <a href="../client-area/index.php">Visão Geral</a>
+                <a href="../projects-area/index.php">Meus Projetos</a>
+                <a href="../support-area/index.php">Suporte</a>
+            </nav>
+
+            <div class="user-group">
+                <section class="notification-group">
+                    <div class="bell-group">
+                        <h2>2</h2>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                            <path d="M320 64C306.7 64 296 74.7 296 88L296 97.7C214.6 109.3 152 179.4 152 264L152 278.5C152 316.2 142 353.2 123 385.8L101.1 423.2C97.8 429 96 435.5 96 442.2C96 463.1 112.9 480 133.8 480L506.2 480C527.1 480 544 463.1 544 442.2C544 435.5 542.2 428.9 538.9 423.2L517 385.7C498 353.1 488 316.1 488 278.4L488 263.9C488 179.3 425.4 109.2 344 97.6L344 87.9C344 74.6 333.3 63.9 320 63.9zM488.4 432L151.5 432L164.4 409.9C187.7 370 200 324.6 200 278.5L200 264C200 197.7 253.7 144 320 144C386.3 144 440 197.7 440 264L440 278.5C440 324.7 452.3 370 475.5 409.9L488.4 432zM252.1 528C262 556 288.7 576 320 576C351.3 576 378 556 387.9 528L252.1 528z"/>
+                        </svg>
+                    </div>
+
+                    <div class="notifications-screen">
+
+                    </div>
+                </section>
+
+                <section class="user-section">
+                    <h2>EI</h2>
+                    <div>
+                        <h3>Eduardo Inocencio</h3>
+                        <p>Plano Gold</p>
+                    </div>
+                </section>
+
+                <button>Sair</button>
+            </div>
+        </header>
+
+        <section class="hero-header">
+            <div class="hero-title">
+                <h3>LandingPage</h3>
+                <h2>Barbearia Luck Shot</h2>
+                <div class="project-status">
+                    <div></div>
+                    <p>Em Desenvolvimento</p>
+                </div>
+            </div>
+
+            <div class="hero-contact">
+                <button>Falar sobre este projeto</button>
+                <button style="background-color: transparent;">Ver arquivos</button>
+            </div>
+        </section>
+
+        <section class="progress-status">
+            <div class="data-progress">
+                <div class="progress-percent">
+                    <div>
+                        <h3>Progresso geral</h3>
+                        <h2>62%</h2>
+                    </div>
+                    <div class="progress-bar">
+                        <div></div>
+                    </div>
+                </div>
+
+                <div class="data-info">
+                    <p>Início</p>
+                    <h3>12 de Setembro</h3>
+                </div>
+                
+                <div class="data-info">
+                    <p>Prazo Estimado</p>
+                    <h3>14 de Setembro</h3>
+                </div>
+
+                <div class="data-info">
+                    <p>Responsável</p>
+                    <h3>Vanessa Balbino</h3>
+                </div>
+            </div>
+
+            <div class="data-status">
+                <div class="progress-stage">
+                    <div></div>
+                </div>
+                <div class="data-stage">
+                    <div></div>
+                    <h3>Briefing</h3>
+                    <p>12 a 20 set</p>
+                </div>
+
+                <div class="data-stage">
+                    <div></div>
+                    <h3>Design</h3>
+                    <p>12 a 20 set</p>
+                </div>
+
+                <div class="data-stage">
+                    <div></div>
+                    <h3>Desenvolvimento</h3>
+                    <p>12 a 20 set</p>
+                </div>
+
+                <div class="data-stage">
+                    <div></div>
+                    <h3>Revisão</h3>
+                    <p>12 a 20 set</p>
+                </div>
+
+                <div class="data-stage">
+                    <div></div>
+                    <h3>Publicação</h3>
+                    <p>12 a 20 set</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="stage-previews">
+            <section class="left-stages">
+
+                <div class="to-approve">
+                    <h2>Para aprovar</h2>
+                    <img src="../../../assets/images/design-model.png" alt="Model-Design">
+                    <p>Página de produtos, versão 3. Enviada por Lucas Gallo hoje às 10:42</p>
+                    <div>
+                        <button>Aprovar</button>
+                        <button>Ver arquivos</button>
+                    </div>
+                </div>
+
+                <div class="project-team">
+                    <h2>Equipe do Projeto</h2>
+
+                    <div class="project-partner">
+                        <div>
+                            <img src="" alt="Partner-Photo">
+                            <div>
+                                <h3>Lucas Gallo</h3>
+                                <p>Gestor do Projeto</p>
+                            </div>
+                        </div>
+                        <button>Mensagem</button>
+                    </div>
+
+                    <div class="project-partner">
+                        <div>
+                            <img src="" alt="Partner-Photo">
+                            <div>
+                                <h3>Lucas Gallo</h3>
+                                <p>Gestor do Projeto</p>
+                            </div>
+                        </div>
+                        <button>Mensagem</button>
+                    </div>
+
+                    <div class="project-partner">
+                        <div>
+                            <img src="" alt="Partner-Photo">
+                            <div>
+                                <h3>Lucas Gallo</h3>
+                                <p>Gestor do Projeto</p>
+                            </div>
+                        </div>
+                        <button>Mensagem</button>
+                    </div>
+
+                    <div class="project-partner">
+                        <div>
+                            <img src="" alt="Partner-Photo">
+                            <div>
+                                <h3>Lucas Gallo</h3>
+                                <p>Gestor do Projeto</p>
+                            </div>
+                        </div>
+                        <button>Mensagem</button>
+                    </div>
+                </div>
+
+                <div class="update-history">
+                    <h2>Histórico de Atualizações</h2>
+
+                    <div class="cards-grid">
+                        <div class="update-card">
+                            <div class="status-history"></div>
+                            <div>
+                                <h3>Layout da home enviado para aprovação</h3>
+                                <p>Hoje, 10:42 - Lucas Gallo</p>
+                            </div>
+                        </div>
+
+                        <div class="update-card">
+                            <div class="status-history"></div>
+                            <div>
+                                <h3>Layout da home enviado para aprovação</h3>
+                                <p>Hoje, 10:42 - Lucas Gallo</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="right-stages">
+                <div class="approved-deliveries">
+                    <h2>Entregas Aprovada</h2>
+
+                    <div class="deliveries-grid">
+
+                        <div class="deliveries-card">
+                            <div>
+                                <h3>Layout da home v3</h3>
+                                <p>Aprovado em 14 out</p>
+                            </div>
+    
+                            <button>Baixar</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="development-stage">
+                    <div class="development-title">
+                        <h2>3. Desenvolvimento</h2>
+
+                        <div class="development-status">
+                            <div></div>
+                            <p>Em Desenvolvimento</p>
+                        </div>
+                    </div>
+
+                    <div class="development-grid">
+                        <div class="development-processes">
+                            <div>
+                                <div class="development-status-ball"></div>
+                                <h2>Estrutura da loja e menu</h2>
+                            </div>
+
+                            <h3>Feito</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="design-stage">
+                    <div class="design-title">
+                        <h2>2. Design</h2>
+                        <div class="design-status">
+                            <div></div>
+                            <p>Aprovado em 14 out</p>
+                        </div>
+                    </div>
+
+                    <p>Layout da home, página de produtos e carrinho com paleta da marca.</p>
+                </div>
+
+                <div class="briefing-stage">
+                    <div class="briefing-title">
+                        <h2>1. Briefing</h2>
+                        <div class="briefing-status">
+                            <div></div>
+                            <p>Aprovado em 14 out</p>
+                        </div>
+                    </div>
+
+                    <p>Objetivos da loja, produtos, público e refêrencia definidos juntos com você.</p>
+                </div>
+
+                <div class="review-stage">
+                    <div class="review-title">
+                        <h2>4. Revisão e 5. Publicação</h2>
+                    </div>
+
+                    <p>Começam depois do desenvolvimento. Você revisa a loja pronta e nós publicamos no seu domínio.</p>
+                </div>
+            </section>
+        </section>
+    </body>
+</html>

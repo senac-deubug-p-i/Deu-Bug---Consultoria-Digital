@@ -1,0 +1,604 @@
+* {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    overflow-x: hidden;
+    background-color: #08070C;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 80px;
+    background-color: #08070C;
+    border-bottom: 1px solid #7B4BB3;
+    border-radius: 0px 0px 15px 15px;
+    align-items: center;
+    padding: 0px 42px;
+    position: relative;
+    justify-content: space-between;
+}
+
+.logoheader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+.logoheader img {
+    width: 54px;
+    height: 54px;
+    border-radius: 10px;
+    background-color: #7B4BB3;
+    padding: 7px;
+}
+
+.logoheader h2 {
+    font: 24px "Nunito";
+    color: #fff;
+    font-weight: 900;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+nav a {
+    display: flex;
+    flex-direction: column;
+    font: 15px "Nunito";
+    color: #917AAB;
+    padding: 12px 27px;
+    font-weight: 600;
+}
+
+nav a:focus {
+    padding: 12px 27px;
+    background-color: #7B4BB3;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.user-group {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+    gap: 22px;
+}
+
+.user-group button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 40px;
+    background-color: transparent;
+    border: 1px solid #7B4BB3;
+    border-radius: 8px;
+    color: #fff;
+    font: 14px "Nunito";
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.user-group button:hover {
+    border-color: #ffffff85;
+}
+
+.notification-group {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    height: 100%;
+    align-items: center;
+}
+
+.notifications-screen {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 500px;
+    background-color: transparent;
+    border: 1px solid #7B4BB3;
+    border-radius: 13px;
+    top: 70px;
+    backdrop-filter: blur(3px);
+    position: absolute;
+    right: 1px;
+    transition: 0.5s;
+    opacity: 0;
+}
+
+.notification-group:active .notifications-screen {
+    opacity: 1;
+}
+
+
+.bell-group {
+    display: flex;
+    flex-direction: row;
+    width: 45px;
+    height: 45px;
+    background-color: #bc81ff36;
+    border: 1px solid #d0a6ff4f;
+    border-radius: 5px;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.bell-group h2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    font: 11px "Nunito";
+    font-weight: 800;
+    color: #917AAB;
+    background-color: #4d277a;
+    border: 1px solid #d0a6ff4f;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    top: -7px;
+    right: -7px;
+}
+
+.bell-group svg {
+    height: 35px;
+}
+
+.bell-group path {
+    fill: #7B4BB3;
+}
+
+.user-section {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-section h2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    background-color: #7B4BB3;
+    border: 1px solid #d0a6ff79;
+    border-radius: 100%;
+    color: #CFA6FF;
+    font: 16px "Nunito";
+    font-weight: 900;
+}
+
+.user-section div {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-section h3 {
+    font: 16px "Nunito";
+    font-weight: 800;
+    color: #CFA6FF;
+}
+
+.user-section p {
+    font: 16px "Nunito";
+    font-weight: 400;
+    color: #CFA6FF;
+}
+
+.support-screen {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 110px;
+}
+
+.support-title-screen {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 100px;
+    margin-bottom: 30px;
+}
+
+.support-title-screen h2 {
+    font: 36px "Nunito";
+    font-weight: 900;
+    color: #917AAB;
+}
+
+.support-title-screen p {
+    font: 20px "Nunito";
+    font-weight: 700;
+    color: #D0C5DC;
+}
+
+.support-modals {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 65px;
+}
+
+.chats-request {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.support-chats {
+    display: flex;
+    flex-direction: column;
+    width: 575px;
+    height: 445px;
+    background-color: #100D17;
+    border-radius: 24px;
+    border: 1px solid #7E7B97;
+    padding: 20px 36px;
+}
+
+.support-chats > h2 {
+    font: 36px "Nunito";
+    font-weight: 900;
+    color: #917a91;
+}
+
+.chats-grid {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin-top: 12px;
+    overflow-y: scroll;
+    gap: 12px;
+    padding: 0px 5px;
+}
+
+.chats-grid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chats-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chats-grid::-webkit-scrollbar-thumb {
+  background-color: #7B4BB3;
+  border-radius: 20px;
+}
+
+.chat-card {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: 70px;
+    background-color: #301F46;
+    border-radius: 15px;
+    border: 1px solid #7B4BB3;
+    align-items: center;
+    padding: 0px 15px;
+    gap: 18px;
+}
+
+.chat-card img {
+    width: 55px;
+    height: 55px;
+    background-color: #7B4BB3;
+    border: 1px solid #7E7B97;
+    border-radius: 100%;
+}
+
+.chat-card h3 {
+    font: 16px "Nunito";
+    font-weight: 700;
+    color: #CFA6FF;
+}
+
+.open-request {
+    display: flex;
+    flex-direction: column;
+    width: 575px;
+    height: 625px;
+    background-color: #100D17;
+    border: 1px solid #7E7B97;
+    border-radius: 24px;
+    padding: 36px;
+    gap: 15px;
+}
+
+.open-request h2 {
+    font: 36px "Nunito";
+    font-weight: 900;
+    color: #7B4BB3;
+}
+
+
+.open-request button {
+    width: 100%;
+    height: 50px;
+    border-radius: 15px;
+    background-color: #7B4BB3;
+    font: 16px "Nunito";
+    font-weight: 800;
+    color: #fff;
+    cursor: pointer;
+}
+
+#request-archive-btn {
+    width: 100%;
+    height: 50px;
+    border-radius: 15px;
+    background-color: #100B17;
+    font: 16px "Nunito";
+    font-weight: 800;
+    border: 1px dotted #7B4BB3;
+    color: #5D4974;
+}
+
+.input-request {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-request h4 {
+    font: 16px "Nunito";
+    font-weight: 700;
+    color: #fff;
+}
+
+.input-request input {
+    width: 100%;
+    height: 50px;
+    background-color: #100B17;
+    border-radius: 15px;
+    border: 1px solid #7B4BB3;
+    font: 16px "Nunito";
+    font-weight: 500;
+    color: #fff;
+    padding: 0px 20px;
+}
+
+.input-request textarea {
+    width: 100%;
+    height: 150px;
+    background-color: #100B17;
+    border-radius: 15px;
+    border: 1px solid #7B4BB3;
+    font: 16px "Nunito";
+    font-weight: 500;
+    color: #fff;
+    padding: 20px 20px;
+    resize: none;
+}
+
+.input-request textarea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.input-request textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.input-request textarea::-webkit-scrollbar-thumb {
+  background-color: #7B4BB3;
+  border-radius: 20px;
+}
+
+.contact-modals {
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+}
+
+.chat-modal {
+    display: flex;
+    flex-direction: column;
+    width: 1060px;
+    height: 820px;
+    background-color: #1D1726;
+    border-radius: 24px;
+    border: 1px solid #7E7B97;
+}
+
+.chat-modal-header {
+    display: flex;
+    flex-direction: row;
+    height: 75px;
+    width: 100%;
+    border-bottom: 1px solid #7E7B97;
+    border-radius: 24px 25px 0px 0px;
+    align-items: center;
+    padding: 0px 30px;
+    gap: 24px;
+}
+
+.chat-modal-header img {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #986BCE;
+    border-radius: 100%;
+    background-color: #7B4BB3;
+}
+
+.chat-modal-header {
+    font: 16px "Nunito";
+    font-weight: 700;
+    color: #CFA6FF;
+}
+
+.chat-modal-messages {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-grow: 1;
+    padding: 10px 48px;
+    gap: 10px;
+}
+
+.left-message {
+    display: flex;
+    flex-direction: column;
+    max-width: 450px;
+    background-color: #271E32;
+    border-radius: 24px 24px 24px 5px;
+    padding: 15px 25px;
+}
+
+.left-message h3 {
+    font: 16px "Nunito";
+    font-weight: 700;
+    color: #CFA6FF;
+}
+
+.left-message p {
+    font: 16px "Nunito";
+    font-weight: 200;
+    color: #CFA6FF;
+}
+
+.right-message {
+    display: flex;
+    flex-direction: column;
+    max-width: 450px;
+    background-color: #271E32;
+    border-radius: 24px 24px 5px 24px;
+    padding: 15px 25px;
+    align-self: flex-end;
+}
+
+.right-message h3 {
+    font: 16px "Nunito";
+    font-weight: 700;
+    color: #CFA6FF;
+}
+
+.right-message p {
+    font: 16px "Nunito";
+    font-weight: 200;
+    color: #CFA6FF;
+}
+
+.chat-modal-inputs {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 75px;
+    border-radius: 0px 0px 24px 24px;
+    border-top: 1px solid #7E7B97;
+    gap: 20px;
+    align-items: center;
+    padding: 0px 30px;
+}
+
+.chat-modal-inputs button {
+    width: 95px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #7B4BB3;
+    font: 16px "Nunito";
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+}
+
+#btn-archive {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #1D122A;
+    cursor: pointer;
+    border: 1px solid #291E34;
+}
+
+#btn-archive svg {
+    height: 22px;
+}
+
+#btn-archive path {
+    fill: #543F6C;
+}
+
+.chat-modal-inputs input {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #1D122A;
+    font: 16px "Nunito";
+    font-weight: 700;
+    color: #fff;
+    padding: 0px 20px;
+    outline: none;
+    border: 1px solid #451D74;
+}
+
+.chat-modal-inputs input::placeholder {
+    color: #543F6C;
+}
+
+.contact-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 240px;
+    background-color: #1E142B;
+    border-radius: 24px;
+    border: 1px solid #7E7B97;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.contact-card p {
+    font: 16px "Nunito";
+    font-weight: 600;
+    color: #fff;
+}
+
+.contact-card h3 {
+    font: 24px "Nunito";
+    font-weight: 900;
+    color: #fff;
+}
+
+.contact-card > div {
+    display: flex;
+    flex-direction: row;
+    gap: 150px;
+}
+
+.contact-card div {
+    display: flex;
+    flex-direction: row;
+}
+
+.contact-card img {
+    height: 20px;
+    margin-right: 10px;
+}
