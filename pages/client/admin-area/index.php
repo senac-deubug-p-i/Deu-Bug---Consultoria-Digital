@@ -28,9 +28,9 @@
             'field-hover': '#1A1A22',
             line: '#22222A',
             line2: '#26262E',
-            brand: '#7C3AED',
+            brand: '#7B4BB3',
             'brand-hover': '#8B4CF5',
-            'brand-dark': '#4C1D95',
+            'brand-dark': '#7B4BB3',
             ink: '#F2F2F6',
             soft: '#9A9AA6',
             pill: '#A3A3AE',
@@ -95,7 +95,7 @@
 
       <header class="flex items-start justify-between gap-4">
         <div>
-          <h1 class="mb-[7px] w-fit bg-gradient-to-t from-[#CBAAFF] via-[#9B6BF8] via-60% to-brand bg-clip-text text-[38px] font-extrabold leading-[normal] tracking-[-1.2px] text-transparent max-[760px]:text-[30px]">
+          <h1 class="mb-[7px] w-fit bg-gradient-to-t from-[#CBAAFF] via-[#7B4BB3] via-60% to-brand bg-clip-text text-[38px] font-extrabold leading-[normal] tracking-[-1.2px] text-transparent max-[760px]:text-[30px]">
             Projetos
           </h1>
           <p class="text-[12.5px] font-medium text-[#7C7C88]">Arraste os cards entre as colunas para mudar a etapa.</p>
