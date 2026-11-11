@@ -66,7 +66,9 @@
     <aside class="sticky top-0 flex h-screen w-[220px] shrink-0 flex-col justify-between border-r border-edge bg-sidebar px-3.5 py-5 max-[760px]:hidden">
       <div>
         <div class="flex items-center gap-2.5 px-1.5 pb-[18px]">
-          <div class="grid size-[34px] place-items-center rounded-[10px] bg-brand text-[13px] font-extrabold tracking-[-.5px] text-white">DI</div>
+          <div class="grid size-[34px] place-items-center rounded-[10px]">
+            <img src="../../../assets/images/ReducedLogo_DeuBug.png" alt="">
+          </div>
           <div>
             <div class="text-[14.5px] font-extrabold">Deu Bug!</div>
             <div class="mt-px text-[8px] font-bold tracking-[1.6px] text-mute">ADMIN</div>
