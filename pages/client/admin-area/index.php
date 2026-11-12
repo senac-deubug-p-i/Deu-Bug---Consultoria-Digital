@@ -23,9 +23,9 @@
             panel: '#15151B',
             'panel-hover': '#1C1C24',
             line2: '#26262E',
-            brand: '#7C3AED',
+            brand: '#7B4BB3',
             'brand-hover': '#8B4CF5',
-            'brand-dark': '#4C1D95',
+            'brand-dark': '#7B4BB3',
             ink: '#F2F2F6',
             soft: '#9A9AA6',
             mute: '#6B6B78',
@@ -74,7 +74,7 @@
       <!-- Cabeçalho -->
       <header class="flex flex-col gap-[9px]">
         <div class="flex items-center gap-[5px] text-[10.5px] font-medium text-[#6B6579]">
-          <a href="admin-projetos.html" class="hover:text-[#C4B5FD]">Projetos</a>
+          <a href="inde.php" class="hover:text-[#C4B5FD]">Projetos</a>
           <svg class="size-2.5 shrink-0 stroke-2 text-[#4A4556]"><use href="#i-r"/></svg>
           <b class="font-semibold text-[#9A93AB]">Loja online Doce Trigo</b>
         </div>
@@ -83,7 +83,7 @@
 
         <div class="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 class="mb-[9px] w-fit bg-gradient-to-t from-[#D3B8FF] via-[#A177F6] via-60% to-[#8B5CF6] bg-clip-text text-[34px] font-extrabold leading-[normal] tracking-[-1px] text-transparent max-[760px]:text-[26px]">
+            <h1 class="mb-[9px] w-fit bg-gradient-to-t from-[#D3B8FF] via-[#7B4BB3] via-60% to-[#8B5CF6] bg-clip-text text-[34px] font-extrabold leading-[normal] tracking-[-1px] text-transparent max-[760px]:text-[26px]">
               Loja online Doce Trigo
             </h1>
             <div id="status"><i id="status-dot"></i><span id="status-text"></span></div>
