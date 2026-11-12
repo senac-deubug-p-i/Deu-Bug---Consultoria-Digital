@@ -199,13 +199,13 @@
       ok:   'bg-[#0D2A1C] text-[#54D68E]',
     }
 
-    const NAV_ITEMS = [
-      { icon: 'dash',   label: 'Visão geral' },
-      { icon: 'folder', label: 'Projetos', active: true },
-      { icon: 'users',  label: 'Clientes' },
-      { icon: 'inbox',  label: 'Solicitações', badge: 5 },
-      { icon: 'card',   label: 'Financeiro' },
-    ]
+     const NAV_ITEMS = [
+  { icon: 'dash',   label: 'Visão geral',   href: 'visao-geral.php' },
+  { icon: 'folder', label: 'Projetos',      href: 'index.php', active: true },
+  { icon: 'users',  label: 'Clientes',      href: 'clientes.php' },
+  { icon: 'inbox',  label: 'Solicitações',  href: 'solicitacoes.php', badge: 5 },
+  { icon: 'card',   label: 'Financeiro',    href: 'financeiro.php' },
+]
 
     const FILTERS = [
       { id: 'todos', label: 'Todos' },
@@ -357,8 +357,8 @@
     const renderBoard = () => { $('#kanban').innerHTML = STAGES.map(renderColumn).join('') }
 
     function renderNav() {
-      $('#nav').innerHTML = NAV_ITEMS.map((item) => `
-        <a href="#" ${item.active ? 'data-on' : ''}
+  $('#nav').innerHTML = NAV_ITEMS.map((item) => `
+    <a href="${item.href}" ${item.active ? 'data-on' : ''} 
            class="group flex items-center gap-2.5 rounded-[9px] px-2.5 py-[9px] text-[12.5px] font-medium text-soft transition hover:bg-panel hover:text-ink data-[on]:bg-brand data-[on]:font-semibold data-[on]:text-white">
           ${icon(item.icon, 15, 'text-mute transition group-hover:text-[#C9C9D4] group-data-[on]:text-white')}
           <span class="flex-1">${item.label}</span>

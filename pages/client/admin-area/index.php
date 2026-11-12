@@ -44,7 +44,9 @@
     <aside class="sticky top-0 flex h-screen w-[220px] shrink-0 flex-col justify-between border-r border-edge bg-sidebar px-3.5 py-5 max-[760px]:hidden">
       <div>
         <div class="flex items-center gap-2.5 px-1.5 pb-[18px]">
-          <div class="grid size-[34px] place-items-center rounded-[10px] bg-brand text-[13px] font-extrabold tracking-[-.5px] text-white">DI</div>
+          <div class="grid size-[34px] place-items-center rounded-[10px]">
+            <img src="../../../assets/images/ReducedLogo_DeuBug.png" alt="">
+          </div>
           <div>
             <div class="text-[14.5px] font-extrabold">Deu Bug!</div>
             <div class="mt-px text-[8px] font-bold tracking-[1.6px] text-mute">ADMIN</div>
@@ -74,7 +76,7 @@
       <!-- Cabeçalho -->
       <header class="flex flex-col gap-[9px]">
         <div class="flex items-center gap-[5px] text-[10.5px] font-medium text-[#6B6579]">
-          <a href="inde.php" class="hover:text-[#C4B5FD]">Projetos</a>
+          <a href="project.php" class="hover:text-[#C4B5FD]">Projetos</a>
           <svg class="size-2.5 shrink-0 stroke-2 text-[#4A4556]"><use href="#i-r"/></svg>
           <b class="font-semibold text-[#9A93AB]">Loja online Doce Trigo</b>
         </div>
@@ -105,7 +107,7 @@
           <div id="progress-value" class="text-[19px] font-extrabold tracking-[-.5px]"></div>
         </div>
         <div class="h-1.5 rounded-[3px] bg-[#2B2143]">
-          <div id="progress-fill" class="h-full rounded-[3px] bg-gradient-to-r from-[#C4B5FD] to-[#F3ECFF] transition-[width] duration-[400ms]"></div>
+          <div id="progress-fill" class="h-full rounded-[3px] bg-gradient-to-r from-[#a879f7] to-[#7929ff] transition-[width] duration-[400ms]"></div>
         </div>
       </section>
 
@@ -236,12 +238,12 @@
     const DOT_COLORS = { blue: 'bg-[#93A4F5]', yellow: 'bg-[#E5C465]', green: 'bg-[#54D68E]' }
 
     const NAV_ITEMS = [
-      { icon: 'dash',   label: 'Visão geral',  href: '#' },
-      { icon: 'folder', label: 'Projetos',     href: 'admin-projetos.html', active: true },
-      { icon: 'users',  label: 'Clientes',     href: '#' },
-      { icon: 'inbox',  label: 'Solicitações', href: '#', badge: 5 },
-      { icon: 'card',   label: 'Financeiro',   href: '#' },
-    ]
+  { icon: 'dash',   label: 'Visão geral',   href: 'visao-geral.php' },
+  { icon: 'folder', label: 'Projetos',      href: 'index.php', active: true },
+  { icon: 'users',  label: 'Clientes',      href: 'clientes.php' },
+  { icon: 'inbox',  label: 'Solicitações',  href: 'solicitacoes.php', badge: 5 },
+  { icon: 'card',   label: 'Financeiro',    href: 'financeiro.php' },
+]
 
     const ICONS = {
       dash:   '<rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/>',
@@ -374,8 +376,8 @@
        5. RENDER
     ========================================================= */
     function renderNav() {
-      $('#nav').innerHTML = NAV_ITEMS.map((item) => `
-        <a href="${item.href}" ${item.active ? 'data-on' : ''}
+  $('#nav').innerHTML = NAV_ITEMS.map((item) => `
+    <a href="${item.href}" ${item.active ? 'data-on' : ''} 
            class="group flex items-center gap-2.5 rounded-[9px] px-2.5 py-[9px] text-[12.5px] font-medium text-soft transition hover:bg-panel hover:text-ink data-[on]:bg-brand data-[on]:font-semibold data-[on]:text-white">
           ${icon(item.icon, 'size-[15px]', 'text-mute transition group-hover:text-[#C9C9D4] group-data-[on]:text-white')}
           <span class="flex-1">${item.label}</span>
