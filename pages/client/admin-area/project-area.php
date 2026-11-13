@@ -238,8 +238,8 @@
     const DOT_COLORS = { blue: 'bg-[#93A4F5]', yellow: 'bg-[#E5C465]', green: 'bg-[#54D68E]' }
 
     const NAV_ITEMS = [
-  { icon: 'dash',   label: 'Visão geral',   href: 'visao-geral.php' },
-  { icon: 'folder', label: 'Projetos',      href: 'index.php', active: true },
+  { icon: 'dash',   label: 'Visão geral',   href: 'index.php' },
+  { icon: 'folder', label: 'Projetos',      href: 'project.php', active: true },
   { icon: 'users',  label: 'Clientes',      href: 'clientes.php' },
   { icon: 'inbox',  label: 'Solicitações',  href: 'solicitacoes.php', badge: 5 },
   { icon: 'card',   label: 'Financeiro',    href: 'financeiro.php' },
