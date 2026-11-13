@@ -1,189 +1,402 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Admin · Visão geral</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
-<style>
-*,::before,::after{box-sizing:border-box}
-body{margin:0;background:#08080A;color:#F4F4F5;font-family:Inter,system-ui,sans-serif;min-height:100vh}
-button,input{font:inherit;color:inherit}
-button{background:none;border:0;cursor:pointer;padding:0}
-a{text-decoration:none;color:inherit}
-.ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
-.app{display:flex;min-height:100vh}
-.side{width:256px;flex-shrink:0;height:100vh;position:sticky;top:0;background:#0E0E10;border-right:1px solid #26262A;padding:22px 14px;display:flex;flex-direction:column}
-.logo{display:flex;align-items:center;gap:10px;padding:0 4px;margin-bottom:26px}
-.mk{width:34px;height:34px;border-radius:10px;background:#fff;color:#08080A;display:grid;place-items:center;font-size:15px;font-weight:700;letter-spacing:-.6px}
-.bn{font-size:14.5px;font-weight:600;letter-spacing:-.2px}.bl{font-size:8px;letter-spacing:1.6px;color:#8A8A93;margin-top:2px}
-nav{display:flex;flex-direction:column;gap:4px}
-.nav{height:40px;display:flex;align-items:center;gap:10px;padding:0 12px;border-radius:10px;font-size:12.5px;color:#8A8A93;transition:background .15s,color .15s}
-.nav:hover{background:#151517;color:#F4F4F5}
-.nav.on{background:#6C4BE8;color:#fff;font-weight:500}
-.nav span{flex:1}
-.bdg{background:#2A2A2E;color:#D4D4D8;font-size:9px;font-weight:500;padding:2px 6px;border-radius:999px;transition:.2s}
-.sp{flex:1}
-.sf{display:flex;flex-direction:column;gap:10px}
-.vc{height:36px;display:flex;align-items:center;justify-content:center;gap:7px;border:1px solid #26262A;border-radius:10px;font-size:11.5px;color:#C8C8CE;transition:.15s}
-.vc .ic{width:14px;height:14px;color:#8A8A93}
-.vc:hover{background:#151517;border-color:#6C4BE8;color:#fff}
-.uc{display:flex;align-items:center;gap:10px;padding:9px 10px;background:#151517;border-radius:12px;transition:.15s;text-align:left;width:100%}
-.uc:hover{background:#1b1b1e}
-.av{width:30px;height:30px;border-radius:50%;background:#2E2E34;display:grid;place-items:center;font-size:9.5px;font-weight:600;color:#E4E4E7}
-.un{font-size:11.5px;font-weight:500}.ur{font-size:9.5px;color:#8A8A93;margin-top:2px}
-main{flex:1;min-width:0;padding:26px 30px;display:flex;flex-direction:column;gap:18px}
-.hd{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-h1{margin:0;font-size:30px;font-weight:700;letter-spacing:-1px}
-.sub{font-size:12px;color:#8A8A93;margin-top:4px}
-.ha{display:flex;gap:10px;align-items:center}
-.search{width:230px;height:38px;display:flex;align-items:center;gap:8px;padding:0 12px;background:#151517;border:1px solid #26262A;border-radius:10px;transition:.15s}
-.search:focus-within{border-color:#6C4BE8;width:280px}
-.search .ic{width:14px;height:14px;color:#8A8A93}
-.search input{flex:1;min-width:0;background:none;border:0;outline:0;font-size:11.5px}
-.search input::placeholder{color:#8A8A93}
-.btn{height:38px;display:flex;align-items:center;gap:6px;padding:0 14px;background:#6C4BE8;color:#fff;border-radius:10px;font-size:11.5px;font-weight:500;white-space:nowrap;transition:.15s}
-.btn .ic{width:14px;height:14px}
-.btn:hover{background:#7a5bf0;box-shadow:0 6px 20px -6px #6C4BE8}.btn:active{transform:scale(.97)}
-.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
-.k{display:flex;flex-direction:column;gap:3px;padding:13px 14px;background:#151517;border:1px solid #26262A;border-radius:14px;transition:transform .15s,border-color .15s,background .15s}
-.k:hover{transform:translateY(-2px);border-color:#3a3a42;background:#18181b}
-.k.pr{background:#6C4BE8;border-color:#6C4BE8}.k.pr:hover{background:#7a5bf0;border-color:#7a5bf0;box-shadow:0 10px 26px -10px #6C4BE8}
-.kl{font-size:11px;color:#8A8A93}.kv{font-size:25px;font-weight:700;letter-spacing:-1px}.ks{font-size:9.5px;margin-top:3px;color:#8A8A93}
-.pr .kl{color:#EDE7FF}.pr .ks{color:#EAE2FF}.g{color:#4ADE80!important}.r{color:#F87171!important}
-.row{display:flex;gap:16px;align-items:flex-start}
-.row>.c{flex:1;min-width:0}
-.c{display:flex;flex-direction:column;gap:8px;padding:15px 16px;background:#151517;border:1px solid #26262A;border-radius:14px}
-.ch{display:flex;justify-content:space-between;align-items:center}
-.ct{font-size:14px;font-weight:600;letter-spacing:-.3px}
-.lk{font-size:10.5px;color:#8A8A93;transition:color .15s}.lk:hover{color:#A78BFA}
-.th,.tr{display:flex;gap:12px;align-items:center}
-.th{padding:7px 0;font-size:9.5px;color:#8A8A93}
-.tr{padding:9px 0;border-bottom:1px solid #212124;transition:background .15s;border-radius:6px}
-.tr:hover{background:#1a1a1d}
-.pj{flex:1;min-width:0}.mo{width:160px;flex-shrink:0}.pz{width:74px;flex-shrink:0}
-.pn{font-size:11.5px;font-weight:600}.pm{font-size:9.5px;color:#8A8A93;margin-top:2px}
-.pzv{font-size:10.5px;color:#C9C9CF}
-.gb{text-align:right;font-size:10.5px;color:#8A8A93;transition:color .15s}.tr:hover .gb,.gb:hover{color:#A78BFA}
-.bd{display:inline-block;padding:3px 7px;border-radius:999px;font-size:8.5px;font-weight:500;white-space:nowrap}
-.w{background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.2);color:#FBBF24}
-.d{background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.2);color:#F87171}
-.empty{font-size:11px;color:#8A8A93;padding:18px 0;text-align:center}
-.stg{width:322px;flex-shrink:0;gap:20px}
-.sr{display:flex;flex-direction:column;gap:6px;cursor:default}
-.sh{display:flex;justify-content:space-between;font-size:10.5px;color:#8A8A93}.sh b{font-weight:500;color:#D4D4D8}
-.trk{height:6px;border-radius:999px;background:#242428;overflow:hidden}.trk.s{height:5px}
-.fl{height:100%;border-radius:999px;background:#A78BFA;width:0;transition:width .7s cubic-bezier(.2,.8,.2,1),background .15s}
-.sr:hover .fl{background:#C4B0FF}.fl.red{background:#F87171}
-.fn{font-size:9.5px;line-height:13px;color:#8A8A93}
-.rq{display:flex;flex-direction:column;gap:2px;padding:8px 10px;background:#1E1E21;border-radius:10px;cursor:pointer;transition:background .15s,opacity .2s;text-align:left;width:100%}
-.rq:hover{background:#26262a}.rq.read{opacity:.5}
-.rt{font-size:10.5px;font-weight:500}.rm{font-size:9px;color:#8A8A93}
-.ai{display:flex;gap:8px;padding:2px 0;border-radius:6px;transition:background .15s}
-.ai:hover{background:#1a1a1d}
-.dot{width:6px;height:6px;border-radius:50%;margin-top:5px;flex-shrink:0}
-.at{font-size:10.5px;line-height:14px;color:#E4E4E7}.am{font-size:9px;color:#8A8A93;margin-top:2px}
-.lr{display:flex;flex-direction:column;gap:5px}
-.lh{display:flex;justify-content:space-between;font-size:10.5px;font-weight:500;color:#E4E4E7}.lh span{font-size:9.5px;font-weight:400;color:#8A8A93}.lh span.r{color:#F87171}
-#cg{gap:15px}#ac{gap:10px}
-.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);background:#151517;border:1px solid #6C4BE8;font-size:12px;font-weight:500;padding:10px 16px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;z-index:60}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:1280px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:1100px){.row{flex-direction:column;align-items:stretch}.stg{width:auto}.row>.c{flex:none}}
-@media(max-width:760px){.side{display:none}main{padding:20px 16px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.mo,.pz{display:none}.search,.search:focus-within{width:100%}.ha{width:100%}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin · Visão geral</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    // Design tokens do projeto
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            base: '#08080A',
+            sidebar: '#0E0E10',
+            surface: '#151517',
+            'surface-hover': '#1B1B1E',
+            line: '#26262A',
+            brand: '#6C4BE8',
+            'brand-hover': '#7A5BF0',
+            ink: '#F4F4F5',
+            mute: '#8A8A93',
+            violet: '#A78BFA',
+          },
+        },
+      },
+    }
+  </script>
 </head>
-<body>
-<svg width="0" height="0" style="position:absolute"><defs>
-<symbol id="i-dash" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></symbol>
-<symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol>
-<symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
-<symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
-<symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
-<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></symbol>
-<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
-<symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
-</defs></svg>
 
-<div class="app">
-<aside class="side">
-  <div class="logo"><div class="mk">D!</div><div><div class="bn">Deu Bug!</div><div class="bl">ADMIN</div></div></div>
-  <nav>
-    <a class="nav on" href="admin-visao-geral.html"><svg class="ic"><use href="#i-dash"/></svg><span>Visão geral</span></a>
-    <a class="nav" href="admin-projetos.html"><svg class="ic"><use href="#i-folder"/></svg><span>Projetos</span></a>
-    <a class="nav" href="#" data-t="Clientes"><svg class="ic"><use href="#i-users"/></svg><span>Clientes</span></a>
-    <a class="nav" href="#" data-t="Solicitações"><svg class="ic"><use href="#i-msg"/></svg><span>Solicitações</span><i class="bdg" id="bdg">8</i></a>
-    <a class="nav" href="#" data-t="Financeiro"><svg class="ic"><use href="#i-wallet"/></svg><span>Financeiro</span></a>
-  </nav>
-  <div class="sp"></div>
-  <div class="sf">
-    <a class="vc" href="#" data-t="Abrindo visão do cliente…"><svg class="ic"><use href="#i-eye"/></svg>Ver como cliente</a>
-    <button class="uc"><div class="av">RL</div><div><div class="un">Rafael Lima</div><div class="ur">Gestor de projetos</div></div></button>
+<body class="min-h-screen bg-base font-sans text-ink">
+  <div class="flex min-h-screen">
+
+    <!-- ===== Sidebar ===== -->
+    <aside class="sticky top-0 flex h-screen w-64 shrink-0 flex-col border-r border-line bg-sidebar px-3.5 py-[22px] max-[760px]:hidden">
+      <div class="mb-[26px] flex items-center gap-2.5 px-1">
+        <div class="grid size-[34px] place-items-center rounded-[10px] bg-white text-[15px] font-bold tracking-[-.6px] text-base">D!</div>
+        <div>
+          <div class="text-[14.5px] font-semibold tracking-[-.2px]">Deu Bug!</div>
+          <div class="mt-0.5 text-[8px] tracking-[1.6px] text-mute">ADMIN</div>
+        </div>
+      </div>
+
+      <nav id="nav" class="flex flex-col gap-1"></nav>
+
+      <div class="flex-1"></div>
+
+      <div class="flex flex-col gap-2.5">
+        <a href="#" data-toast="Abrindo visão do cliente…"
+           class="flex h-9 items-center justify-center gap-[7px] rounded-[10px] border border-line text-[11.5px] text-[#C8C8CE] transition hover:border-brand hover:bg-surface hover:text-white">
+          <svg class="size-3.5 shrink-0 stroke-2 text-mute"><use href="#i-eye"/></svg>Ver como cliente
+        </a>
+        <button class="flex w-full items-center gap-2.5 rounded-xl bg-surface px-2.5 py-[9px] text-left transition hover:bg-surface-hover">
+          <div class="grid size-[30px] place-items-center rounded-full bg-[#2E2E34] text-[9.5px] font-semibold text-[#E4E4E7]">RL</div>
+          <div>
+            <div class="text-[11.5px] font-medium">Rafael Lima</div>
+            <div class="mt-0.5 text-[9.5px] text-mute">Gestor de projetos</div>
+          </div>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ===== Conteúdo ===== -->
+    <main class="flex min-w-0 flex-1 flex-col gap-[18px] px-[30px] py-[26px] max-[760px]:px-4 max-[760px]:py-5">
+
+      <!-- Cabeçalho -->
+      <header class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h1 class="text-[30px] font-bold leading-[normal] tracking-[-1px]">Visão geral</h1>
+          <div class="mt-1 text-xs text-mute">Segunda, 19 de outubro · 14 projetos ativos</div>
+        </div>
+
+        <div class="flex items-center gap-2.5 max-[760px]:w-full">
+          <label class="flex h-[38px] w-[230px] items-center gap-2 rounded-[10px] border border-line bg-surface px-3 transition-all focus-within:w-[280px] focus-within:border-brand max-[760px]:w-full max-[760px]:focus-within:w-full">
+            <svg class="size-3.5 shrink-0 stroke-2 text-mute"><use href="#i-search"/></svg>
+            <input id="search" placeholder="Buscar cliente ou projeto" autocomplete="off"
+                   class="min-w-0 flex-1 border-0 bg-transparent text-[11.5px] outline-none placeholder:text-mute" />
+          </label>
+          <a href="admin-projetos.html" data-toast="Abrindo novo projeto…"
+             class="flex h-[38px] items-center gap-1.5 whitespace-nowrap rounded-[10px] bg-brand px-3.5 text-[11.5px] font-medium text-white transition hover:bg-brand-hover hover:shadow-[0_6px_20px_-6px_#6C4BE8] active:scale-[.97]">
+            <svg class="size-3.5 shrink-0 stroke-2"><use href="#i-plus"/></svg>Novo projeto
+          </a>
+        </div>
+      </header>
+
+      <!-- Indicadores -->
+      <section id="kpis" class="grid grid-cols-5 gap-2.5 max-[1280px]:grid-cols-3 max-[760px]:grid-cols-2"></section>
+
+      <!-- Atenção + etapas -->
+      <div class="flex items-start gap-4 max-[1100px]:flex-col max-[1100px]:items-stretch">
+        <section data-ui="card">
+          <div class="flex items-center justify-between">
+            <div class="text-sm font-semibold tracking-[-.3px]">Precisam de atenção</div>
+            <a href="admin-projetos.html" class="text-[10.5px] text-mute transition-colors hover:text-violet">Ver todos</a>
+          </div>
+          <div class="flex items-center gap-3 py-[7px] text-[9.5px] text-mute">
+            <div class="min-w-0 flex-1">Projeto</div>
+            <div class="w-40 shrink-0 max-[760px]:hidden">Motivo</div>
+            <div class="w-[74px] shrink-0 max-[760px]:hidden">Prazo</div>
+            <div class="w-[74px] shrink-0 text-right max-[760px]:hidden">Gerenciar</div>
+          </div>
+          <div id="attention"></div>
+        </section>
+
+        <section data-ui="card" class="!gap-5">
+          <div class="text-sm font-semibold tracking-[-.3px]">Projetos por etapa</div>
+          <div id="stages" class="flex flex-col gap-5"></div>
+          <div class="text-[9.5px] leading-[13px] text-mute">Total: 14 projetos ativos. Os 8 publicados este ano ficam no histórico.</div>
+        </section>
+      </div>
+
+      <!-- Solicitações + atividade + carga -->
+      <div class="flex items-start gap-4 max-[1100px]:flex-col max-[1100px]:items-stretch">
+        <section data-ui="card">
+          <div class="flex items-center justify-between">
+            <div class="text-sm font-semibold tracking-[-.3px]">Solicitações novas</div>
+            <a href="#" data-toast="Abrindo solicitações…" class="text-[10.5px] text-mute transition-colors hover:text-violet">Abrir</a>
+          </div>
+          <div id="requests" class="flex flex-col gap-2"></div>
+        </section>
+
+        <section data-ui="card" class="!gap-2.5">
+          <div class="text-sm font-semibold tracking-[-.3px]">Atividade da equipe</div>
+          <div id="activity" class="flex flex-col gap-2.5"></div>
+        </section>
+
+        <section data-ui="card" class="!gap-[15px]">
+          <div class="text-sm font-semibold tracking-[-.3px]">Carga da equipe</div>
+          <div id="workload" class="flex flex-col gap-[15px]"></div>
+        </section>
+      </div>
+    </main>
   </div>
-</aside>
 
-<main>
-  <div class="hd">
-    <div><h1>Visão geral</h1><div class="sub">Segunda, 19 de outubro · 14 projetos ativos</div></div>
-    <div class="ha">
-      <label class="search"><svg class="ic"><use href="#i-search"/></svg><input id="q" placeholder="Buscar cliente ou projeto" autocomplete="off" /></label>
-      <a class="btn" href="admin-projetos.html" data-t="Abrindo novo projeto…"><svg class="ic"><use href="#i-plus"/></svg>Novo projeto</a>
-    </div>
-  </div>
+  <div id="toast" class="pointer-events-none fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 translate-y-5 rounded-[10px] border border-brand bg-surface px-4 py-2.5 text-xs font-medium opacity-0 transition duration-[250ms] data-[show]:translate-y-0 data-[show]:opacity-100"></div>
 
-  <div class="kpis" id="kpis"></div>
 
-  <div class="row">
-    <div class="c">
-      <div class="ch"><div class="ct">Precisam de atenção</div><a class="lk" href="admin-projetos.html">Ver todos</a></div>
-      <div class="th"><div class="pj">Projeto</div><div class="mo">Motivo</div><div class="pz">Prazo</div><div class="pz" style="text-align:right">Gerenciar</div></div>
-      <div id="att"></div>
-    </div>
-    <div class="c stg"><div class="ct">Projetos por etapa</div><div id="stg" style="display:flex;flex-direction:column;gap:20px"></div>
-      <div class="fn">Total: 14 projetos ativos. Os 8 publicados este ano ficam no histórico.</div></div>
-  </div>
+  <script>
+    /* =========================================================
+       1. CONFIGURAÇÃO
+    ========================================================= */
+    const DETAIL_PAGE = 'admin-projeto-detalhe.html'
 
-  <div class="row">
-    <div class="c"><div class="ch"><div class="ct">Solicitações novas</div><a class="lk" href="#" data-t="Abrindo solicitações…">Abrir</a></div><div id="req" style="display:flex;flex-direction:column;gap:8px"></div></div>
-    <div class="c" id="ac"><div class="ch"><div class="ct">Atividade da equipe</div></div><div id="act" style="display:flex;flex-direction:column;gap:10px"></div></div>
-    <div class="c" id="cg"><div class="ch"><div class="ct">Carga da equipe</div></div><div id="load" style="display:flex;flex-direction:column;gap:15px"></div></div>
-  </div>
-</main>
-</div>
-<div class="toast" id="toast"></div>
+    const NAV_ITEMS = [
+      { icon: 'dash',   label: 'Visão geral',  href: 'admin-visao-geral.html', active: true },
+      { icon: 'folder', label: 'Projetos',     href: 'admin-projetos.html' },
+      { icon: 'users',  label: 'Clientes',     toast: 'Abrindo Clientes…' },
+      { icon: 'msg',    label: 'Solicitações', toast: 'Abrindo Solicitações…', badge: true },
+      { icon: 'wallet', label: 'Financeiro',   toast: 'Abrindo Financeiro…' },
+    ]
 
-<script>
-const $=s=>document.querySelector(s);
-const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-let tt;const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2200)};
-const DET='admin-projeto-detalhe.html';
-const KPI=[['Projetos ativos','14','+2 este mês','g','admin-projetos.html'],['Entregas da semana','5','2 já enviados ao cliente','','admin-projetos.html'],['Aguardando cliente','4','Aprovações e ajustes pendentes','pr','admin-projetos.html'],['Faturas em atraso','2','R$ 2.480,00 · ver financeiro','r','#'],['Recebido em outubro','R$ 18.400','7,4% da meta do mês','g','#']];
-const ATT=[['Site Doce Trigo','Padaria Doce Trigo · Revisão','Layout aguardando cliente','w','30 out'],['Site Clínica Vida Plena','Clínica Vida Plena · Design','Prazo vence em 2 dias','d','21 out'],['Landing Aurora Pilates','Studio Aurora · Briefing','Fotos pendentes há 6 dias','w','05 nov'],['Loja Café Girassol','Café Girassol · Desenvolvimento','Fatura em atraso','d','12 nov']];
-const STG=[['Briefing',3,36],['Design',3,33],['Desenvolvimento',5,52],['Revisão',3,29]];
-const REQ=[['Trocar a cor dos botões','Marta Rocha · Site Doce Trigo · há 20 min'],['Dúvida sobre o domínio','Tiago Mendes · Loja Café Girassol · há 2 h'],['Incluir página de preços','Camila Duarte · Landing Aurora · ontem']];
-const ACT=[['#A78BFA','Ana Costa enviou o layout de produtos para aprovação','Hoje, 10:42 · Site Doce Trigo'],['#4ADE80','Lucas Almeida concluiu o catálogo de produtos','Hoje, 08:15 · Loja Doce Trigo'],['#A78BFA','Bruna Teixeira publicou o site Mecânica Irmãos Souza','Ontem, 18:00'],['#FBBF24','Diego Nunes revisou o lembrete de fatura','Ontem, 15:20 · Landing Aurora']];
-const LOAD=[['Ana Costa · design','5 de 6',83,''],['Lucas Almeida · dev','6 de 6 · lotado',100,'r'],['Bruna Teixeira · dev','3 de 6',50,''],['Diego Nunes · suporte','2 de 4',50,'']];
-let unread=8;
-$('#kpis').innerHTML=KPI.map(k=>`<a class="k ${k[3]==='pr'?'pr':''}" href="${k[4]}" ${k[4]==='#'?`data-t="${k[0]}"`:''}><div class="kl">${k[0]}</div><div class="kv">${k[1]}</div><div class="ks ${k[3]==='pr'?'':k[3]}">${k[2]}</div></a>`).join('');
-$('#stg').innerHTML=STG.map(s=>`<div class="sr" title="${s[1]} projetos em ${s[0]}"><div class="sh"><b>${s[0]}</b><span>${s[1]}</span></div><div class="trk"><div class="fl" data-w="${s[2]}"></div></div></div>`).join('');
-$('#act').innerHTML=ACT.map(a=>`<div class="ai"><div class="dot" style="background:${a[0]}"></div><div><div class="at">${a[1]}</div><div class="am">${a[2]}</div></div></div>`).join('');
-$('#load').innerHTML=LOAD.map(l=>`<div class="lr"><div class="lh">${l[0]}<span class="${l[3]}">${l[1]}</span></div><div class="trk s"><div class="fl ${l[3]}" data-w="${l[2]}"></div></div></div>`).join('');
-function renderAtt(q=''){
-  const l=ATT.filter(a=>(a[0]+' '+a[1]+' '+a[2]).toLowerCase().includes(q));
-  $('#att').innerHTML=l.map(a=>`<a class="tr" href="${DET}"><div class="pj"><div class="pn">${a[0]}</div><div class="pm">${a[1]}</div></div><div class="mo"><span class="bd ${a[3]}">${a[2]}</span></div><div class="pz pzv">${a[4]}</div><div class="pz gb">Gerenciar</div></a>`).join('')||'<div class="empty">Nenhum projeto encontrado</div>';
-}
-function renderReq(q=''){
-  const l=REQ.map((r,i)=>[r,i]).filter(([r])=>(r[0]+' '+r[1]).toLowerCase().includes(q));
-  $('#req').innerHTML=l.map(([r,i])=>`<button class="rq ${r[2]?'read':''}" data-i="${i}"><div class="rt">${r[0]}</div><div class="rm">${r[1]}</div></button>`).join('')||'<div class="empty">Nenhuma solicitação encontrada</div>';
-}
-$('#req').addEventListener('click',e=>{const b=e.target.closest('.rq');if(!b)return;const r=REQ[+b.dataset.i];
-  if(!r[2]){r[2]=1;$('#bdg').textContent=--unread}toast('Abrindo “'+r[0]+'”…');renderReq($('#q').value.trim().toLowerCase())});
-$('#q').addEventListener('input',e=>{const q=e.target.value.trim().toLowerCase();renderAtt(q);renderReq(q)});
-document.addEventListener('click',e=>{const a=e.target.closest('[data-t]');if(a){if(a.getAttribute('href')==='#')e.preventDefault();toast(a.dataset.t.length<14&&!a.dataset.t.includes('…')?'Abrindo '+a.dataset.t+'…':a.dataset.t)}});
-renderAtt();renderReq();
-requestAnimationFrame(()=>setTimeout(()=>document.querySelectorAll('.fl').forEach(f=>f.style.width=f.dataset.w+'%'),50));
-</script>
+    const ICONS = {
+      dash:   '<rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/>',
+      folder: '<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>',
+      users:  '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+      msg:    '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+      wallet: '<path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>',
+      eye:    '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
+      search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+      plus:   '<path d="M5 12h14M12 5v14"/>',
+    }
+
+    /* =========================================================
+       2. ESTILOS REUTILIZÁVEIS (classes Tailwind)
+    ========================================================= */
+    const UI = {
+      card: 'flex min-w-0 flex-1 flex-col gap-2 rounded-[14px] border border-line bg-surface px-4 py-[15px] max-[1100px]:flex-none',
+    }
+
+    const KPI_CARD = {
+      base:      'flex flex-col gap-[3px] rounded-[14px] border px-3.5 py-[13px] transition hover:-translate-y-0.5',
+      normal:    'border-line bg-surface hover:border-[#3A3A42] hover:bg-[#18181B]',
+      highlight: 'border-brand bg-brand hover:border-brand-hover hover:bg-brand-hover hover:shadow-[0_10px_26px_-10px_#6C4BE8]',
+    }
+    const KPI_NOTE_COLOR = { neutral: 'text-mute', positive: 'text-[#4ADE80]', negative: 'text-[#F87171]', highlight: 'text-[#EAE2FF]' }
+
+    const BADGE_STYLES = {
+      warn:   'border-[#FBBF24]/20 bg-[#FBBF24]/[.12] text-[#FBBF24]',
+      danger: 'border-[#F87171]/20 bg-[#F87171]/[.12] text-[#F87171]',
+    }
+    const DOT_COLORS = { violet: 'bg-violet', green: 'bg-[#4ADE80]', yellow: 'bg-[#FBBF24]' }
+
+    const PROGRESS_FILL = 'h-full w-0 rounded-full [transition:width_.7s_cubic-bezier(.2,.8,.2,1),background-color_.15s]'
+
+    const EMPTY = (text) => `<div class="py-[18px] text-center text-[11px] text-mute">${text}</div>`
+
+    /* =========================================================
+       3. DADOS
+    ========================================================= */
+    const KPIS = [
+      { label: 'Projetos ativos',      value: '14',        note: '+2 este mês',                    tone: 'positive',  href: 'admin-projetos.html' },
+      { label: 'Entregas da semana',   value: '5',         note: '2 já enviados ao cliente',       tone: 'neutral',   href: 'admin-projetos.html' },
+      { label: 'Aguardando cliente',   value: '4',         note: 'Aprovações e ajustes pendentes', tone: 'highlight', href: 'admin-projetos.html' },
+      { label: 'Faturas em atraso',    value: '2',         note: 'R$ 2.480,00 · ver financeiro',   tone: 'negative',  href: '#' },
+      { label: 'Recebido em outubro',  value: 'R$ 18.400', note: '7,4% da meta do mês',            tone: 'positive',  href: '#' },
+    ]
+
+    const ATTENTION = [
+      { name: 'Site Doce Trigo',         meta: 'Padaria Doce Trigo · Revisão',     reason: 'Layout aguardando cliente',  tone: 'warn',   deadline: '30 out' },
+      { name: 'Site Clínica Vida Plena', meta: 'Clínica Vida Plena · Design',      reason: 'Prazo vence em 2 dias',      tone: 'danger', deadline: '21 out' },
+      { name: 'Landing Aurora Pilates',  meta: 'Studio Aurora · Briefing',         reason: 'Fotos pendentes há 6 dias',  tone: 'warn',   deadline: '05 nov' },
+      { name: 'Loja Café Girassol',      meta: 'Café Girassol · Desenvolvimento',  reason: 'Fatura em atraso',           tone: 'danger', deadline: '12 nov' },
+    ]
+
+    const STAGES = [
+      { name: 'Briefing',        count: 3, percent: 36 },
+      { name: 'Design',          count: 3, percent: 33 },
+      { name: 'Desenvolvimento', count: 5, percent: 52 },
+      { name: 'Revisão',         count: 3, percent: 29 },
+    ]
+
+    const REQUESTS = [
+      { title: 'Trocar a cor dos botões',  meta: 'Marta Rocha · Site Doce Trigo · há 20 min',      read: false },
+      { title: 'Dúvida sobre o domínio',   meta: 'Tiago Mendes · Loja Café Girassol · há 2 h',     read: false },
+      { title: 'Incluir página de preços', meta: 'Camila Duarte · Landing Aurora · ontem',         read: false },
+    ]
+
+    const ACTIVITY = [
+      { color: 'violet', text: 'Ana Costa enviou o layout de produtos para aprovação',     meta: 'Hoje, 10:42 · Site Doce Trigo' },
+      { color: 'green',  text: 'Lucas Almeida concluiu o catálogo de produtos',            meta: 'Hoje, 08:15 · Loja Doce Trigo' },
+      { color: 'violet', text: 'Bruna Teixeira publicou o site Mecânica Irmãos Souza',     meta: 'Ontem, 18:00' },
+      { color: 'yellow', text: 'Diego Nunes revisou o lembrete de fatura',                 meta: 'Ontem, 15:20 · Landing Aurora' },
+    ]
+
+    const WORKLOAD = [
+      { name: 'Ana Costa · design',    label: '5 de 6',         percent: 83 },
+      { name: 'Lucas Almeida · dev',   label: '6 de 6 · lotado', percent: 100, full: true },
+      { name: 'Bruna Teixeira · dev',  label: '3 de 6',         percent: 50 },
+      { name: 'Diego Nunes · suporte', label: '2 de 4',         percent: 50 },
+    ]
+
+    let unreadRequests = 8
+
+    /* =========================================================
+       4. UTILITÁRIOS
+    ========================================================= */
+    const $  = (sel) => document.querySelector(sel)
+    const $$ = (sel) => document.querySelectorAll(sel)
+    const icon = (name, size = 'size-4', extra = '') => `<svg class="shrink-0 stroke-2 ${size} ${extra}"><use href="#i-${name}"/></svg>`
+    const matches = (query, ...fields) => fields.join(' ').toLowerCase().includes(query)
+    const currentQuery = () => $('#search').value.trim().toLowerCase()
+
+    let toastTimer
+    function showToast(message) {
+      const el = $('#toast')
+      el.textContent = message
+      el.toggleAttribute('data-show', true)
+      clearTimeout(toastTimer)
+      toastTimer = setTimeout(() => el.toggleAttribute('data-show', false), 2200)
+    }
+
+    function applyUI() {
+      $$('[data-ui]').forEach((el) => el.classList.add(...UI[el.dataset.ui].split(' ')))
+    }
+
+    function injectIconSprite() {
+      const symbols = Object.entries(ICONS).map(([id, body]) =>
+        `<symbol id="i-${id}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">${body}</symbol>`).join('')
+      document.body.insertAdjacentHTML('afterbegin', `<svg width="0" height="0" class="absolute"><defs>${symbols}</defs></svg>`)
+    }
+
+    /* =========================================================
+       5. RENDER
+    ========================================================= */
+    function renderNav() {
+      $('#nav').innerHTML = NAV_ITEMS.map((item) => `
+        <a href="${item.href || '#'}" ${item.toast ? `data-toast="${item.toast}"` : ''} ${item.active ? 'data-on' : ''}
+           class="flex h-10 items-center gap-2.5 rounded-[10px] px-3 text-[12.5px] text-mute transition hover:bg-surface hover:text-ink data-[on]:bg-brand data-[on]:font-medium data-[on]:text-white">
+          ${icon(item.icon)}
+          <span class="flex-1">${item.label}</span>
+          ${item.badge ? `<i id="badge" class="rounded-full bg-[#2A2A2E] px-1.5 py-0.5 text-[9px] font-medium not-italic text-[#D4D4D8] transition duration-200">${unreadRequests}</i>` : ''}
+        </a>`).join('')
+    }
+
+    function renderKpis() {
+      $('#kpis').innerHTML = KPIS.map((k) => {
+        const highlight = k.tone === 'highlight'
+        return `
+          <a href="${k.href}" ${k.href === '#' ? `data-toast="${k.label}"` : ''}
+             class="${KPI_CARD.base} ${highlight ? KPI_CARD.highlight : KPI_CARD.normal}">
+            <div class="text-[11px] ${highlight ? 'text-[#EDE7FF]' : 'text-mute'}">${k.label}</div>
+            <div class="text-[25px] font-bold tracking-[-1px]">${k.value}</div>
+            <div class="mt-[3px] text-[9.5px] ${KPI_NOTE_COLOR[k.tone]}">${k.note}</div>
+          </a>`
+      }).join('')
+    }
+
+    function renderAttention(query = '') {
+      const rows = ATTENTION.filter((a) => matches(query, a.name, a.meta, a.reason))
+      $('#attention').innerHTML = rows.map((a) => `
+        <a href="${DETAIL_PAGE}" class="group flex items-center gap-3 rounded-md border-b border-[#212124] py-[9px] transition-colors hover:bg-[#1A1A1D]">
+          <div class="min-w-0 flex-1">
+            <div class="text-[11.5px] font-semibold">${a.name}</div>
+            <div class="mt-0.5 text-[9.5px] text-mute">${a.meta}</div>
+          </div>
+          <div class="w-40 shrink-0 max-[760px]:hidden">
+            <span class="inline-block whitespace-nowrap rounded-full border px-[7px] py-[3px] text-[8.5px] font-medium ${BADGE_STYLES[a.tone]}">${a.reason}</span>
+          </div>
+          <div class="w-[74px] shrink-0 text-[10.5px] text-[#C9C9CF] max-[760px]:hidden">${a.deadline}</div>
+          <div class="w-[74px] shrink-0 text-right text-[10.5px] text-mute transition-colors hover:text-violet group-hover:text-violet max-[760px]:hidden">Gerenciar</div>
+        </a>`).join('') || EMPTY('Nenhum projeto encontrado')
+    }
+
+    function renderStages() {
+      $('#stages').innerHTML = STAGES.map((s) => `
+        <div title="${s.count} projetos em ${s.name}" class="group flex cursor-default flex-col gap-1.5">
+          <div class="flex justify-between text-[10.5px] text-mute"><b class="font-medium text-[#D4D4D8]">${s.name}</b><span>${s.count}</span></div>
+          <div class="h-1.5 overflow-hidden rounded-full bg-[#242428]">
+            <div data-width="${s.percent}" class="${PROGRESS_FILL} bg-violet group-hover:bg-[#C4B0FF]"></div>
+          </div>
+        </div>`).join('')
+    }
+
+    function renderRequests(query = '') {
+      const rows = REQUESTS.map((r, i) => ({ ...r, i })).filter((r) => matches(query, r.title, r.meta))
+      $('#requests').innerHTML = rows.map((r) => `
+        <button data-request="${r.i}" ${r.read ? 'data-read' : ''}
+                class="flex w-full cursor-pointer flex-col gap-0.5 rounded-[10px] bg-[#1E1E21] px-2.5 py-2 text-left transition hover:bg-[#26262A] data-[read]:opacity-50">
+          <div class="text-[10.5px] font-medium">${r.title}</div>
+          <div class="text-[9px] text-mute">${r.meta}</div>
+        </button>`).join('') || EMPTY('Nenhuma solicitação encontrada')
+    }
+
+    function renderActivity() {
+      $('#activity').innerHTML = ACTIVITY.map((a) => `
+        <div class="flex gap-2 rounded-md py-0.5 transition-colors hover:bg-[#1A1A1D]">
+          <div class="mt-[5px] size-1.5 shrink-0 rounded-full ${DOT_COLORS[a.color]}"></div>
+          <div>
+            <div class="text-[10.5px] leading-[14px] text-[#E4E4E7]">${a.text}</div>
+            <div class="mt-0.5 text-[9px] text-mute">${a.meta}</div>
+          </div>
+        </div>`).join('')
+    }
+
+    function renderWorkload() {
+      $('#workload').innerHTML = WORKLOAD.map((w) => `
+        <div class="flex flex-col gap-[5px]">
+          <div class="flex justify-between text-[10.5px] font-medium text-[#E4E4E7]">
+            ${w.name}<span class="text-[9.5px] font-normal ${w.full ? 'text-[#F87171]' : 'text-mute'}">${w.label}</span>
+          </div>
+          <div class="h-[5px] overflow-hidden rounded-full bg-[#242428]">
+            <div data-width="${w.percent}" class="${PROGRESS_FILL} ${w.full ? 'bg-[#F87171]' : 'bg-violet'}"></div>
+          </div>
+        </div>`).join('')
+    }
+
+    // Anima as barras de progresso (largura 0 -> valor final)
+    const animateBars = () =>
+      requestAnimationFrame(() => setTimeout(() => $$('[data-width]').forEach((el) => (el.style.width = `${el.dataset.width}%`)), 50))
+
+    /* =========================================================
+       6. EVENTOS
+    ========================================================= */
+    $('#search').addEventListener('input', () => {
+      const query = currentQuery()
+      renderAttention(query)
+      renderRequests(query)
+    })
+
+    $('#requests').addEventListener('click', (e) => {
+      const button = e.target.closest('[data-request]')
+      if (!button) return
+      const request = REQUESTS[+button.dataset.request]
+
+      if (!request.read) {
+        request.read = true
+        $('#badge').textContent = --unreadRequests
+      }
+      showToast(`Abrindo “${request.title}”…`)
+      renderRequests(currentQuery())
+    })
+
+    // Qualquer elemento com data-toast mostra o aviso (links "#" não navegam)
+    document.addEventListener('click', (e) => {
+      const el = e.target.closest('[data-toast]')
+      if (!el) return
+      if (el.getAttribute('href') === '#') e.preventDefault()
+      showToast(el.dataset.toast)
+    })
+
+    /* =========================================================
+       7. INICIALIZAÇÃO
+    ========================================================= */
+    injectIconSprite()
+    applyUI()
+    renderNav()
+    renderKpis()
+    renderAttention()
+    renderStages()
+    renderRequests()
+    renderActivity()
+    renderWorkload()
+    animateBars()
+  </script>
 </body>
 </html>
