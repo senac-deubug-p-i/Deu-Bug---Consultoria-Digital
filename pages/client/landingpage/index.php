@@ -1,3 +1,8 @@
+<?php
+    require_once __DIR__ . '/../../../includes/auth.php';
+    $erroLogin = pegar_erro();   // mensagem de erro do login (aparece uma única vez))
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -57,15 +62,18 @@
             </div>
 
             <!-- Login Modal -->
-            <div class="modal-login">
+            <form class="modal-login" action="../../../actions/login.php" method="post">
+                <?php if ($erroLogin): ?>
+                    <div class="form-erro" role="alert"><?= e($erroLogin) ?></div>
+                <?php endif; ?>
                 <p>E-mail</p>
-                <input type="text">
+                <input type="email" name="email" required autocomplete="email">
                 <p>Senha</p>
-                <input type="text">
+                <input type="password" name="senha" required autocomplete="current-password">
                 <a href="">Esqueci minha senha</a>
-                <button>Login</button>
+                <button type="submit">Login</button>
                 <a href="" id="google-btn"><img src="../../../assets/images/Google Logo.svg" alt=""></a>
-            </div>
+            </form>
 
             <!-- Register Modal -->
             <div class="modal-register">
