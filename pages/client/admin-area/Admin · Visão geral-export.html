@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin · Visão geral</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+<style>
+*,::before,::after{box-sizing:border-box}
+body{margin:0;background:#08080A;color:#F4F4F5;font-family:Inter,system-ui,sans-serif;min-height:100vh}
+button,input{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer;padding:0}
+a{text-decoration:none;color:inherit}
+.ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.app{display:flex;min-height:100vh}
+.side{width:256px;flex-shrink:0;height:100vh;position:sticky;top:0;background:#0E0E10;border-right:1px solid #26262A;padding:22px 14px;display:flex;flex-direction:column}
+.logo{display:flex;align-items:center;gap:10px;padding:0 4px;margin-bottom:26px}
+.mk{width:34px;height:34px;border-radius:10px;background:#fff;color:#08080A;display:grid;place-items:center;font-size:15px;font-weight:700;letter-spacing:-.6px}
+.bn{font-size:14.5px;font-weight:600;letter-spacing:-.2px}.bl{font-size:8px;letter-spacing:1.6px;color:#8A8A93;margin-top:2px}
+nav{display:flex;flex-direction:column;gap:4px}
+.nav{height:40px;display:flex;align-items:center;gap:10px;padding:0 12px;border-radius:10px;font-size:12.5px;color:#8A8A93;transition:background .15s,color .15s}
+.nav:hover{background:#151517;color:#F4F4F5}
+.nav.on{background:#6C4BE8;color:#fff;font-weight:500}
+.nav span{flex:1}
+.bdg{background:#2A2A2E;color:#D4D4D8;font-size:9px;font-weight:500;padding:2px 6px;border-radius:999px;transition:.2s}
+.sp{flex:1}
+.sf{display:flex;flex-direction:column;gap:10px}
+.vc{height:36px;display:flex;align-items:center;justify-content:center;gap:7px;border:1px solid #26262A;border-radius:10px;font-size:11.5px;color:#C8C8CE;transition:.15s}
+.vc .ic{width:14px;height:14px;color:#8A8A93}
+.vc:hover{background:#151517;border-color:#6C4BE8;color:#fff}
+.uc{display:flex;align-items:center;gap:10px;padding:9px 10px;background:#151517;border-radius:12px;transition:.15s;text-align:left;width:100%}
+.uc:hover{background:#1b1b1e}
+.av{width:30px;height:30px;border-radius:50%;background:#2E2E34;display:grid;place-items:center;font-size:9.5px;font-weight:600;color:#E4E4E7}
+.un{font-size:11.5px;font-weight:500}.ur{font-size:9.5px;color:#8A8A93;margin-top:2px}
+main{flex:1;min-width:0;padding:26px 30px;display:flex;flex-direction:column;gap:18px}
+.hd{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+h1{margin:0;font-size:30px;font-weight:700;letter-spacing:-1px}
+.sub{font-size:12px;color:#8A8A93;margin-top:4px}
+.ha{display:flex;gap:10px;align-items:center}
+.search{width:230px;height:38px;display:flex;align-items:center;gap:8px;padding:0 12px;background:#151517;border:1px solid #26262A;border-radius:10px;transition:.15s}
+.search:focus-within{border-color:#6C4BE8;width:280px}
+.search .ic{width:14px;height:14px;color:#8A8A93}
+.search input{flex:1;min-width:0;background:none;border:0;outline:0;font-size:11.5px}
+.search input::placeholder{color:#8A8A93}
+.btn{height:38px;display:flex;align-items:center;gap:6px;padding:0 14px;background:#6C4BE8;color:#fff;border-radius:10px;font-size:11.5px;font-weight:500;white-space:nowrap;transition:.15s}
+.btn .ic{width:14px;height:14px}
+.btn:hover{background:#7a5bf0;box-shadow:0 6px 20px -6px #6C4BE8}.btn:active{transform:scale(.97)}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.k{display:flex;flex-direction:column;gap:3px;padding:13px 14px;background:#151517;border:1px solid #26262A;border-radius:14px;transition:transform .15s,border-color .15s,background .15s}
+.k:hover{transform:translateY(-2px);border-color:#3a3a42;background:#18181b}
+.k.pr{background:#6C4BE8;border-color:#6C4BE8}.k.pr:hover{background:#7a5bf0;border-color:#7a5bf0;box-shadow:0 10px 26px -10px #6C4BE8}
+.kl{font-size:11px;color:#8A8A93}.kv{font-size:25px;font-weight:700;letter-spacing:-1px}.ks{font-size:9.5px;margin-top:3px;color:#8A8A93}
+.pr .kl{color:#EDE7FF}.pr .ks{color:#EAE2FF}.g{color:#4ADE80!important}.r{color:#F87171!important}
+.row{display:flex;gap:16px;align-items:flex-start}
+.row>.c{flex:1;min-width:0}
+.c{display:flex;flex-direction:column;gap:8px;padding:15px 16px;background:#151517;border:1px solid #26262A;border-radius:14px}
+.ch{display:flex;justify-content:space-between;align-items:center}
+.ct{font-size:14px;font-weight:600;letter-spacing:-.3px}
+.lk{font-size:10.5px;color:#8A8A93;transition:color .15s}.lk:hover{color:#A78BFA}
+.th,.tr{display:flex;gap:12px;align-items:center}
+.th{padding:7px 0;font-size:9.5px;color:#8A8A93}
+.tr{padding:9px 0;border-bottom:1px solid #212124;transition:background .15s;border-radius:6px}
+.tr:hover{background:#1a1a1d}
+.pj{flex:1;min-width:0}.mo{width:160px;flex-shrink:0}.pz{width:74px;flex-shrink:0}
+.pn{font-size:11.5px;font-weight:600}.pm{font-size:9.5px;color:#8A8A93;margin-top:2px}
+.pzv{font-size:10.5px;color:#C9C9CF}
+.gb{text-align:right;font-size:10.5px;color:#8A8A93;transition:color .15s}.tr:hover .gb,.gb:hover{color:#A78BFA}
+.bd{display:inline-block;padding:3px 7px;border-radius:999px;font-size:8.5px;font-weight:500;white-space:nowrap}
+.w{background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.2);color:#FBBF24}
+.d{background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.2);color:#F87171}
+.empty{font-size:11px;color:#8A8A93;padding:18px 0;text-align:center}
+.stg{width:322px;flex-shrink:0;gap:20px}
+.sr{display:flex;flex-direction:column;gap:6px;cursor:default}
+.sh{display:flex;justify-content:space-between;font-size:10.5px;color:#8A8A93}.sh b{font-weight:500;color:#D4D4D8}
+.trk{height:6px;border-radius:999px;background:#242428;overflow:hidden}.trk.s{height:5px}
+.fl{height:100%;border-radius:999px;background:#A78BFA;width:0;transition:width .7s cubic-bezier(.2,.8,.2,1),background .15s}
+.sr:hover .fl{background:#C4B0FF}.fl.red{background:#F87171}
+.fn{font-size:9.5px;line-height:13px;color:#8A8A93}
+.rq{display:flex;flex-direction:column;gap:2px;padding:8px 10px;background:#1E1E21;border-radius:10px;cursor:pointer;transition:background .15s,opacity .2s;text-align:left;width:100%}
+.rq:hover{background:#26262a}.rq.read{opacity:.5}
+.rt{font-size:10.5px;font-weight:500}.rm{font-size:9px;color:#8A8A93}
+.ai{display:flex;gap:8px;padding:2px 0;border-radius:6px;transition:background .15s}
+.ai:hover{background:#1a1a1d}
+.dot{width:6px;height:6px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.at{font-size:10.5px;line-height:14px;color:#E4E4E7}.am{font-size:9px;color:#8A8A93;margin-top:2px}
+.lr{display:flex;flex-direction:column;gap:5px}
+.lh{display:flex;justify-content:space-between;font-size:10.5px;font-weight:500;color:#E4E4E7}.lh span{font-size:9.5px;font-weight:400;color:#8A8A93}.lh span.r{color:#F87171}
+#cg{gap:15px}#ac{gap:10px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);background:#151517;border:1px solid #6C4BE8;font-size:12px;font-weight:500;padding:10px 16px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;z-index:60}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:1280px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1100px){.row{flex-direction:column;align-items:stretch}.stg{width:auto}.row>.c{flex:none}}
+@media(max-width:760px){.side{display:none}main{padding:20px 16px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.mo,.pz{display:none}.search,.search:focus-within{width:100%}.ha{width:100%}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="i-dash" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+<symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+</defs></svg>
+
+<div class="app">
+<aside class="side">
+  <div class="logo"><div class="mk">D!</div><div><div class="bn">Deu Bug!</div><div class="bl">ADMIN</div></div></div>
+  <nav>
+    <a class="nav on" href="admin-visao-geral.html"><svg class="ic"><use href="#i-dash"/></svg><span>Visão geral</span></a>
+    <a class="nav" href="admin-projetos.html"><svg class="ic"><use href="#i-folder"/></svg><span>Projetos</span></a>
+    <a class="nav" href="#" data-t="Clientes"><svg class="ic"><use href="#i-users"/></svg><span>Clientes</span></a>
+    <a class="nav" href="#" data-t="Solicitações"><svg class="ic"><use href="#i-msg"/></svg><span>Solicitações</span><i class="bdg" id="bdg">8</i></a>
+    <a class="nav" href="#" data-t="Financeiro"><svg class="ic"><use href="#i-wallet"/></svg><span>Financeiro</span></a>
+  </nav>
+  <div class="sp"></div>
+  <div class="sf">
+    <a class="vc" href="#" data-t="Abrindo visão do cliente…"><svg class="ic"><use href="#i-eye"/></svg>Ver como cliente</a>
+    <button class="uc"><div class="av">RL</div><div><div class="un">Rafael Lima</div><div class="ur">Gestor de projetos</div></div></button>
+  </div>
+</aside>
+
+<main>
+  <div class="hd">
+    <div><h1>Visão geral</h1><div class="sub">Segunda, 19 de outubro · 14 projetos ativos</div></div>
+    <div class="ha">
+      <label class="search"><svg class="ic"><use href="#i-search"/></svg><input id="q" placeholder="Buscar cliente ou projeto" autocomplete="off" /></label>
+      <a class="btn" href="admin-projetos.html" data-t="Abrindo novo projeto…"><svg class="ic"><use href="#i-plus"/></svg>Novo projeto</a>
+    </div>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="row">
+    <div class="c">
+      <div class="ch"><div class="ct">Precisam de atenção</div><a class="lk" href="admin-projetos.html">Ver todos</a></div>
+      <div class="th"><div class="pj">Projeto</div><div class="mo">Motivo</div><div class="pz">Prazo</div><div class="pz" style="text-align:right">Gerenciar</div></div>
+      <div id="att"></div>
+    </div>
+    <div class="c stg"><div class="ct">Projetos por etapa</div><div id="stg" style="display:flex;flex-direction:column;gap:20px"></div>
+      <div class="fn">Total: 14 projetos ativos. Os 8 publicados este ano ficam no histórico.</div></div>
+  </div>
+
+  <div class="row">
+    <div class="c"><div class="ch"><div class="ct">Solicitações novas</div><a class="lk" href="#" data-t="Abrindo solicitações…">Abrir</a></div><div id="req" style="display:flex;flex-direction:column;gap:8px"></div></div>
+    <div class="c" id="ac"><div class="ch"><div class="ct">Atividade da equipe</div></div><div id="act" style="display:flex;flex-direction:column;gap:10px"></div></div>
+    <div class="c" id="cg"><div class="ch"><div class="ct">Carga da equipe</div></div><div id="load" style="display:flex;flex-direction:column;gap:15px"></div></div>
+  </div>
+</main>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let tt;const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2200)};
+const DET='admin-projeto-detalhe.html';
+const KPI=[['Projetos ativos','14','+2 este mês','g','admin-projetos.html'],['Entregas da semana','5','2 já enviados ao cliente','','admin-projetos.html'],['Aguardando cliente','4','Aprovações e ajustes pendentes','pr','admin-projetos.html'],['Faturas em atraso','2','R$ 2.480,00 · ver financeiro','r','#'],['Recebido em outubro','R$ 18.400','7,4% da meta do mês','g','#']];
+const ATT=[['Site Doce Trigo','Padaria Doce Trigo · Revisão','Layout aguardando cliente','w','30 out'],['Site Clínica Vida Plena','Clínica Vida Plena · Design','Prazo vence em 2 dias','d','21 out'],['Landing Aurora Pilates','Studio Aurora · Briefing','Fotos pendentes há 6 dias','w','05 nov'],['Loja Café Girassol','Café Girassol · Desenvolvimento','Fatura em atraso','d','12 nov']];
+const STG=[['Briefing',3,36],['Design',3,33],['Desenvolvimento',5,52],['Revisão',3,29]];
+const REQ=[['Trocar a cor dos botões','Marta Rocha · Site Doce Trigo · há 20 min'],['Dúvida sobre o domínio','Tiago Mendes · Loja Café Girassol · há 2 h'],['Incluir página de preços','Camila Duarte · Landing Aurora · ontem']];
+const ACT=[['#A78BFA','Ana Costa enviou o layout de produtos para aprovação','Hoje, 10:42 · Site Doce Trigo'],['#4ADE80','Lucas Almeida concluiu o catálogo de produtos','Hoje, 08:15 · Loja Doce Trigo'],['#A78BFA','Bruna Teixeira publicou o site Mecânica Irmãos Souza','Ontem, 18:00'],['#FBBF24','Diego Nunes revisou o lembrete de fatura','Ontem, 15:20 · Landing Aurora']];
+const LOAD=[['Ana Costa · design','5 de 6',83,''],['Lucas Almeida · dev','6 de 6 · lotado',100,'r'],['Bruna Teixeira · dev','3 de 6',50,''],['Diego Nunes · suporte','2 de 4',50,'']];
+let unread=8;
+$('#kpis').innerHTML=KPI.map(k=>`<a class="k ${k[3]==='pr'?'pr':''}" href="${k[4]}" ${k[4]==='#'?`data-t="${k[0]}"`:''}><div class="kl">${k[0]}</div><div class="kv">${k[1]}</div><div class="ks ${k[3]==='pr'?'':k[3]}">${k[2]}</div></a>`).join('');
+$('#stg').innerHTML=STG.map(s=>`<div class="sr" title="${s[1]} projetos em ${s[0]}"><div class="sh"><b>${s[0]}</b><span>${s[1]}</span></div><div class="trk"><div class="fl" data-w="${s[2]}"></div></div></div>`).join('');
+$('#act').innerHTML=ACT.map(a=>`<div class="ai"><div class="dot" style="background:${a[0]}"></div><div><div class="at">${a[1]}</div><div class="am">${a[2]}</div></div></div>`).join('');
+$('#load').innerHTML=LOAD.map(l=>`<div class="lr"><div class="lh">${l[0]}<span class="${l[3]}">${l[1]}</span></div><div class="trk s"><div class="fl ${l[3]}" data-w="${l[2]}"></div></div></div>`).join('');
+function renderAtt(q=''){
+  const l=ATT.filter(a=>(a[0]+' '+a[1]+' '+a[2]).toLowerCase().includes(q));
+  $('#att').innerHTML=l.map(a=>`<a class="tr" href="${DET}"><div class="pj"><div class="pn">${a[0]}</div><div class="pm">${a[1]}</div></div><div class="mo"><span class="bd ${a[3]}">${a[2]}</span></div><div class="pz pzv">${a[4]}</div><div class="pz gb">Gerenciar</div></a>`).join('')||'<div class="empty">Nenhum projeto encontrado</div>';
+}
+function renderReq(q=''){
+  const l=REQ.map((r,i)=>[r,i]).filter(([r])=>(r[0]+' '+r[1]).toLowerCase().includes(q));
+  $('#req').innerHTML=l.map(([r,i])=>`<button class="rq ${r[2]?'read':''}" data-i="${i}"><div class="rt">${r[0]}</div><div class="rm">${r[1]}</div></button>`).join('')||'<div class="empty">Nenhuma solicitação encontrada</div>';
+}
+$('#req').addEventListener('click',e=>{const b=e.target.closest('.rq');if(!b)return;const r=REQ[+b.dataset.i];
+  if(!r[2]){r[2]=1;$('#bdg').textContent=--unread}toast('Abrindo “'+r[0]+'”…');renderReq($('#q').value.trim().toLowerCase())});
+$('#q').addEventListener('input',e=>{const q=e.target.value.trim().toLowerCase();renderAtt(q);renderReq(q)});
+document.addEventListener('click',e=>{const a=e.target.closest('[data-t]');if(a){if(a.getAttribute('href')==='#')e.preventDefault();toast(a.dataset.t.length<14&&!a.dataset.t.includes('…')?'Abrindo '+a.dataset.t+'…':a.dataset.t)}});
+renderAtt();renderReq();
+requestAnimationFrame(()=>setTimeout(()=>document.querySelectorAll('.fl').forEach(f=>f.style.width=f.dataset.w+'%'),50));
+</script>
+</body>
+</html>
