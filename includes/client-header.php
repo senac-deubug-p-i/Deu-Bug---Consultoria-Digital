@@ -33,6 +33,8 @@
                 </div>
             </section>
 
-            <button>Sair</button>
+            <form action="../../../actions/logout.php" method="post">
+                <button type="submit">Sair</button>
+            </form>
         </div>
     </header>
