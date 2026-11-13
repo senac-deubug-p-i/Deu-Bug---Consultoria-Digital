@@ -200,7 +200,7 @@
     }
 
      const NAV_ITEMS = [
-  { icon: 'dash',   label: 'Visão geral',   href: 'visao-geral.php' },
+  { icon: 'dash',   label: 'Visão geral',   href: 'index.php' },
   { icon: 'folder', label: 'Projetos',      href: 'index.php', active: true },
   { icon: 'users',  label: 'Clientes',      href: 'clientes.php' },
   { icon: 'inbox',  label: 'Solicitações',  href: 'solicitacoes.php', badge: 5 },
