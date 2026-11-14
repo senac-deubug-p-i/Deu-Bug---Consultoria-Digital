@@ -177,7 +177,7 @@
       { icon: 'dash',   label: 'Visão geral',  href: 'index.php', active: true },
       { icon: 'folder', label: 'Projetos',     href: 'project.php' },
       { icon: 'users',  label: 'Clientes',     href: 'clientes.php' },
-      { icon: 'inbox',  label: 'Solicitações', href: 'solicitacoes.php', badge: 8 },
+      { icon: 'inbox',  label: 'Solicitações', href: 'solicitation.php', badge: 8 },
       { icon: 'card',   label: 'Financeiro',   href: 'financeiro.php' },
     ]
 
