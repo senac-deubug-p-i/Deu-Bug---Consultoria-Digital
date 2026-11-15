@@ -1,6 +1,8 @@
 <?php
     require_once __DIR__ . '/../../../includes/auth.php';
+    require_once __DIR__ . '/../../../actions/user-infos.php';
     exigir_login();
+    $usuario = usuario_atual();
 ?>
 
 <!DOCTYPE html>
@@ -26,10 +28,111 @@
             require __DIR__ . '/../../../includes/client-header.php';
         ?>
         
+                <?php
+        // TODO: quando existir a tabela de projetos, trocar por uma consulta ao banco.
+        $projetos     = [];
+        $temProjetos  = !empty($projetos);
+        $primeiroNome = primeiro_nome($_SESSION['usuario_nome'] ?? 'Cliente');
+        ?>
+
+        <?php if (!$temProjetos): ?>
+        <!-- ===================== ESTADO VAZIO: cliente sem projetos ===================== -->
+        <section class="hero-header">
+            <div class="hero-title">
+                <h3><?= e(data_hoje()) ?></h3>
+                <h2>Olá, <?= e($primeiroNome) ?>!</h2>
+                <p>Você ainda não tem nenhum projeto por aqui. Vamos começar o primeiro?</p>
+            </div>
+
+            <div class="hero-contact">
+                <button onclick="location.href='../projects-area/index.php'">
+                    Solicitar meu projeto
+                </button>
+                <button style="background-color: transparent;" onclick="location.href='../support-area/index.php'">
+                    <img src="../../../assets/images/chat-message-icon.svg" alt="">
+                    Falar com a equipe
+                </button>
+            </div>
+        </section>
+
+        <section class="data-boxes">
+            <div class="is-empty">
+                <div>
+                    <h3>Projetos Ativos</h3>
+                    <h2>0</h2>
+                </div>
+                <p>Nenhum projeto vinculado à sua conta</p>
+            </div>
+
+            <div class="is-empty">
+                <div>
+                    <h3>Previsão da próxima entrega</h3>
+                    <h2>—</h2>
+                </div>
+                <p>Sem entregas previstas</p>
+            </div>
+
+            <div class="is-empty">
+                <div>
+                    <h3>Mensagens não lidas</h3>
+                    <h2>0</h2>
+                </div>
+                <p>Nenhuma mensagem por enquanto</p>
+            </div>
+
+            <div class="is-empty">
+                <div>
+                    <h3>Precisa da sua atenção</h3>
+                    <h2>0</h2>
+                </div>
+                <p>Nada pendente, está tudo em dia</p>
+            </div>
+        </section>
+
+        <section class="info-boxes">
+            <div class="activity">
+                <h2>Atividade recente</h2>
+
+                <div class="empty-state">
+                    <h3>Nenhuma atividade ainda</h3>
+                    <p>Quando o seu projeto começar, as atualizações da equipe aparecem aqui.</p>
+                </div>
+            </div>
+
+            <div class="requests">
+                <h2>Pendências</h2>
+
+                <div class="empty-state">
+                    <h3>Nada para aprovar</h3>
+                    <p>Layouts e materiais que precisarem do seu OK serão listados aqui.</p>
+                </div>
+            </div>
+
+            <div class="payments">
+                <h2>Faturas e pagamentos</h2>
+
+                <div class="next-payment">
+                    <h3>Próximo vencimento</h3>
+                    <h2>—</h2>
+                    <p>Nenhuma fatura em aberto</p>
+                </div>
+
+                <div class="empty-state empty-state--small">
+                    <p>Seu histórico de pagamentos aparece aqui depois da primeira cobrança.</p>
+                </div>
+
+                <div class="button-switch-payment">
+                    <button disabled>Ver Boleto</button>
+                    <button disabled style="background-color: transparent;">Recibos</button>
+                </div>
+            </div>
+        </section>
+
+        <?php else: ?>
         <section class="hero-header">
             <div class="hero-title">
                 <h3>Barbearia Lucky Shot - <?= e(data_hoje()) ?></h3>
-                <h2>Olá, Eduardo!</h2>
+                <h2>Olá, <?= e(primeiro_nome($usuario['usuario_nome'])) ?>!</h2>
                 <p>Seus projetos estão andando bem. Tem 2 coisas esperando por você.</p>
             </div>
 
@@ -132,5 +235,6 @@
                 </div>
             </div>
         </section>
+        <?php endif; ?>
     </body>
 </html>
