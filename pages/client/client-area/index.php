@@ -1,3 +1,8 @@
+<?php
+    require_once __DIR__ . '/../../../includes/auth.php';
+    exigir_login();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
@@ -23,7 +28,7 @@
         
         <section class="hero-header">
             <div class="hero-title">
-                <h3>Barbearia Lucky Shot - Domingo, 18 de Outubro</h3>
+                <h3>Barbearia Lucky Shot - <?= e(data_hoje()) ?></h3>
                 <h2>Olá, Eduardo!</h2>
                 <p>Seus projetos estão andando bem. Tem 2 coisas esperando por você.</p>
             </div>
