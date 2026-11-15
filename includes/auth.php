@@ -93,17 +93,15 @@ function pegar_antigo(): array
     return $dados;
 }
 
-function data_hoje(bool $comAno = false, ?DateTimeInterface $data = null): string
+// Mensagem de sucesso de uma só leitura
+function definir_sucesso(string $mensagem, string $canal = 'geral'): void
 {
-    $dias  = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
-    $meses = [1 => 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-              'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+    $_SESSION['flash_sucesso'][$canal] = $mensagem;
+}
 
-    $data ??= new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
-
-    $texto = $dias[(int)$data->format('w')] . ', '
-           . $data->format('j') . ' de '
-           . $meses[(int)$data->format('n')];
-
-    return $comAno ? $texto . ' de ' . $data->format('Y') : $texto;
+function pegar_sucesso(string $canal = 'geral'): ?string
+{
+    $mensagem = $_SESSION['flash_sucesso'][$canal] ?? null;
+    unset($_SESSION['flash_sucesso'][$canal]);
+    return $mensagem;
 }
