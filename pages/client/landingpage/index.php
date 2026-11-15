@@ -1,6 +1,9 @@
 <?php
     require_once __DIR__ . '/../../../includes/auth.php';
-    $erroLogin = pegar_erro();   // mensagem de erro do login (aparece uma única vez))
+    $erroLogin    = pegar_erro('login');      // erros aparecem uma única vez
+    $erroCadastro = pegar_erro('cadastro');
+    $antigo       = pegar_antigo();           // valores digitados no cadastro
+    $aba          = $erroCadastro ? 'cadastro' : 'login';
 ?>
 
 <!DOCTYPE html>
@@ -54,10 +57,10 @@
 
 
         <!-- Modals -->
-        <div class="modals" data-active="login">
+        <div class="modals<?= ($erroLogin || $erroCadastro) ? ' active' : '' ?>" data-active="<?= $aba ?>">
             <div class="switch-login">
-                <button class="switch-button active" data-value="login">Login</button>
-                <button class="switch-button" data-value="cadastro">Cadastro</button>
+                <button class="switch-button<?= $aba === 'login' ? ' active' : '' ?>" data-value="login">Login</button>
+                <button class="switch-button<?= $aba === 'cadastro' ? ' active' : '' ?>" data-value="cadastro">Cadastro</button>
                 <div class="switch-bg"></div>
             </div>
 
@@ -76,29 +79,36 @@
             </form>
 
             <!-- Register Modal -->
-            <div class="modal-register">
+            <form class="modal-register" action="../../../actions/register.php" method="post">
+                <?php if ($erroCadastro): ?>
+                    <div class="form-erro" role="alert"><?= e($erroCadastro) ?></div>
+                <?php endif; ?>
                 <div class="register-name">
                     <div>
                         <p>Primeiro Nome</p>
-                        <input type="text">
+                        <input type="text" name="nome" maxlength="100" required autocomplete="given-name"
+                            value="<?= e($antigo['nome'] ?? '') ?>">
                     </div>
                     <div>
                         <p>Sobrenome</p>
-                        <input type="text">
+                        <input type="text" name="sobrenome" maxlength="100" required autocomplete="family-name"
+                            value="<?= e($antigo['sobrenome'] ?? '') ?>">
                     </div>
                 </div>
                 <p>E-mail</p>
-                <input type="text">
+                <input type="email" name="email" maxlength="255" required autocomplete="email"
+                    value="<?= e($antigo['email'] ?? '') ?>">
                 <p>Telefone</p>
-                <input type="text">
+                <input type="tel" name="telefone" maxlength="20" required autocomplete="tel"
+                    placeholder="(11) 91111-1111" value="<?= e($antigo['telefone'] ?? '') ?>">
                 <hr style="border-width: 1px; background-color: #ffffff67; width: 100%; height: 1px; margin-top: 13px;">
                 <p>Senha</p>
-                <input type="text">
+                <input type="password" name="senha" minlength="8" maxlength="72" required autocomplete="new-password">
                 <p>Confirme sua senha</p>
-                <input type="text">
+                <input type="password" name="confirmar_senha" minlength="8" maxlength="72" required autocomplete="new-password">
 
-                <button>Cadastro</button>
-            </div>
+                <button type="submit">Cadastro</button>
+            </form>
         </div>
 
         <div class="cta-section">
