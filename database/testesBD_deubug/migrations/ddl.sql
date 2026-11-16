@@ -23,7 +23,6 @@ CREATE TABLE IF NOT EXISTS solicitacao_projeto(
     FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 CREATE TABLE conversa(
     conversa_id INT PRIMARY KEY AUTO_INCREMENT,
     conversa_horacriacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

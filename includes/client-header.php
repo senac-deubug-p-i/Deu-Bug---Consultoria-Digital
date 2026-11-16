@@ -1,3 +1,11 @@
+<?php
+    require_once __DIR__ . '/functions.php';
+    require_once __DIR__ . '/auth.php';
+    require_once __DIR__ . '../../actions/user-infos.php';
+    exigir_login();
+    $usuario = usuario_atual();
+?>
+
 <header>
         <div class="logoheader">
             <img src="../../../assets/images/WhiteLogo_DeuBug.svg" alt="DeuBug-Logo">
@@ -28,7 +36,7 @@
             <section class="user-section">
                 <h2>EI</h2>
                 <div>
-                    <h3>Eduardo Inocencio</h3>
+                    <h3><?= e($usuario['usuario_nome']) ?></h3>
                     <p>Plano Gold</p>
                 </div>
             </section>
