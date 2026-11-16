@@ -11,6 +11,18 @@ CREATE TABLE usuario(
     usuario_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS solicitacao_projeto(
+    solicitacao_id              INT PRIMARY KEY AUTO_INCREMENT,
+    usuario_id                  INT NOT NULL,
+    solicitacao_empresa         VARCHAR(150) NOT NULL,
+    solicitacao_tipo            VARCHAR(30)  NOT NULL,
+    solicitacao_descricao       TEXT         NOT NULL,
+    solicitacao_status          ENUM('pendente', 'em_contato', 'aprovada', 'recusada') NOT NULL DEFAULT 'pendente',
+    solicitacao_previsao_contato DATE        NOT NULL,
+    solicitacao_criacao         TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 CREATE TABLE conversa(
     conversa_id INT PRIMARY KEY AUTO_INCREMENT,
     conversa_horacriacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

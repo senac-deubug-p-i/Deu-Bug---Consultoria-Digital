@@ -1,0 +1,17 @@
+# Segredos
+.env
+.env.*
+!.env.example
+
+# Arquivos enviados pelos clientes
+uploads/*
+!uploads/.gitkeep
+
+# Sistema e editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log

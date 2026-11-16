@@ -274,6 +274,8 @@ header {
     background-color: #ffffff31;
 }
 
+.form-erro { color: #ff8a8a; font-size: 0.85rem; margin-bottom: 4px; }
+
 #google-btn {
     display: flex;
     flex-direction: row;

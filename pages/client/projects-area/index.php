@@ -1,3 +1,16 @@
+<?php
+    require_once __DIR__ . '/../../../includes/auth.php';
+    require_once __DIR__ . '/../../../includes/projetos.php';
+    exigir_login();
+
+    $erroSolic    = pegar_erro('solicitacao');
+    $sucessoSolic = pegar_sucesso('solicitacao');
+    $antigo       = pegar_antigo();
+    $tipos        = tipos_de_site();
+    $solicitacoes = solicitacoes_abertas(conectar(), (int)$_SESSION['usuario_id']);
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
@@ -16,65 +29,80 @@
         <title>Deu Bug! - Consultoria Digital</title>
     </head>
     <body>
-        <header>
-            <div class="logoheader">
-                <img src="../../../assets/images/WhiteLogo_DeuBug.svg" alt="DeuBug-Logo">
-                <h2>Deu Bug!</h2>
-            </div>
+        <!-- Inserção do Header -->
+        <?php
+            require __DIR__ . '/../../../includes/client-header.php';
+        ?>
 
-            <nav>
-                <a href="../client-area/index.php">Visão Geral</a>
-                <a href="../projects-area/index.php">Meus Projetos</a>
-                <a href="../support-area/index.php">Suporte</a>
-            </nav>
-
-            <div class="user-group">
-                <section class="notification-group">
-                    <div class="bell-group">
-                        <h2>2</h2>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                            <path d="M320 64C306.7 64 296 74.7 296 88L296 97.7C214.6 109.3 152 179.4 152 264L152 278.5C152 316.2 142 353.2 123 385.8L101.1 423.2C97.8 429 96 435.5 96 442.2C96 463.1 112.9 480 133.8 480L506.2 480C527.1 480 544 463.1 544 442.2C544 435.5 542.2 428.9 538.9 423.2L517 385.7C498 353.1 488 316.1 488 278.4L488 263.9C488 179.3 425.4 109.2 344 97.6L344 87.9C344 74.6 333.3 63.9 320 63.9zM488.4 432L151.5 432L164.4 409.9C187.7 370 200 324.6 200 278.5L200 264C200 197.7 253.7 144 320 144C386.3 144 440 197.7 440 264L440 278.5C440 324.7 452.3 370 475.5 409.9L488.4 432zM252.1 528C262 556 288.7 576 320 576C351.3 576 378 556 387.9 528L252.1 528z"/>
-                        </svg>
-                    </div>
-
-                    <div class="notifications-screen">
-
-                    </div>
-                </section>
-
-                <section class="user-section">
-                    <h2>EI</h2>
-                    <div>
-                        <h3>Eduardo Inocencio</h3>
-                        <p>Plano Gold</p>
-                    </div>
-                </section>
-
-                <button>Sair</button>
-            </div>
-        </header>
-
-        <section class="projects">
+                <section class="projects">
             <div class="title-projects">
                 <h2>Projetos</h2>
-                <button>Solicitar novo projeto</button>
+                <button type="button" id="abrir-solicitacao">Solicitar novo projeto</button>
             </div>
+
+            <?php if ($sucessoSolic): ?>
+                <div class="aviso aviso--sucesso" role="status"><?= e($sucessoSolic) ?></div>
+            <?php endif; ?>
 
             <div class="project-grid">
 
-                <div class="project-card">
-                    <img src="" alt="Project-Logo">
-                    <div>
-                        <h2>Barbearia Luck Shot</h2>
-                        <p>Landing Page</p>
-                        <button>Acessar</button>
-                    </div>
+                <!-- Solicitações enviadas, aguardando contato da equipe -->
+                <?php foreach ($solicitacoes as $s): ?>
+                    <div class="project-card project-card--solicitacao">
+                        <div>
+                            <h2><?= e($s['solicitacao_empresa']) ?></h2>
+                            <p><?= e(nome_tipo_site($s['solicitacao_tipo'])) ?></p>
+                            <p class="retorno">Retorno previsto até <?= e(data_br($s['solicitacao_previsao_contato'])) ?></p>
+                        </div>
 
-                    <div class="project-status">
-                        <p>Em Desenvolvimento</p>
+                        <div class="project-status">
+                            <p><?= $s['solicitacao_status'] === 'em_contato' ? 'Em contato' : 'Em análise' ?></p>
+                        </div>
                     </div>
-                </div>
+                <?php endforeach; ?>
+
+                <!-- MANTENHA AQUI o seu card de projeto atual (o da Barbearia Luck Shot) -->
+
             </div>
         </section>
+
+        <!-- Modal: solicitar novo projeto -->
+        <dialog id="modal-solicitacao" class="modal-solicitacao" aria-labelledby="titulo-solicitacao"
+                <?= $erroSolic ? 'data-abrir' : '' ?>>
+            <form class="solic-form" action="../../../actions/solicitar-projeto.php" method="post">
+                <div class="solic-topo">
+                    <h2 id="titulo-solicitacao">Solicitar novo projeto</h2>
+                    <button type="button" class="solic-fechar" data-fechar aria-label="Fechar">&times;</button>
+                </div>
+                <p class="solic-sub">Conte o básico sobre o que você precisa. Nossa equipe entra em contato em até <?= PRAZO_CONTATO_DIAS_UTEIS ?> dias úteis.</p>
+
+                <?php if ($erroSolic): ?>
+                    <div class="aviso aviso--erro" role="alert"><?= e($erroSolic) ?></div>
+                <?php endif; ?>
+
+                <label for="solic-empresa">Nome da empresa</label>
+                <input id="solic-empresa" type="text" name="empresa" maxlength="150" required
+                       autocomplete="organization" value="<?= e($antigo['empresa'] ?? '') ?>">
+
+                <label for="solic-tipo">Tipo de site</label>
+                <select id="solic-tipo" name="tipo" required>
+                    <option value="" disabled <?= empty($antigo['tipo']) ? 'selected' : '' ?>>Selecione uma opção</option>
+                    <?php foreach ($tipos as $chave => $rotulo): ?>
+                        <option value="<?= e($chave) ?>" <?= ($antigo['tipo'] ?? '') === $chave ? 'selected' : '' ?>><?= e($rotulo) ?></option>
+                    <?php endforeach; ?>
+                </select>
+
+                <label for="solic-descricao">Breve descrição</label>
+                <textarea id="solic-descricao" name="descricao" rows="5" minlength="10" maxlength="1000" required
+                          placeholder="O que você precisa, referências, prazo desejado..."><?= e($antigo['descricao'] ?? '') ?></textarea>
+
+                <div class="solic-acoes">
+                    <button type="button" class="btn-secundario" data-fechar>Cancelar</button>
+                    <button type="submit" class="btn-primario">Enviar solicitação</button>
+                </div>
+            </form>
+        </dialog>
+
+        <script src="index.js" defer></script>
     </body>
 </html>
