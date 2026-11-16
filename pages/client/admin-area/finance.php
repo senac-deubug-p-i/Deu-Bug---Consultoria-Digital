@@ -202,7 +202,10 @@
     const TODAY = new Date(2026, 9, 19) // data do design: segunda, 19 de outubro
     const MONTHLY_GOAL = 25000
     const SERVICE_SCALE = 12900         // valor que representa 100% da barra de serviços
-    const BAR_SCALE = 0.0778            // px por real nas barras do gráfico
+    const BAR_MIN_PX = 40               // altura da barra do mês menos lucrativo
+    const BAR_MAX_PX = 165              // altura da barra do mês mais lucrativo
+    const LABEL_MIN_PX = 10             // tamanho do valor no menor mês
+    const LABEL_MAX_PX = 15             // tamanho do valor no maior mês
 
     const NAV_ITEMS = [
       { icon: 'dash',   label: 'Visão geral',  href: 'index.php' },
@@ -398,13 +401,32 @@
     }
 
     function renderBars() {
+      const values = MONTHS.map((_, i) => monthRevenue(i))
+      const max = Math.max(...values)
+      const min = Math.min(...values)
+      // 0 = mês menos lucrativo, 1 = mês mais lucrativo
+      const rank = (v) => (max === min ? 0.5 : (v - min) / (max - min))
+      const lerp = (a, b, t) => a + (b - a) * t
+
       $('#bars').innerHTML = MONTHS.map((m, i) => {
-        const value = monthRevenue(i)
+        const value = values[i]
+        const r = rank(value)
+        const isTop = value === max && max !== min
+        const isLow = value === min && max !== min
+        const barHeight = Math.round(lerp(BAR_MIN_PX, BAR_MAX_PX, r))
+        const labelSize = lerp(LABEL_MIN_PX, LABEL_MAX_PX, r).toFixed(1)
+        const text = `${(value / 1000).toFixed(1).replace('.', ',')}k`
+
+        const labelStyle = isTop ? 'bg-[#0D2A1C] px-2 py-0.5 font-extrabold text-[#54D68E]'
+                         : isLow ? 'bg-[#33131B] px-2 py-0.5 font-extrabold text-[#F0777C]'
+                         : `font-bold ${r > 0.5 ? 'text-[#E8E8EE]' : 'text-soft'}`
+        const hint = isTop ? ' · mês mais lucrativo' : isLow ? ' · mês menos lucrativo' : ''
+
         return `
-          <div data-bar="${i}" ${i === selectedMonth ? 'data-on' : ''} title="${m.name}: ${formatBRL(value)}"
+          <div data-bar="${i}" ${i === selectedMonth ? 'data-on' : ''} title="${m.name}: ${formatBRL(value)}${hint}"
                class="group flex h-full min-w-0 flex-1 cursor-pointer flex-col items-center justify-end gap-[7px]">
-            <div class="text-[9.5px] font-semibold text-soft transition-colors group-hover:text-ink group-data-[on]:text-ink">${(value / 1000).toFixed(1).replace('.', ',')}k</div>
-            <div style="height:${Math.round(value * BAR_SCALE)}px"
+            <div style="font-size:${labelSize}px" class="whitespace-nowrap rounded-full leading-none tracking-[-.3px] transition-all duration-500 ${labelStyle}">${isTop ? '▲ ' : isLow ? '▼ ' : ''}${text}</div>
+            <div style="height:${barHeight}px"
                  class="w-full rounded-t-md bg-brand/50 transition-[background-color,height] duration-500 group-hover:bg-brand/80 group-data-[on]:bg-brand"></div>
             <div class="text-[10px] font-medium text-soft">${m.short}</div>
           </div>`
