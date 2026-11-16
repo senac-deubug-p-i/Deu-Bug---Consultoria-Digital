@@ -1,0 +1,1498 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      tailwind = { config: { corePlugins: { preflight: false } } };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter%3Awght%40100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+      }
+    </style>
+
+    <style>
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body style="background-color: #08080A">
+    <div
+      data-pencil-name="Admin · Financeiro"
+      class="box-border w-[1440px] h-[1001px] flex flex-row gap-0 justify-start items-start bg-[#08080A] overflow-hidden"
+    >
+      <div
+        data-pencil-name="Sidebar"
+        class="box-border w-[256px] shrink-0 h-full flex flex-col gap-0 p-[22px_14px] justify-start items-start bg-[#0E0E10] [border-width:0px_1px_0px_0px] [border-style:solid] [border-color:#26262A]"
+      >
+        <div
+          data-pencil-name="Logo"
+          class="box-border w-full h-fit shrink-0 flex flex-row gap-[10px] p-[0px_4px] justify-start items-center"
+        >
+          <div
+            data-pencil-name="Mark"
+            class="box-border w-[34px] shrink-0 h-[34px] flex flex-row gap-0 justify-center items-center bg-[#FFFFFF] rounded-[10px]"
+          >
+            <div
+              data-pencil-name="Mark Text"
+              class="text-[15px]/[normal] box-border text-[#08080A] font-[Inter,system-ui,sans-serif] font-bold tracking-[-0.6px] text-left [white-space:nowrap]"
+            >
+              D!
+            </div>
+          </div>
+          <div
+            data-pencil-name="Brand"
+            class="box-border w-fit shrink-0 h-fit flex flex-col gap-[2px] justify-start items-start"
+          >
+            <div
+              data-pencil-name="Brand Name"
+              class="text-[14.5px]/[normal] box-border text-[#F4F4F5] font-[Inter,system-ui,sans-serif] font-semibold tracking-[-0.2px] text-left [white-space:nowrap]"
+            >
+              Deu Bug!
+            </div>
+            <div
+              data-pencil-name="Brand Label"
+              class="text-[8px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal tracking-[1.6px] text-left [white-space:nowrap]"
+            >
+              ADMIN
+            </div>
+          </div>
+        </div>
+        <div
+          data-pencil-name="Spacer"
+          class="box-border w-full h-[26px] shrink-0 flex flex-row gap-0 justify-start items-start"
+        ></div>
+        <div
+          data-pencil-name="Nav"
+          class="box-border w-full h-fit shrink-0 flex flex-col gap-[4px] justify-start items-start"
+        >
+          <div
+            data-pencil-name="Visão geral"
+            class="box-border w-full h-[40px] shrink-0 flex flex-row gap-[10px] p-[0px_12px] justify-start items-center bg-[#00000000] rounded-[10px]"
+          >
+            <svg
+              data-pencil-name="Icon"
+              viewBox="0 0 16 16"
+              preserveAspectRatio="xMidYMid meet"
+              data-icon-name="layout-dashboard"
+              data-icon-set="lucide"
+              xmlns="http://www.w3.org/2000/svg"
+              class="box-border w-[16px] shrink-0 h-[16px] overflow-visible"
+            >
+              <path
+                d="M2.32 1.375q-.257 .082-.488 .266-.23 .183-.344 .421l-.031 .051q-.066 .125-.082 .239-.031 .16-.031 .64v4.016q0 .48 .031 .64 .016 .114 .082 .239l.031 .05q.114 .254 .352 .438 .238 .184 .512 .25 .128 .047 1.976 .039 1.848-.008 1.992-.039 .336-.082 .61-.352 .14-.144 .218-.265 .083-.121 .133-.313l.047-.144v-5.102l-.047-.144q-.05-.192-.133-.313-.078-.121-.218-.265-.176-.176-.336-.254l-.02-.016q-.14-.066-.254-.082-.144-.031-.543-.031h-1.312-1.746q-.285 .015-.399 .031zM9.68 1.375q-.321 .066-.61 .352-.14 .144-.222 .265-.078 .121-.129 .313l-.047 .144v2.461l.047 .16q.097 .258 .281 .465 .184 .207 .406 .32l.02 .016q.156 .082 .254 .098 .16 .015 .558 .031l3.344-.016 .16-.047q.305-.097 .535-.328 .235-.234 .332-.519 .032-.098 .032-.289l.015-1.09v-.992q0-.27-.031-.399-.016-.082-.098-.242l-.015-.016q-.114-.253-.344-.429-.23-.176-.504-.258-.113-.031-.383-.031h-1.617q-1.855 0-1.984 .031zM6 4.992v2.352h-3.344v-4.688h3.344zM13.344 3.664v.992h-3.344v-2h3.344zM9.68 7.375q-.321 .066-.61 .352-.14 .144-.222 .265-.078 .121-.129 .313l-.047 .144v5.102l.047 .144q.051 .192 .129 .313 .082 .121 .222 .265 .274 .27 .61 .352 .144 .031 1.992 .039 1.848 .008 1.976-.039 .352-.082 .622-.352 .273-.273 .355-.625 .031-.128 .039-2.648 .008-2.52-.039-2.648-.082-.352-.348-.614-.261-.265-.613-.363-.113-.031-.383-.031h-1.617q-1.855 0-1.984 .031zM13.344 10.992v2.352h-3.344v-4.688h3.344zM2.434 10.016q-.356 .062-.645 .312-.285 .246-.398 .582-.032 .098-.032 .289l-.015 1.09v.992q0 .27 .031 .399 .016 .082 .098 .242l.015 .016q.114 .253 .352 .437 .238 .184 .512 .25 .128 .047 1.976 .039 1.848-.008 1.992-.039 .336-.082 .61-.352 .14-.144 .218-.265 .083-.121 .133-.313l.047-.144v-2.461l-.047-.16q-.097-.258-.281-.465-.184-.207-.406-.32l-.02-.016q-.14-.066-.254-.098-.16-.015-.558-.031h-1.442q-1.777 0-1.886 .016zM6 12.336v1.008h-3.344v-2h3.344z"
+                fill="#8a8a93"
+              />
+            </svg>
+            <div
+              data-pencil-name="Label"
+              class="text-[12.5px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+            >
+              Visão geral
+            </div>
+          </div>
+          <div
+            data-pencil-name="Projetos"
+            class="box-border w-full h-[40px] shrink-0 flex flex-row gap-[10px] p-[0px_12px] justify-start items-center rounded-[10px]"
+          >
+            <svg
+              data-pencil-name="Icon"
+              viewBox="0 0 16 16"
+              preserveAspectRatio="xMidYMid meet"
+              data-icon-name="folder"
+              data-icon-set="lucide"
+              xmlns="http://www.w3.org/2000/svg"
+              class="box-border w-[16px] shrink-0 h-[16px] overflow-visible"
+            >
+              <path
+                d="M2.258 1.375q-.547 .113-.957 .508-.406 .39-.567 .918-.046 .16-.046 .398-.016 .305-.032 1.297l.016 7.121q.016 .703 .031 .797 .16 .625 .59 1.035 .434 .406 1.043 .52 .191 .031 5.664 .031 5.473 0 5.664-.031 .609-.114 1.047-.52 .441-.41 .586-1.035 .016-.094 .031-.652v-2.961q.016-3.473 0-3.664-.082-.578-.398-1.008-.418-.543-1.106-.738l-.16-.047-5.762-.016-.109-.047q-.129-.066-.195-.129-.063-.062-.383-.543-.254-.371-.399-.547-.144-.175-.289-.285-.129-.097-.304-.199-.176-.105-.301-.137-.242-.082-.492-.089-.246-.008-1.461-.008h-1.328q-.274 .015-.383 .031zM5.551 2.719q.129 .066 .199 .148 .074 .078 .387 .543 .312 .461 .504 .652 .382 .387 .91 .547l.16 .047h2.883q2.879 .016 2.941 .039 .067 .024 .16 .09 .098 .063 .145 .113 .047 .047 .098 .157l.046 .113v7.008l-.046 .113q-.129 .238-.372 .336l-.109 .031h-10.914l-.109-.031q-.243-.098-.371-.336l-.047-.113v-9.008l.047-.113q.066-.145 .191-.246 .129-.106 .289-.122 .113-.015 1.488-.015h1.395z"
+                fill="#8a8a93"
+              />
+            </svg>
+            <div
+              data-pencil-name="Label"
+              class="text-[12.5px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+            >
+              Projetos
+            </div>
+          </div>
+          <div
+            data-pencil-name="Clientes"
+            class="box-border w-full h-[40px] shrink-0 flex flex-row gap-[10px] p-[0px_12px] justify-start items-center bg-[#00000000] rounded-[10px]"
+          >
+            <svg
+              data-pencil-name="Icon"
+              viewBox="0 0 16 16"
+              preserveAspectRatio="xMidYMid meet"
+              data-icon-name="users"
+              data-icon-set="lucide"
+              xmlns="http://www.w3.org/2000/svg"
+              class="box-border w-[16px] shrink-0 h-[16px] overflow-visible"
+            >
+              <path
+                d="M5.535 1.375q-.926 .129-1.633 .707-.703 .574-1.023 1.422-.207 .558-.207 1.168 0 .32 .047 .578 .051 .254 .16 .559 .176 .527 .535 .968 .363 .438 .824 .727 .418 .258 .84 .371 .426 .109 .922 .109 .258 0 .414-.015 .16-.016 .402-.067 .688-.175 1.262-.636 .578-.465 .914-1.121 .223-.45 .305-1.008 .031-.16 .031-.465 0-.305-.031-.465-.113-.75-.531-1.375-.414-.625-1.071-1.023-.496-.305-1.121-.418-.176-.032-.519-.039-.344-.008-.52 .023zM10.496 1.441q-.16 .047-.289 .161-.129 .109-.176 .304-.047 .192 0 .367 .047 .176 .176 .289 .129 .11 .387 .208 .285 .093 .461 .199 .176 .101 .351 .297 .387 .382 .52 .879 .137 .496 .015 .992-.117 .496-.476 .879-.359 .382-.891 .558-.222 .082-.328 .164-.101 .078-.183 .239-.063 .113-.063 .273 0 .156 .063 .27 .097 .222 .32 .335 .144 .067 .289 .059 .144-.012 .383-.09 .402-.129 .695-.312 .297-.184 .586-.489 .895-.894 .977-2.113 .113-1.359-.801-2.43-.559-.671-1.457-.976-.383-.129-.559-.063zM6.223 2.687q.465 .032 .894 .329 .434 .296 .664 .754 .235 .453 .211 1.007-.023 .551-.328 .985-.176 .269-.433 .472-.254 .2-.528 .309-.223 .066-.328 .09-.102 .023-.375 .023-.273 0-.379-.023-.101-.024-.324-.09-.449-.16-.777-.535-.329-.375-.457-.84-.125-.527 .015-1.039 .145-.512 .52-.879 .379-.371 .906-.516 .098-.031 .281-.054 .184-.024 .246-.008zM3.535 9.375q-1.101 .16-1.887 .945-.625 .625-.863 1.504-.082 .274-.097 .504-.016 .231-.016 .938v.879l.047 .128q.066 .11 .16 .207 .242 .223 .578 .168 .336-.054 .481-.359l.046-.113 .016-.91q.016-.707 .031-.883 .016-.176 .082-.399 .16-.433 .535-.777 .375-.344 .84-.473 .176-.046 .614-.062 .441-.016 1.898-.016 1.457 0 1.895 .016 .441 .016 .617 .062 .48 .129 .863 .493 .387 .359 .527 .82 .067 .191 .075 .371 .007 .176 .023 .848l.016 .91 .047 .113q.144 .305 .48 .359 .336 .055 .578-.168 .094-.097 .16-.207l.047-.128v-.879q0-.707-.015-.938-.016-.23-.098-.504-.094-.367-.27-.703-.304-.594-.843-1.031-.536-.442-1.172-.617l-.051-.016q-.191-.066-.336-.082-.176-.016-.641-.016l-1.839-.015q-2.352 0-2.528 .031zM12.512 9.441q-.274 .063-.418 .313-.141 .246-.063 .519 .067 .223 .242 .352 .079 .047 .321 .145 .285 .093 .461 .199 .176 .101 .371 .312 .383 .399 .512 .895 .031 .129 .039 .281 .007 .152 .023 .809l.016 .91 .047 .113q.144 .305 .48 .359 .336 .055 .578-.168 .094-.097 .16-.207l.047-.128 .016-.739q0-.734-.031-1.093-.032-.36-.145-.68-.16-.481-.488-.926-.328-.449-.742-.754-.356-.258-.797-.41-.438-.152-.629-.102z"
+                fill="#8a8a93"
+              />
+            </svg>
+            <div
+              data-pencil-name="Label"
+              class="text-[12.5px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+            >
+              Clientes
+            </div>
+          </div>
+          <div
+            data-pencil-name="Solicitações"
+            class="box-border w-full h-[40px] shrink-0 flex flex-row gap-[10px] p-[0px_12px] justify-start items-center rounded-[10px]"
+          >
+            <svg
+              data-pencil-name="Icon"
+              viewBox="0 0 16 16"
+              preserveAspectRatio="xMidYMid meet"
+              data-icon-name="message-square"
+              data-icon-set="lucide"
+              xmlns="http://www.w3.org/2000/svg"
+              class="box-border w-[16px] shrink-0 h-[16px] overflow-visible"
+            >
+              <path
+                d="M2.258 1.375q-.449 .098-.82 .387-.368 .285-.575 .703-.144 .32-.191 .672-.016 .191 0 5.726v4.77q.016 .781 .031 .863 .129 .383 .426 .609 .297 .223 .664 .223 .27 0 .527-.129 .114-.047 .254-.183 .145-.137 .754-.727 .848-.848 .945-.898l.094-.047 9.25-.016 .192-.047q.289-.082 .504-.207 .214-.129 .421-.336 .211-.211 .336-.425 .129-.215 .211-.504l.047-.192 .016-7.199q-.016-.93-.031-1.234-.016-.223-.047-.383-.16-.543-.578-.926-.415-.387-.961-.5-.125-.031-.926-.031h-4.817-4.769q-.832 .015-.957 .031zM13.441 2.687q.352 .047 .497 .368l.046 .113v8.32l-.031 .098q-.144 .285-.402 .383-.063 .015-4.688 .031l-4.605 .016-.18 .031q-.156 .051-.301 .113-.242 .098-.418 .242-.175 .141-.687 .668l-.672 .657 .016-10.559 .047-.113q.066-.145 .191-.246 .129-.106 .266-.129 .136-.024 5.464-.024 5.329 0 5.457 .031z"
+                fill="#8a8a93"
+              />
+            </svg>
+            <div
+              data-pencil-name="Label"
+              class="text-[12.5px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+            >
+              Solicitações
+            </div>
+            <div
+              data-pencil-name="Spacer"
+              class="box-border [flex:1_1_0] h-[1px] flex flex-row gap-0 justify-start items-start"
+            ></div>
+            <div
+              data-pencil-name="Badge"
+              class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[2px_6px] justify-center items-center bg-[#2A2A2E] rounded-[999px]"
+            >
+              <div
+                data-pencil-name="Badge Text"
+                class="text-[9px]/[normal] box-border text-[#D4D4D8] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                8
+              </div>
+            </div>
+          </div>
+          <div
+            data-pencil-name="Financeiro"
+            class="box-border w-full h-[40px] shrink-0 flex flex-row gap-[10px] p-[0px_12px] justify-start items-center bg-[#6C4BE8] rounded-[10px]"
+          >
+            <svg
+              data-pencil-name="Icon"
+              viewBox="0 0 16 16"
+              preserveAspectRatio="xMidYMid meet"
+              data-icon-name="wallet"
+              data-icon-set="lucide"
+              xmlns="http://www.w3.org/2000/svg"
+              class="box-border w-[16px] shrink-0 h-[16px] overflow-visible"
+            >
+              <path
+                d="M2.977 1.375q-.579 .098-1.004 .5-.422 .398-.582 .988-.032 .098-.032 .817l-.015 4.32 .015 4.32q0 .719 .032 .817 .304 1.121 1.441 1.472l.145 .047h9.472q.879 0 1.133-.031 .18-.016 .289-.082l.067-.031q.175-.078 .335-.239 .161-.16 .239-.335l.015-.016q.082-.145 .098-.242 .031-.114 .031-.383v-2.129l.145-.113q.367-.27 .496-.719 .016-.078 .031-.258v-.75q0-.656-.008-.785-.007-.129-.039-.238-.05-.16-.105-.262-.055-.106-.199-.266-.145-.16-.243-.211l-.078-.062-.015-2.305q0-.191-.032-.289-.082-.207-.242-.406-.16-.199-.336-.313-.254-.144-.558-.175l-.129-.016-.016-.785q0-.559-.008-.695-.007-.137-.039-.231-.066-.176-.14-.297-.071-.121-.211-.265-.289-.286-.625-.352-.145-.031-4.657-.031-4.511 0-4.671 .031zM12 3.328v.672h-8.785l-.11-.047q-.175-.066-.304-.226-.129-.161-.129-.399 0-.144 .062-.273 .067-.145 .2-.246 .136-.106 .296-.137 .098 0 4.434-.016h4.336zM2.832 5.266q.129 .031 .289 .054 .16 .024 5.199 .024h5.024v2h-.848q-.672 0-.824 .015-.152 .016-.375 .114-.274 .093-.531 .297-.254 .199-.414 .437-.383 .578-.344 1.242 .039 .664 .461 1.176 .426 .512 1.113 .672 .145 .031 .945 .031l.817 .016v2h-5.008q-5.008 0-5.121-.031-.336-.067-.496-.383l-.047-.114v-6.992q0-.609 .016-.594zM14 9.328v.672l-2.176-.016-.113-.046q-.109-.051-.199-.153-.086-.105-.137-.215-.047-.113-.039-.265 .008-.153 .055-.25 .082-.145 .207-.246 .129-.106 .289-.121 .113-.032 1.105-.032h1.008z"
+                fill="#ffffff"
+              />
+            </svg>
+            <div
+              data-pencil-name="Label"
+              class="text-[12.5px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+            >
+              Financeiro
+            </div>
+          </div>
+        </div>
+        <div
+          data-pencil-name="Flex Spacer"
+          class="box-border w-full [flex:1_1_0] flex flex-col gap-0 justify-start items-start"
+        ></div>
+        <div
+          data-pencil-name="Sidebar Footer"
+          class="box-border w-full h-fit shrink-0 flex flex-col gap-[10px] justify-start items-start"
+        >
+          <div
+            data-pencil-name="Ver como cliente"
+            class="box-border w-full h-[36px] shrink-0 flex flex-row gap-[7px] justify-center items-center [border:1px_solid_#26262A] rounded-[10px]"
+          >
+            <svg
+              data-pencil-name="Icon"
+              viewBox="0 0 14 14"
+              preserveAspectRatio="xMidYMid meet"
+              data-icon-name="eye"
+              data-icon-set="lucide"
+              xmlns="http://www.w3.org/2000/svg"
+              class="box-border w-[14px] shrink-0 h-[14px] overflow-visible"
+            >
+              <path
+                d="M6.679 2.352q-1.234 .041-2.389 .54-1.152 .495-2.051 1.377-.95 .926-1.47 2.058-.109 .253-.147 .379-.034 .127-.034 .294 0 .167 .034 .287 .038 .12 .133 .356 .38 .827 .974 1.541 .595 .714 1.337 1.248 1.456 1.005 3.291 1.203 .209 .027 .643 .027 .434 0 .629-.027 1.206-.127 2.249-.602 1.042-.478 1.883-1.288 .964-.94 1.484-2.102 .095-.236 .13-.356 .037-.12 .037-.287 0-.167-.037-.287-.035-.12-.13-.356-.366-.786-.933-1.483-.564-.701-1.279-1.22-.841-.615-1.828-.95-.988-.339-2.024-.366-.208 0-.502 .014zM7.673 3.541q1.47 .167 2.673 1.053 1.203 .882 1.819 2.225l.085 .181-.085 .195q-.629 1.347-1.832 2.222-1.204 .875-2.731 1.056-.182 .013-.602 .013-.42 0-.602-.013-1.107-.127-2.054-.622-.943-.499-1.657-1.327-.517-.615-.852-1.343l-.085-.181 .085-.181q.435-.954 1.19-1.695 .755-.742 1.75-1.163 .909-.393 1.945-.447 .14-.014 .461 0 .321 .013 .492 .027zM6.638 4.703q-.899 .154-1.443 .827-.184 .222-.29 .448-.103 .226-.188 .52-.028 .109-.034 .194-.007 .082-.007 .308 0 .28 .027 .434 .027 .154 .113 .379 .167 .476 .53 .841 .365 .363 .841 .53 .225 .086 .379 .113 .154 .027 .434 .027 .28 0 .434-.027 .154-.027 .38-.113 .475-.167 .837-.53 .366-.365 .533-.841 .086-.225 .113-.379 .027-.154 .027-.434 0-.28-.027-.434-.027-.154-.113-.379-.208-.558-.666-.951-.455-.393-1.043-.519-.14-.028-.427-.034-.287-.007-.41 .02zM7.294 5.865q.28 .072 .523 .318 .246 .243 .318 .523 .027 .127 .027 .294 0 .167-.027 .28-.072 .294-.304 .533-.229 .236-.537 .322-.113 .027-.294 .027-.181 0-.294-.027-.308-.086-.54-.322-.229-.239-.301-.533-.027-.113-.027-.28 0-.167 .027-.294 .058-.226 .226-.434 .167-.209 .407-.321 .348-.181 .796-.086z"
+                fill="#8a8a93"
+              />
+            </svg>
+            <div
+              data-pencil-name="Label"
+              class="text-[11.5px]/[normal] box-border text-[#C8C8CE] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+            >
+              Ver como cliente
+            </div>
+          </div>
+          <div
+            data-pencil-name="User Card"
+            class="box-border w-full h-fit shrink-0 flex flex-row gap-[10px] p-[9px_10px] justify-start items-center bg-[#151517] rounded-[12px]"
+          >
+            <div
+              data-pencil-name="Avatar"
+              class="box-border w-[30px] shrink-0 h-[30px] flex flex-row gap-0 justify-center items-center bg-[#2E2E34] rounded-[999px]"
+            >
+              <div
+                data-pencil-name="Initials"
+                class="text-[9.5px]/[normal] box-border text-[#E4E4E7] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+              >
+                RL
+              </div>
+            </div>
+            <div
+              data-pencil-name="User Text"
+              class="box-border [flex:1_1_0] h-fit flex flex-col gap-[2px] justify-start items-start"
+            >
+              <div
+                data-pencil-name="User Name"
+                class="text-[11.5px]/[normal] box-border text-[#F4F4F5] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Rafael Lima
+              </div>
+              <div
+                data-pencil-name="User Role"
+                class="text-[9.5px]/[normal] box-border w-full text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left"
+              >
+                Gestor de projetos
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        data-pencil-name="Main"
+        class="box-border [flex:1_1_0] h-full flex flex-col gap-[18px] p-[26px_30px] justify-start items-start"
+      >
+        <div
+          data-pencil-name="Header"
+          class="box-border w-full h-fit shrink-0 flex flex-row gap-0 justify-between items-center"
+        >
+          <div
+            data-pencil-name="Title Block"
+            class="box-border w-fit shrink-0 h-fit flex flex-col gap-[4px] justify-start items-start"
+          >
+            <div
+              data-pencil-name="Title"
+              class="text-[30px]/[normal] box-border text-[#A78BFA] font-[Inter,system-ui,sans-serif] font-bold tracking-[-1px] text-left [white-space:nowrap]"
+            >
+              Financeiro
+            </div>
+            <div
+              data-pencil-name="Subtitle"
+              class="text-[12px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+            >
+              Cobranças, recebimentos e inadimplência.
+            </div>
+          </div>
+          <div
+            data-pencil-name="Header Actions"
+            class="box-border w-fit shrink-0 h-fit flex flex-row gap-[10px] justify-start items-center"
+          >
+            <div
+              data-pencil-name="Período"
+              class="box-border w-[150px] shrink-0 h-[38px] flex flex-row gap-[8px] p-[0px_12px] justify-start items-center bg-[#151517] [border:1px_solid_#26262A] rounded-[10px]"
+            >
+              <svg
+                data-pencil-name="Search Icon"
+                viewBox="0 0 14 14"
+                preserveAspectRatio="xMidYMid meet"
+                data-icon-name="calendar-days"
+                data-icon-set="lucide"
+                xmlns="http://www.w3.org/2000/svg"
+                class="box-border w-[14px] shrink-0 h-[14px] overflow-visible"
+              >
+                <path
+                  d="M4.577 .602q-.123 .013-.243 .099-.12 .082-.191 .194-.041 .086-.055 .206-.014 .116-.014 .355v.294l-1.329 .014q-.14 .013-.24 .027-.502 .14-.854 .506-.349 .362-.448 .882-.027 .095-.027 .81v7.994l.054 .154q.158 .52 .561 .862 .407 .341 .94 .399 .154 .028 4.269 .028 4.115 0 4.269-.028 .308-.027 .588-.167 .325-.154 .561-.441 .239-.287 .352-.653l.054-.154v-7.994q0-.715-.027-.81-.099-.52-.451-.882-.349-.366-.851-.506-.099-.014-.24-.027l-1.329-.014v-.294q0-.321-.034-.455-.035-.133-.147-.246-.14-.14-.359-.16-.216-.021-.376 .092-.161 .109-.219 .294-.027 .055-.034 .133-.007 .075-.007 .301v.335h-3.5v-.349q0-.239-.007-.307-.007-.072-.034-.127-.085-.212-.253-.307-.167-.099-.379-.058zM4.074 3.274q.014 .253 .021 .318 .007 .062 .034 .147 .058 .096 .14 .181 .212 .195 .506 .147 .294-.047 .42-.314 .028-.086 .035-.14 .006-.058 .02-.322v-.365h3.5v.365q.014 .264 .021 .322 .006 .054 .034 .14 .126 .267 .42 .314 .294 .048 .506-.147 .082-.085 .14-.181 .027-.085 .034-.147 .007-.065 .021-.318v-.348h1.316l.085 .041q.082 .044 .157 .123 .079 .075 .12 .16 .044 .083 .058 .281 .014 .195 .014 .851v.868h-9.352l.014-1.723q.014-.167 .027-.208 .099-.267 .352-.366 .055-.014 .168-.027h1.189zM11.662 9.099q0 1.89-.007 2.303-.007 .414-.02 .455-.099 .253-.352 .352l-.096 .041h-8.374l-.096-.041q-.154-.058-.266-.198l-.028-.028q-.044-.054-.058-.153-.027-.141-.027-.602l-.014-4.802h9.352zM4.577 7.602q-.236 .027-.383 .232-.147 .202-.092 .441 .027 .181 .153 .294 .168 .167 .421 .167 .14 0 .239-.041 .209-.099 .284-.294 .078-.198 .031-.4-.048-.205-.233-.321-.181-.119-.42-.078zM6.901 7.602q-.181 .027-.321 .167-.209 .212-.154 .506 .054 .294 .321 .42 .099 .041 .253 .041 .253 0 .42-.167 .127-.127 .154-.308 .055-.294-.157-.502-.208-.212-.516-.157zM9.225 7.602q-.181 .027-.321 .181-.14 .154-.154 .352-.014 .236 .161 .427 .174 .188 .427 .188 .195 0 .349-.12 .153-.119 .208-.307 .058-.188-.02-.376-.076-.192-.25-.287-.174-.099-.4-.058zM4.481 9.953q-.185 .058-.291 .212-.102 .154-.102 .335 0 .239 .174 .414 .175 .174 .421 .16 .246-.013 .4-.167 .099-.099 .126-.181 .027-.086 .027-.24 0-.153-.041-.239-.085-.181-.266-.267-.086-.041-.233-.054-.147-.014-.215 .027zM6.846 9.939q-.253 .086-.379 .308-.041 .086-.041 .239 0 .154 .034 .24 .038 .082 .133 .181 .154 .154 .4 .167 .246 .014 .421-.16 .174-.175 .174-.414 0-.239-.168-.4-.167-.161-.393-.174-.14 0-.181 .013zM9.129 9.953q-.099 .045-.191 .13-.089 .082-.126 .161-.035 .075-.041 .116-.007 .041-.007 .14 0 .154 .041 .253 .072 .154 .218 .239 .147 .082 .315 .082 .167 0 .308-.082 .14-.085 .225-.239 .041-.099 .041-.253 0-.099-.007-.14-.007-.041-.034-.113-.058-.082-.143-.164-.082-.085-.182-.12-.095-.037-.215-.037-.12 0-.202 .027z"
+                  fill="#8a8a93"
+                />
+              </svg>
+              <div
+                data-pencil-name="Placeholder"
+                class="text-[11.5px]/[normal] box-border text-[#D4D4D8] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                Outubro de 2026
+              </div>
+            </div>
+            <div
+              data-pencil-name="Emitir cobrança"
+              class="box-border w-fit shrink-0 h-[38px] flex flex-row gap-[6px] p-[0px_14px] justify-start items-center bg-[#6C4BE8] rounded-[10px]"
+            >
+              <svg
+                data-pencil-name="Icon"
+                viewBox="0 0 14 14"
+                preserveAspectRatio="xMidYMid meet"
+                data-icon-name="zap"
+                data-icon-set="lucide"
+                xmlns="http://www.w3.org/2000/svg"
+                class="box-border w-[14px] shrink-0 h-[14px] overflow-visible"
+              >
+                <path
+                  d="M7.742 .602q-.168 .027-.335 .112-.099 .069-2.817 2.871l-2.881 2.981q-.352 .366-.393 .448l-.014 .013q-.099 .212-.126 .448-.041 .379 .14 .687 .181 .308 .502 .462l.045 .027q.096 .044 .195 .058 .126 .027 .519 .027l3.835 .028-.574 1.791q-.574 1.794-.574 1.89-.041 .253 .099 .506 .14 .253 .376 .376 .393 .184 .772 0 .127-.069 .322-.25l5.598-5.783q.226-.226 .308-.42 .085-.195 .085-.476 0-.321-.167-.594-.168-.274-.462-.428l-.044-.013q-.096-.058-.195-.072-.14-.027-.519-.027l-3.849-.028 .574-1.791q.574-1.794 .574-1.89 .041-.253-.099-.506-.14-.253-.393-.376-.249-.126-.502-.071zM6.819 3.794q-.38 1.203-.393 1.33-.028 .194 .02 .399 .052 .202 .161 .37 .072 .099 .205 .218 .133 .12 .243 .175l.044 .027q.11 .058 .209 .072 .14 .013 .519 .027l3.821 .014-2.423 2.505q-2.42 2.492-2.427 2.492-.006 0 .376-1.21 .387-1.21 .4-1.337 .028-.194-.024-.396-.048-.205-.157-.359-.058-.085-.164-.195-.103-.113-.188-.157-.167-.109-.376-.167-.072-.014-2.198-.028h-2.115l2.423-2.505q2.42-2.492 2.427-2.492 .007 0-.383 1.217z"
+                  fill="#ffffff"
+                />
+              </svg>
+              <div
+                data-pencil-name="Label"
+                class="text-[11.5px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Emitir cobrança
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          data-pencil-name="KPIs"
+          class="box-border w-full h-[106px] shrink-0 flex flex-row gap-[16px] justify-start items-start"
+        >
+          <div
+            data-pencil-name="Recebido em outubro"
+            class="box-border [flex:1_1_0] h-full flex flex-col gap-[9px] p-[15px_16px] justify-start items-start bg-[#6C4BE8] rounded-[12px]"
+          >
+            <div
+              data-pencil-name="Topo"
+              class="box-border w-full h-fit shrink-0 flex flex-col gap-[5px] justify-start items-start"
+            >
+              <div
+                data-pencil-name="Label"
+                class="text-[11px]/[normal] box-border text-[#EDE7FF] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Recebido em outubro
+              </div>
+              <div
+                data-pencil-name="Value"
+                class="text-[25px]/[28px] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+              >
+                R$ 18.400
+              </div>
+            </div>
+            <div
+              data-pencil-name="Sub"
+              class="text-[9.5px]/[normal] box-border w-full text-[#EAE2FF] font-[Inter,system-ui,sans-serif] font-normal text-left"
+            >
+              74% da meta de R$ 25.000
+            </div>
+          </div>
+          <div
+            data-pencil-name="A receber"
+            class="box-border [flex:1_1_0] h-full flex flex-col gap-[9px] p-[15px_16px] justify-start items-start bg-[#151517] rounded-[12px]"
+          >
+            <div
+              data-pencil-name="Topo"
+              class="box-border w-full h-fit shrink-0 flex flex-col gap-[5px] justify-start items-start"
+            >
+              <div
+                data-pencil-name="Label"
+                class="text-[11px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                A receber
+              </div>
+              <div
+                data-pencil-name="Value"
+                class="text-[25px]/[28px] box-border text-[#F4F4F5] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+              >
+                R$ 11.250
+              </div>
+            </div>
+            <div
+              data-pencil-name="Sub"
+              class="text-[9.5px]/[normal] box-border w-full text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left"
+            >
+              9 parcelas nos próximos 30 dias
+            </div>
+          </div>
+          <div
+            data-pencil-name="Em atraso"
+            class="box-border [flex:1_1_0] h-full flex flex-col gap-[9px] p-[15px_16px] justify-start items-start bg-[#151517] rounded-[12px]"
+          >
+            <div
+              data-pencil-name="Topo"
+              class="box-border w-full h-fit shrink-0 flex flex-col gap-[5px] justify-start items-start"
+            >
+              <div
+                data-pencil-name="Label"
+                class="text-[11px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Em atraso
+              </div>
+              <div
+                data-pencil-name="Value"
+                class="text-[25px]/[28px] box-border text-[#F87171] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+              >
+                R$ 2.480
+              </div>
+            </div>
+            <div
+              data-pencil-name="Sub"
+              class="text-[9.5px]/[normal] box-border w-full text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left"
+            >
+              2 faturas · 2 clientes
+            </div>
+          </div>
+          <div
+            data-pencil-name="Recebido em 2026"
+            class="box-border [flex:1_1_0] h-full flex flex-col gap-[9px] p-[15px_16px] justify-start items-start bg-[#151517] rounded-[12px]"
+          >
+            <div
+              data-pencil-name="Topo"
+              class="box-border w-full h-fit shrink-0 flex flex-col gap-[5px] justify-start items-start"
+            >
+              <div
+                data-pencil-name="Label"
+                class="text-[11px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Recebido em 2026
+              </div>
+              <div
+                data-pencil-name="Value"
+                class="text-[25px]/[28px] box-border text-[#F4F4F5] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+              >
+                R$ 142.900
+              </div>
+            </div>
+            <div
+              data-pencil-name="Sub"
+              class="text-[9.5px]/[normal] box-border w-full text-[#4ADE80] font-[Inter,system-ui,sans-serif] font-normal text-left"
+            >
+              +18% sobre 2025
+            </div>
+          </div>
+        </div>
+        <div
+          data-pencil-name="Receita"
+          class="box-border w-full h-[302px] shrink-0 flex flex-row gap-[16px] justify-start items-start"
+        >
+          <div
+            data-pencil-name="Receita dos últimos 6 meses"
+            class="box-border w-[598px] shrink-0 h-full flex flex-col gap-[18px] p-[18px] justify-start items-start bg-[#151517] rounded-[14px]"
+          >
+            <div
+              data-pencil-name="Title"
+              class="text-[14px]/[normal] box-border text-[#F4F4F5] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+            >
+              Receita dos últimos 6 meses
+            </div>
+            <div
+              data-pencil-name="Barras"
+              class="box-border w-full [flex:1_1_0] flex flex-row gap-[12px] justify-start items-start"
+            >
+              <div
+                data-pencil-name="mai"
+                class="box-border [flex:1_1_0] h-full flex flex-col gap-[7px] justify-end items-center"
+              >
+                <div
+                  data-pencil-name="Value"
+                  class="text-[9.5px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                >
+                  16,2k
+                </div>
+                <div
+                  data-pencil-name="Barra"
+                  class="box-border w-full h-[126px] shrink-0 bg-[#9B7FE8] rounded-[6px_6px_0px_0px]"
+                ></div>
+                <div
+                  data-pencil-name="Mês"
+                  class="text-[10px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+                >
+                  mai
+                </div>
+              </div>
+              <div
+                data-pencil-name="jun"
+                class="box-border [flex:1_1_0] h-full flex flex-col gap-[7px] justify-end items-center"
+              >
+                <div
+                  data-pencil-name="Value"
+                  class="text-[9.5px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                >
+                  19,8k
+                </div>
+                <div
+                  data-pencil-name="Barra"
+                  class="box-border w-full h-[155px] shrink-0 bg-[#9B7FE8] rounded-[6px_6px_0px_0px]"
+                ></div>
+                <div
+                  data-pencil-name="Mês"
+                  class="text-[10px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+                >
+                  jun
+                </div>
+              </div>
+              <div
+                data-pencil-name="jul"
+                class="box-border [flex:1_1_0] h-full flex flex-col gap-[7px] justify-end items-center"
+              >
+                <div
+                  data-pencil-name="Value"
+                  class="text-[9.5px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                >
+                  17,6k
+                </div>
+                <div
+                  data-pencil-name="Barra"
+                  class="box-border w-full h-[137px] shrink-0 bg-[#9B7FE8] rounded-[6px_6px_0px_0px]"
+                ></div>
+                <div
+                  data-pencil-name="Mês"
+                  class="text-[10px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+                >
+                  jul
+                </div>
+              </div>
+              <div
+                data-pencil-name="ago"
+                class="box-border [flex:1_1_0] h-full flex flex-col gap-[7px] justify-end items-center"
+              >
+                <div
+                  data-pencil-name="Value"
+                  class="text-[9.5px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                >
+                  21,3k
+                </div>
+                <div
+                  data-pencil-name="Barra"
+                  class="box-border w-full h-[166px] shrink-0 bg-[#9B7FE8] rounded-[6px_6px_0px_0px]"
+                ></div>
+                <div
+                  data-pencil-name="Mês"
+                  class="text-[10px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+                >
+                  ago
+                </div>
+              </div>
+              <div
+                data-pencil-name="set"
+                class="box-border [flex:1_1_0] h-full flex flex-col gap-[7px] justify-end items-center"
+              >
+                <div
+                  data-pencil-name="Value"
+                  class="text-[9.5px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                >
+                  23,1k
+                </div>
+                <div
+                  data-pencil-name="Barra"
+                  class="box-border w-full h-[180px] shrink-0 bg-[#9B7FE8] rounded-[6px_6px_0px_0px]"
+                ></div>
+                <div
+                  data-pencil-name="Mês"
+                  class="text-[10px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+                >
+                  set
+                </div>
+              </div>
+              <div
+                data-pencil-name="out"
+                class="box-border [flex:1_1_0] h-full flex flex-col gap-[7px] justify-end items-center"
+              >
+                <div
+                  data-pencil-name="Value"
+                  class="text-[9.5px]/[normal] box-border text-[#F4F4F5] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                >
+                  18,4k
+                </div>
+                <div
+                  data-pencil-name="Barra"
+                  class="box-border w-full h-[143px] shrink-0 bg-[#6C4BE8] rounded-[6px_6px_0px_0px]"
+                ></div>
+                <div
+                  data-pencil-name="Mês"
+                  class="text-[10px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+                >
+                  out
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            data-pencil-name="Receita por serviço"
+            class="box-border [flex:1_1_0] h-full flex flex-col gap-[20px] p-[18px] justify-start items-start bg-[#151517] rounded-[14px]"
+          >
+            <div
+              data-pencil-name="Title"
+              class="text-[14px]/[normal] box-border text-[#F4F4F5] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+            >
+              Receita por serviço
+            </div>
+            <div
+              data-pencil-name="Serviços"
+              class="box-border w-full h-fit shrink-0 flex flex-col gap-[17px] justify-start items-start"
+            >
+              <div
+                data-pencil-name="Lojas virtuais"
+                class="box-border w-full h-fit shrink-0 flex flex-col gap-[7px] justify-start items-start"
+              >
+                <div
+                  data-pencil-name="Serviço · Header"
+                  class="box-border w-full h-fit shrink-0 flex flex-row gap-0 justify-between items-center"
+                >
+                  <div
+                    data-pencil-name="Name"
+                    class="text-[10.5px]/[normal] box-border text-[#D4D4D8] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                  >
+                    Lojas virtuais
+                  </div>
+                  <div
+                    data-pencil-name="Value"
+                    class="text-[10.5px]/[normal] box-border text-[#F4F4F5] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                  >
+                    R$ 8.600
+                  </div>
+                </div>
+                <div
+                  data-pencil-name="Track"
+                  class="box-border w-full h-[6px] shrink-0 flex flex-row gap-0 justify-start items-start bg-[#242428] rounded-[999px]"
+                >
+                  <div
+                    data-pencil-name="Fill"
+                    class="box-border w-[220px] shrink-0 h-full flex flex-row gap-0 justify-start items-start bg-[#A78BFA] rounded-[999px]"
+                  ></div>
+                </div>
+              </div>
+              <div
+                data-pencil-name="Sites institucionais"
+                class="box-border w-full h-fit shrink-0 flex flex-col gap-[7px] justify-start items-start"
+              >
+                <div
+                  data-pencil-name="Serviço · Header"
+                  class="box-border w-full h-fit shrink-0 flex flex-row gap-0 justify-between items-center"
+                >
+                  <div
+                    data-pencil-name="Name"
+                    class="text-[10.5px]/[normal] box-border text-[#D4D4D8] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                  >
+                    Sites institucionais
+                  </div>
+                  <div
+                    data-pencil-name="Value"
+                    class="text-[10.5px]/[normal] box-border text-[#F4F4F5] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                  >
+                    R$ 6.200
+                  </div>
+                </div>
+                <div
+                  data-pencil-name="Track"
+                  class="box-border w-full h-[6px] shrink-0 flex flex-row gap-0 justify-start items-start bg-[#242428] rounded-[999px]"
+                >
+                  <div
+                    data-pencil-name="Fill"
+                    class="box-border w-[160px] shrink-0 h-full flex flex-row gap-0 justify-start items-start bg-[#A78BFA] rounded-[999px]"
+                  ></div>
+                </div>
+              </div>
+              <div
+                data-pencil-name="Landing pages"
+                class="box-border w-full h-fit shrink-0 flex flex-col gap-[7px] justify-start items-start"
+              >
+                <div
+                  data-pencil-name="Serviço · Header"
+                  class="box-border w-full h-fit shrink-0 flex flex-row gap-0 justify-between items-center"
+                >
+                  <div
+                    data-pencil-name="Name"
+                    class="text-[10.5px]/[normal] box-border text-[#D4D4D8] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                  >
+                    Landing pages
+                  </div>
+                  <div
+                    data-pencil-name="Value"
+                    class="text-[10.5px]/[normal] box-border text-[#F4F4F5] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                  >
+                    R$ 2.400
+                  </div>
+                </div>
+                <div
+                  data-pencil-name="Track"
+                  class="box-border w-full h-[6px] shrink-0 flex flex-row gap-0 justify-start items-start bg-[#242428] rounded-[999px]"
+                >
+                  <div
+                    data-pencil-name="Fill"
+                    class="box-border w-[61px] shrink-0 h-full flex flex-row gap-0 justify-start items-start bg-[#A78BFA] rounded-[999px]"
+                  ></div>
+                </div>
+              </div>
+              <div
+                data-pencil-name="Manutenção mensal"
+                class="box-border w-full h-fit shrink-0 flex flex-col gap-[7px] justify-start items-start"
+              >
+                <div
+                  data-pencil-name="Serviço · Header"
+                  class="box-border w-full h-fit shrink-0 flex flex-row gap-0 justify-between items-center"
+                >
+                  <div
+                    data-pencil-name="Name"
+                    class="text-[10.5px]/[normal] box-border text-[#D4D4D8] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                  >
+                    Manutenção mensal
+                  </div>
+                  <div
+                    data-pencil-name="Value"
+                    class="text-[10.5px]/[normal] box-border text-[#F4F4F5] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                  >
+                    R$ 1.200
+                  </div>
+                </div>
+                <div
+                  data-pencil-name="Track"
+                  class="box-border w-full h-[6px] shrink-0 flex flex-row gap-0 justify-start items-start bg-[#242428] rounded-[999px]"
+                >
+                  <div
+                    data-pencil-name="Fill"
+                    class="box-border w-[30px] shrink-0 h-full flex flex-row gap-0 justify-start items-start bg-[#A78BFA] rounded-[999px]"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          data-pencil-name="Faturas"
+          class="box-border w-full h-fit shrink-0 flex flex-col gap-0 justify-start items-start bg-[#151517] rounded-[14px] overflow-hidden"
+        >
+          <div
+            data-pencil-name="Faturas · Header"
+            class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[18px_20px_14px_20px] justify-between items-center"
+          >
+            <div
+              data-pencil-name="Title"
+              class="text-[15px]/[normal] box-border text-[#F4F4F5] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+            >
+              Faturas
+            </div>
+            <div
+              data-pencil-name="Filtros"
+              class="box-border w-fit shrink-0 h-fit flex flex-row gap-[8px] justify-start items-center"
+            >
+              <div
+                data-pencil-name="Todas"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[6px_14px] justify-center items-center bg-[#6C4BE8] rounded-[999px]"
+              >
+                <div
+                  data-pencil-name="Label"
+                  class="text-[10.5px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+                >
+                  Todas
+                </div>
+              </div>
+              <div
+                data-pencil-name="Em atraso"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[6px_14px] justify-center items-center bg-[#1E1E21] [outline:1px_solid_#26262A] [outline-offset:-0.5px] rounded-[999px]"
+              >
+                <div
+                  data-pencil-name="Label"
+                  class="text-[10.5px]/[normal] box-border text-[#D4D4D8] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                >
+                  Em atraso
+                </div>
+              </div>
+              <div
+                data-pencil-name="A vencer"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[6px_14px] justify-center items-center bg-[#1E1E21] [outline:1px_solid_#26262A] [outline-offset:-0.5px] rounded-[999px]"
+              >
+                <div
+                  data-pencil-name="Label"
+                  class="text-[10.5px]/[normal] box-border text-[#D4D4D8] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                >
+                  A vencer
+                </div>
+              </div>
+              <div
+                data-pencil-name="Pagas"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[6px_14px] justify-center items-center bg-[#1E1E21] [outline:1px_solid_#26262A] [outline-offset:-0.5px] rounded-[999px]"
+              >
+                <div
+                  data-pencil-name="Label"
+                  class="text-[10.5px]/[normal] box-border text-[#D4D4D8] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                >
+                  Pagas
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            data-pencil-name="Column Labels"
+            class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[0px_20px_10px_20px] justify-start items-center"
+          >
+            <div
+              data-pencil-name="Cliente · Label"
+              class="box-border [flex:1_1_0] h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Cliente"
+                class="text-[10px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Cliente
+              </div>
+            </div>
+            <div
+              data-pencil-name="Projeto · Label"
+              class="box-border w-[200px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Projeto"
+                class="text-[10px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Projeto
+              </div>
+            </div>
+            <div
+              data-pencil-name="Parcela · Label"
+              class="box-border w-[100px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Parcela"
+                class="text-[10px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Parcela
+              </div>
+            </div>
+            <div
+              data-pencil-name="Vencimento · Label"
+              class="box-border w-[90px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Vencimento"
+                class="text-[10px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Vencimento
+              </div>
+            </div>
+            <div
+              data-pencil-name="Valor · Label"
+              class="box-border w-[96px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Valor"
+                class="text-[10px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Valor
+              </div>
+            </div>
+            <div
+              data-pencil-name="Situação · Label"
+              class="box-border w-[170px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Situação"
+                class="text-[10px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Situação
+              </div>
+            </div>
+            <div
+              data-pencil-name="Ação · Label"
+              class="box-border w-[120px] shrink-0 h-[13px] flex flex-row gap-0 justify-start items-center"
+            ></div>
+          </div>
+          <div
+            data-pencil-name="Café Girassol"
+            class="box-border w-full h-[56px] shrink-0 flex flex-row gap-0 p-[0px_20px] justify-start items-center"
+          >
+            <div
+              data-pencil-name="Cliente"
+              class="box-border [flex:1_1_0] h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Cliente · Texto"
+                class="text-[11.5px]/[normal] box-border text-[#F4F4F5] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+              >
+                Café Girassol
+              </div>
+            </div>
+            <div
+              data-pencil-name="Projeto"
+              class="box-border w-[227px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Projeto · Texto"
+                class="text-[10.5px]/[normal] box-border text-[#C9C9CF] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                Loja Café Girassol
+              </div>
+            </div>
+            <div
+              data-pencil-name="Parcela"
+              class="box-border w-[113px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Parcela · Texto"
+                class="text-[10.5px]/[normal] box-border text-[#A1A1AA] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                2 de 3
+              </div>
+            </div>
+            <div
+              data-pencil-name="Vencimento"
+              class="box-border w-[84px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Vencimento · Texto"
+                class="text-[10.5px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                05 out
+              </div>
+            </div>
+            <div
+              data-pencil-name="Valor"
+              class="box-border w-[90px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Valor · Texto"
+                class="text-[11px]/[normal] box-border text-[#E4E4E7] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                R$ 1.480
+              </div>
+            </div>
+            <div
+              data-pencil-name="Situação"
+              class="box-border w-[190px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Badge"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[3px_8px] justify-center items-center bg-[#F871711F] rounded-[999px]"
+              >
+                <div
+                  data-pencil-name="Badge Label"
+                  class="text-[9px]/[normal] box-border text-[#F87171] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+                >
+                  14 dias de atraso
+                </div>
+              </div>
+            </div>
+            <div
+              data-pencil-name="Ação"
+              class="box-border w-[165px] shrink-0 h-fit flex flex-row gap-0 justify-end items-center"
+            >
+              <div
+                data-pencil-name="Enviar lembrete"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[7px_12px] justify-center items-center bg-[#6C4BE8] rounded-[8px]"
+              >
+                <div
+                  data-pencil-name="Label"
+                  class="text-[10px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+                >
+                  Enviar lembrete
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            data-pencil-name="Divider"
+            class="box-border w-full h-[1px] shrink-0 bg-[#1F1F23]"
+          ></div>
+          <div
+            data-pencil-name="Studio Aurora Pilates"
+            class="box-border w-full h-[56px] shrink-0 flex flex-row gap-0 p-[0px_20px] justify-start items-center"
+          >
+            <div
+              data-pencil-name="Cliente"
+              class="box-border [flex:1_1_0] h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Cliente · Texto"
+                class="text-[11.5px]/[normal] box-border text-[#F4F4F5] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+              >
+                Studio Aurora Pilates
+              </div>
+            </div>
+            <div
+              data-pencil-name="Projeto"
+              class="box-border w-[227px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Projeto · Texto"
+                class="text-[10.5px]/[normal] box-border text-[#C9C9CF] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                Agendamento de aulas
+              </div>
+            </div>
+            <div
+              data-pencil-name="Parcela"
+              class="box-border w-[113px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Parcela · Texto"
+                class="text-[10.5px]/[normal] box-border text-[#A1A1AA] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                1 de 2
+              </div>
+            </div>
+            <div
+              data-pencil-name="Vencimento"
+              class="box-border w-[84px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Vencimento · Texto"
+                class="text-[10.5px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                10 out
+              </div>
+            </div>
+            <div
+              data-pencil-name="Valor"
+              class="box-border w-[90px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Valor · Texto"
+                class="text-[11px]/[normal] box-border text-[#E4E4E7] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                R$ 1.000
+              </div>
+            </div>
+            <div
+              data-pencil-name="Situação"
+              class="box-border w-[190px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Badge"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[3px_8px] justify-center items-center bg-[#F871711F] rounded-[999px]"
+              >
+                <div
+                  data-pencil-name="Badge Label"
+                  class="text-[9px]/[normal] box-border text-[#F87171] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+                >
+                  9 dias de atraso
+                </div>
+              </div>
+            </div>
+            <div
+              data-pencil-name="Ação"
+              class="box-border w-[165px] shrink-0 h-fit flex flex-row gap-0 justify-end items-center"
+            >
+              <div
+                data-pencil-name="Enviar lembrete"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[7px_12px] justify-center items-center bg-[#6C4BE8] rounded-[8px]"
+              >
+                <div
+                  data-pencil-name="Label"
+                  class="text-[10px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+                >
+                  Enviar lembrete
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            data-pencil-name="Divider"
+            class="box-border w-full h-[1px] shrink-0 bg-[#1F1F23]"
+          ></div>
+          <div
+            data-pencil-name="Padaria Doce Trigo"
+            class="box-border w-full h-[56px] shrink-0 flex flex-row gap-0 p-[0px_20px] justify-start items-center"
+          >
+            <div
+              data-pencil-name="Cliente"
+              class="box-border [flex:1_1_0] h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Cliente · Texto"
+                class="text-[11.5px]/[normal] box-border text-[#F4F4F5] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+              >
+                Padaria Doce Trigo
+              </div>
+            </div>
+            <div
+              data-pencil-name="Projeto"
+              class="box-border w-[227px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Projeto · Texto"
+                class="text-[10.5px]/[normal] box-border text-[#C9C9CF] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                Loja online Doce Trigo
+              </div>
+            </div>
+            <div
+              data-pencil-name="Parcela"
+              class="box-border w-[113px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Parcela · Texto"
+                class="text-[10.5px]/[normal] box-border text-[#A1A1AA] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                3 de 4
+              </div>
+            </div>
+            <div
+              data-pencil-name="Vencimento"
+              class="box-border w-[84px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Vencimento · Texto"
+                class="text-[10.5px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                25 out
+              </div>
+            </div>
+            <div
+              data-pencil-name="Valor"
+              class="box-border w-[90px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Valor · Texto"
+                class="text-[11px]/[normal] box-border text-[#E4E4E7] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                R$ 1.250
+              </div>
+            </div>
+            <div
+              data-pencil-name="Situação"
+              class="box-border w-[190px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Badge"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[3px_8px] justify-center items-center bg-[#FBBF241F] rounded-[999px]"
+              >
+                <div
+                  data-pencil-name="Badge Label"
+                  class="text-[9px]/[normal] box-border text-[#FBBF24] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+                >
+                  Vence em 6 dias
+                </div>
+              </div>
+            </div>
+            <div
+              data-pencil-name="Ação"
+              class="box-border w-[165px] shrink-0 h-fit flex flex-row gap-0 justify-end items-center"
+            >
+              <div
+                data-pencil-name="Ver boleto"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[7px_12px] justify-center items-center bg-[#00000000] [outline:1px_solid_#26262A] [outline-offset:-0.5px] rounded-[8px]"
+              >
+                <div
+                  data-pencil-name="Label"
+                  class="text-[10px]/[normal] box-border text-[#E4E4E7] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                >
+                  Ver boleto
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            data-pencil-name="Divider"
+            class="box-border w-full h-[1px] shrink-0 bg-[#1F1F23]"
+          ></div>
+          <div
+            data-pencil-name="Clínica Vida Plena"
+            class="box-border w-full h-[56px] shrink-0 flex flex-row gap-0 p-[0px_20px] justify-start items-center"
+          >
+            <div
+              data-pencil-name="Cliente"
+              class="box-border [flex:1_1_0] h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Cliente · Texto"
+                class="text-[11.5px]/[normal] box-border text-[#F4F4F5] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+              >
+                Clínica Vida Plena
+              </div>
+            </div>
+            <div
+              data-pencil-name="Projeto"
+              class="box-border w-[227px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Projeto · Texto"
+                class="text-[10.5px]/[normal] box-border text-[#C9C9CF] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                Site Clínica Vida Plena
+              </div>
+            </div>
+            <div
+              data-pencil-name="Parcela"
+              class="box-border w-[113px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Parcela · Texto"
+                class="text-[10.5px]/[normal] box-border text-[#A1A1AA] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                2 de 3
+              </div>
+            </div>
+            <div
+              data-pencil-name="Vencimento"
+              class="box-border w-[84px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Vencimento · Texto"
+                class="text-[10.5px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                28 out
+              </div>
+            </div>
+            <div
+              data-pencil-name="Valor"
+              class="box-border w-[90px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Valor · Texto"
+                class="text-[11px]/[normal] box-border text-[#E4E4E7] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                R$ 2.600
+              </div>
+            </div>
+            <div
+              data-pencil-name="Situação"
+              class="box-border w-[190px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Badge"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[3px_8px] justify-center items-center bg-[#26262A] rounded-[999px]"
+              >
+                <div
+                  data-pencil-name="Badge Label"
+                  class="text-[9px]/[normal] box-border text-[#D4D4D8] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+                >
+                  A vencer
+                </div>
+              </div>
+            </div>
+            <div
+              data-pencil-name="Ação"
+              class="box-border w-[165px] shrink-0 h-fit flex flex-row gap-0 justify-end items-center"
+            >
+              <div
+                data-pencil-name="Ver boleto"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[7px_12px] justify-center items-center bg-[#00000000] [outline:1px_solid_#26262A] [outline-offset:-0.5px] rounded-[8px]"
+              >
+                <div
+                  data-pencil-name="Label"
+                  class="text-[10px]/[normal] box-border text-[#E4E4E7] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                >
+                  Ver boleto
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            data-pencil-name="Divider"
+            class="box-border w-full h-[1px] shrink-0 bg-[#1F1F23]"
+          ></div>
+          <div
+            data-pencil-name="Mecânica Irmãos Souza"
+            class="box-border w-full h-[56px] shrink-0 flex flex-row gap-0 p-[0px_20px] justify-start items-center"
+          >
+            <div
+              data-pencil-name="Cliente"
+              class="box-border [flex:1_1_0] h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Cliente · Texto"
+                class="text-[11.5px]/[normal] box-border text-[#F4F4F5] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+              >
+                Mecânica Irmãos Souza
+              </div>
+            </div>
+            <div
+              data-pencil-name="Projeto"
+              class="box-border w-[227px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Projeto · Texto"
+                class="text-[10.5px]/[normal] box-border text-[#C9C9CF] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                Site Mecânica Irmãos Souza
+              </div>
+            </div>
+            <div
+              data-pencil-name="Parcela"
+              class="box-border w-[113px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Parcela · Texto"
+                class="text-[10.5px]/[normal] box-border text-[#A1A1AA] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                3 de 3
+              </div>
+            </div>
+            <div
+              data-pencil-name="Vencimento"
+              class="box-border w-[84px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Vencimento · Texto"
+                class="text-[10.5px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                15 out
+              </div>
+            </div>
+            <div
+              data-pencil-name="Valor"
+              class="box-border w-[90px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Valor · Texto"
+                class="text-[11px]/[normal] box-border text-[#E4E4E7] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                R$ 900
+              </div>
+            </div>
+            <div
+              data-pencil-name="Situação"
+              class="box-border w-[190px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Badge"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[3px_8px] justify-center items-center bg-[#4ADE801F] rounded-[999px]"
+              >
+                <div
+                  data-pencil-name="Badge Label"
+                  class="text-[9px]/[normal] box-border text-[#4ADE80] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+                >
+                  Paga em 15 out
+                </div>
+              </div>
+            </div>
+            <div
+              data-pencil-name="Ação"
+              class="box-border w-[165px] shrink-0 h-fit flex flex-row gap-0 justify-end items-center"
+            >
+              <div
+                data-pencil-name="Recibo"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[7px_12px] justify-center items-center bg-[#00000000] [outline:1px_solid_#26262A] [outline-offset:-0.5px] rounded-[8px]"
+              >
+                <div
+                  data-pencil-name="Label"
+                  class="text-[10px]/[normal] box-border text-[#E4E4E7] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                >
+                  Recibo
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            data-pencil-name="Divider"
+            class="box-border w-full h-[1px] shrink-0 bg-[#1F1F23]"
+          ></div>
+          <div
+            data-pencil-name="Móveis Pereira"
+            class="box-border w-full h-[56px] shrink-0 flex flex-row gap-0 p-[0px_20px] justify-start items-center"
+          >
+            <div
+              data-pencil-name="Cliente"
+              class="box-border [flex:1_1_0] h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Cliente · Texto"
+                class="text-[11.5px]/[normal] box-border text-[#F4F4F5] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+              >
+                Móveis Pereira
+              </div>
+            </div>
+            <div
+              data-pencil-name="Projeto"
+              class="box-border w-[227px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Projeto · Texto"
+                class="text-[10.5px]/[normal] box-border text-[#C9C9CF] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                Site institucional
+              </div>
+            </div>
+            <div
+              data-pencil-name="Parcela"
+              class="box-border w-[113px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Parcela · Texto"
+                class="text-[10.5px]/[normal] box-border text-[#A1A1AA] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                2 de 3
+              </div>
+            </div>
+            <div
+              data-pencil-name="Vencimento"
+              class="box-border w-[84px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Vencimento · Texto"
+                class="text-[10.5px]/[normal] box-border text-[#8A8A93] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+              >
+                12 out
+              </div>
+            </div>
+            <div
+              data-pencil-name="Valor"
+              class="box-border w-[90px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Valor · Texto"
+                class="text-[11px]/[normal] box-border text-[#E4E4E7] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                R$ 1.800
+              </div>
+            </div>
+            <div
+              data-pencil-name="Situação"
+              class="box-border w-[190px] shrink-0 h-fit flex flex-row gap-0 justify-start items-center"
+            >
+              <div
+                data-pencil-name="Badge"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[3px_8px] justify-center items-center bg-[#4ADE801F] rounded-[999px]"
+              >
+                <div
+                  data-pencil-name="Badge Label"
+                  class="text-[9px]/[normal] box-border text-[#4ADE80] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+                >
+                  Paga em 12 out
+                </div>
+              </div>
+            </div>
+            <div
+              data-pencil-name="Ação"
+              class="box-border w-[165px] shrink-0 h-fit flex flex-row gap-0 justify-end items-center"
+            >
+              <div
+                data-pencil-name="Recibo"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[7px_12px] justify-center items-center bg-[#00000000] [outline:1px_solid_#26262A] [outline-offset:-0.5px] rounded-[8px]"
+              >
+                <div
+                  data-pencil-name="Label"
+                  class="text-[10px]/[normal] box-border text-[#E4E4E7] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+                >
+                  Recibo
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            data-pencil-name="Bottom Spacer"
+            class="box-border w-full h-[12px] shrink-0 flex flex-row gap-0 justify-start items-start"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
