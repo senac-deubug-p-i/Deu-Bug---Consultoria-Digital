@@ -242,7 +242,7 @@
   { icon: 'folder', label: 'Projetos',      href: 'project.php', active: true },
   { icon: 'users',  label: 'Clientes',      href: 'client-admin.php' },
   { icon: 'inbox',  label: 'Solicitações',  href: 'solicitation.php', badge: 5 },
-  { icon: 'card',   label: 'Financeiro',    href: 'financeiro.php' },
+  { icon: 'card',   label: 'Financeiro',    href: 'finance.php' },
 ]
 
     const ICONS = {
