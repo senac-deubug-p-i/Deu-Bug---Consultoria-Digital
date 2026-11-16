@@ -200,7 +200,7 @@
       { icon: 'folder', label: 'Projetos',     href: 'project.php' },
       { icon: 'users',  label: 'Clientes',     href: 'client-admin.php' },
       { icon: 'inbox',  label: 'Solicitações', href: 'solicitacoes.php', active: true, badge: true },
-      { icon: 'card',   label: 'Financeiro',   href: 'financeiro.php' },
+      { icon: 'card',   label: 'Financeiro',   href: 'finance.php' },
     ]
 
     const TAG_STYLES = {
