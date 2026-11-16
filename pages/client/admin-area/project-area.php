@@ -240,7 +240,7 @@
     const NAV_ITEMS = [
   { icon: 'dash',   label: 'Visão geral',   href: 'index.php' },
   { icon: 'folder', label: 'Projetos',      href: 'project.php', active: true },
-  { icon: 'users',  label: 'Clientes',      href: 'clientes.php' },
+  { icon: 'users',  label: 'Clientes',      href: 'client-admin.php' },
   { icon: 'inbox',  label: 'Solicitações',  href: 'solicitation.php', badge: 5 },
   { icon: 'card',   label: 'Financeiro',    href: 'financeiro.php' },
 ]
