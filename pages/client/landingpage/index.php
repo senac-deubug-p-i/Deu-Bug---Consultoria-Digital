@@ -50,7 +50,6 @@
                     <a href="">SOBRE</a>
                 </div>
                 <img src="../../../assets/images/ReducedLogo_DeuBug.png" alt="Deu_Bug Logo">
-                <img src="../../../assets/images/ReducedLogo_DeuBug.png" alt="Deu_Bug Logo">
                 <div></div>
             </nav>
             <button id="button-login">Login</button>
@@ -125,7 +124,6 @@
                     <button>Contato</button>
                 </div>
             </div>
-            <video src="../../../assets/videos/bug-avatar-rotate.webm" autoplay loop muted></video>
             <video src="../../../assets/videos/bug-avatar-rotate.webm" autoplay loop muted></video>
         </div>
     </section>
@@ -233,10 +231,6 @@
     <footer>
         <div class="news-swap">
             <div class="social">
-                <a href=""><img src="../../../assets/images/Github Icon.svg" alt="GitHub Icon"></a>
-                <a href=""><img src="../../../assets/images/Instagram Icon.svg" alt="Instagram Logo"></a>
-                <a href=""><img src="../../../assets/images/LinkedIn Icon.svg" alt="LinkedIn Logo"></a>
-                <a href=""><img src="../../../assets/images/Whatsapp Icon.svg" alt="Whatsapp Logo"></a>
                 <a href=""><img src="../../../assets/images/Github Icon.svg" alt="GitHub Icon"></a>
                 <a href=""><img src="../../../assets/images/Instagram Icon.svg" alt="Instagram Logo"></a>
                 <a href=""><img src="../../../assets/images/LinkedIn Icon.svg" alt="LinkedIn Logo"></a>

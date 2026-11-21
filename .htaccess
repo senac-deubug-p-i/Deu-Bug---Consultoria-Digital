@@ -1,0 +1,7 @@
+# Bloqueia o .env (e variações) pela URL
+<FilesMatch "^\.env(\..+)?$">
+    Require all denied
+</FilesMatch>
+
+# Não lista o conteúdo das pastas
+Options -Indexes

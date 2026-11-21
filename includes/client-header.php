@@ -1,9 +1,15 @@
 <?php
     require_once __DIR__ . '/functions.php';
     require_once __DIR__ . '/auth.php';
-    require_once __DIR__ . '../../actions/user-infos.php';
+    require_once __DIR__ . '/../actions/user-infos.php';
     exigir_login();
     $usuario = usuario_atual();
+
+    // Iniciais (EI) e plano vêm do banco, não ficam fixos no HTML
+    $partesNome = preg_split('/\s+/', trim($usuario['usuario_nome']));
+    $iniciais   = mb_strtoupper(mb_substr($partesNome[0], 0, 1)
+                . (count($partesNome) > 1 ? mb_substr(end($partesNome), 0, 1) : ''));
+    $planoTexto = $usuario['plano_nome'] ? 'Plano ' . $usuario['plano_nome'] : 'Sem plano';
 ?>
 
 <header>
@@ -34,10 +40,10 @@
             </section>
 
             <section class="user-section">
-                <h2>EI</h2>
+                <h2><?= e($iniciais) ?></h2>
                 <div>
                     <h3><?= e($usuario['usuario_nome']) ?></h3>
-                    <p>Plano Gold</p>
+                    <p><?= e($planoTexto) ?></p>
                 </div>
             </section>
 
