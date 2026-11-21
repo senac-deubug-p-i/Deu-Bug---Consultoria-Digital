@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
     <link rel="shortcut icon" href="../../../assets/images/DeuBug_favIcon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../../../assets/images/DeuBug_favIcon.ico" type="image/x-icon">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,6 +49,7 @@
                     <a href="">PACOTES</a>
                     <a href="">SOBRE</a>
                 </div>
+                <img src="../../../assets/images/ReducedLogo_DeuBug.png" alt="Deu_Bug Logo">
                 <img src="../../../assets/images/ReducedLogo_DeuBug.png" alt="Deu_Bug Logo">
                 <div></div>
             </nav>
@@ -123,6 +125,7 @@
                     <button>Contato</button>
                 </div>
             </div>
+            <video src="../../../assets/videos/bug-avatar-rotate.webm" autoplay loop muted></video>
             <video src="../../../assets/videos/bug-avatar-rotate.webm" autoplay loop muted></video>
         </div>
     </section>
@@ -230,6 +233,10 @@
     <footer>
         <div class="news-swap">
             <div class="social">
+                <a href=""><img src="../../../assets/images/Github Icon.svg" alt="GitHub Icon"></a>
+                <a href=""><img src="../../../assets/images/Instagram Icon.svg" alt="Instagram Logo"></a>
+                <a href=""><img src="../../../assets/images/LinkedIn Icon.svg" alt="LinkedIn Logo"></a>
+                <a href=""><img src="../../../assets/images/Whatsapp Icon.svg" alt="Whatsapp Logo"></a>
                 <a href=""><img src="../../../assets/images/Github Icon.svg" alt="GitHub Icon"></a>
                 <a href=""><img src="../../../assets/images/Instagram Icon.svg" alt="Instagram Logo"></a>
                 <a href=""><img src="../../../assets/images/LinkedIn Icon.svg" alt="LinkedIn Logo"></a>
