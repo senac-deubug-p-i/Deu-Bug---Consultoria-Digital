@@ -8,6 +8,7 @@
     $antigo       = pegar_antigo();
     $tipos        = tipos_de_site();
     $solicitacoes = solicitacoes_abertas(conectar(), (int)$_SESSION['usuario_id']);
+    $projetos     = projetos_do_cliente(conectar(), (int)$_SESSION['usuario_id']);
 ?>
 
 
@@ -53,6 +54,9 @@
                             <h2><?= e($s['solicitacao_empresa']) ?></h2>
                             <p><?= e(nome_tipo_site($s['solicitacao_tipo'])) ?></p>
                             <p class="retorno">Retorno previsto até <?= e(data_br($s['solicitacao_previsao_contato'])) ?></p>
+                            <?php if (!empty($s['ultima_resposta'])): ?>
+                                <p class="retorno">Equipe: <?= e(mb_strimwidth($s['ultima_resposta'], 0, 140, '…')) ?></p>
+                            <?php endif; ?>
                         </div>
 
                         <div class="project-status">
@@ -61,7 +65,21 @@
                     </div>
                 <?php endforeach; ?>
 
-                <!-- MANTENHA AQUI o seu card de projeto atual (o da Barbearia Luck Shot) -->
+                <!-- Projetos reais do cliente (tabela projeto) -->
+                <?php foreach ($projetos as $p): ?>
+                    <div class="project-card">
+                        <div>
+                            <h3><?= e(nome_tipo_site((string)($p['projeto_tipo'] ?? 'outro'))) ?></h3>
+                            <h2><?= e($p['projeto_titulo']) ?></h2>
+                            <p><?= e(nome_etapa((int)$p['projeto_etapa'])) ?> · <?= (int)$p['projeto_progresso'] ?>%</p>
+                            <?php if ($p['projeto_prazo']): ?><p class="retorno">Prazo: <?= e(data_br($p['projeto_prazo'])) ?></p><?php endif; ?>
+                        </div>
+
+                        <div class="project-status">
+                            <p><?= $p['projeto_pausado'] ? 'Pausado' : ((int)$p['projeto_etapa'] === ETAPA_PUBLICADO ? 'Publicado' : e('Em ' . mb_strtolower(nome_etapa((int)$p['projeto_etapa'])))) ?></p>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
 
             </div>
         </section>

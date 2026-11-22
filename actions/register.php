@@ -84,6 +84,5 @@ iniciar_sessao_usuario([
     'usuario_id'   => (int)$pdo->lastInsertId(),
     'usuario_nome' => $nome . ' ' . $sobrenome,
 ]);
-$_SESSION['plano_nome'] = 'Sem plano';
 
 redirecionar(PAGINA_AREA);

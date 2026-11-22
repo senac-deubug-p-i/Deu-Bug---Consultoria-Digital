@@ -1,9 +1,17 @@
+<?php
+require_once __DIR__ . '/../../../includes/admin-dados.php';
+[$pdo, $admin] = admin_iniciar();
+$id = (int)($_GET['id'] ?? 0);
+$dados = admin_projeto($pdo, $id);
+if (!$dados) { redirecionar('pages/client/admin-area/project.php'); }
+$p = $dados['projeto']; $cli = $dados['cliente']; $apr = $dados['aprovacao']; $equipe = admin_equipe($pdo);
+?>
 <!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin - Projeto (detalhe)</title>
+  <title>Admin - <?= e($p['projeto_titulo']) ?></title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -56,17 +64,19 @@
       </div>
 
       <div class="flex flex-col gap-2.5">
-        <a href="#" class="flex justify-center rounded-[10px] bg-panel px-3 py-[9px] text-[11.5px] font-medium text-[#C9C9D4] outline outline-1 outline-offset-[-.5px] outline-line2 transition hover:bg-panel-hover hover:text-white hover:outline-brand">
+        <a href="../client-area/index.php" class="flex justify-center rounded-[10px] bg-panel px-3 py-[9px] text-[11.5px] font-medium text-[#C9C9D4] outline outline-1 outline-offset-[-.5px] outline-line2 transition hover:bg-panel-hover hover:text-white hover:outline-brand">
           Ver como cliente
         </a>
-        <button class="flex w-full items-center gap-[9px] rounded-[10px] bg-panel px-2 py-[7px] text-left transition hover:bg-panel-hover">
-          <div class="grid size-7 shrink-0 place-items-center rounded-full bg-[#6D28D9] text-[9.5px] font-bold text-white">RL</div>
+        <div class="flex w-full items-center gap-[9px] rounded-[10px] bg-panel px-2 py-[7px] text-left">
+          <div class="grid size-7 shrink-0 place-items-center rounded-full bg-[#6D28D9] text-[9.5px] font-bold text-white"><?= e($admin['iniciais']) ?></div>
           <div class="flex-1">
-            <div class="text-[11.5px] font-semibold">Rafael Lima</div>
-            <div class="mt-px text-[9px] font-medium text-mute">Gerente de projetos</div>
+            <div class="text-[11.5px] font-semibold"><?= e($admin['usuario_nome']) ?></div>
+            <div class="mt-px text-[9px] font-medium text-mute"><?= e($admin['cargo']) ?></div>
           </div>
-          <svg class="size-[13px] shrink-0 stroke-2 text-faint"><use href="#i-ud"/></svg>
-        </button>
+          </div>
+        <form action="../../../actions/logout.php" method="post">
+          <button type="submit" class="flex w-full justify-center rounded-[10px] px-3 py-[9px] text-[11.5px] font-medium text-soft transition hover:bg-panel hover:text-white">Sair</button>
+        </form>
       </div>
     </aside>
 
@@ -78,21 +88,20 @@
         <div class="flex items-center gap-[5px] text-[10.5px] font-medium text-[#6B6579]">
           <a href="project.php" class="hover:text-[#C4B5FD]">Projetos</a>
           <svg class="size-2.5 shrink-0 stroke-2 text-[#4A4556]"><use href="#i-r"/></svg>
-          <b class="font-semibold text-[#9A93AB]">Loja online Doce Trigo</b>
+          <b class="font-semibold text-[#9A93AB]"><?= e($p['projeto_titulo']) ?></b>
         </div>
 
-        <div class="text-[9.5px] font-bold tracking-[1.3px] text-[#6B6579]">PADARIA DOCE TRIGO · LOJA VIRTUAL</div>
+        <div class="text-[9.5px] font-bold tracking-[1.3px] text-[#6B6579]"><?= e(mb_strtoupper($p['projeto_empresa'])) ?><?= $p['projeto_tipo'] ? ' · ' . e(mb_strtoupper(nome_tipo_site($p['projeto_tipo']))) : '' ?></div>
 
         <div class="flex flex-wrap items-center justify-between gap-4">
           <div>
             <h1 class="mb-[9px] w-fit bg-gradient-to-t from-[#D3B8FF] via-[#7B4BB3] via-60% to-[#8B5CF6] bg-clip-text text-[34px] font-extrabold leading-[normal] tracking-[-1px] text-transparent max-[760px]:text-[26px]">
-              Loja online Doce Trigo
+              <?= e($p['projeto_titulo']) ?>
             </h1>
             <div id="status"><i id="status-dot"></i><span id="status-text"></span></div>
           </div>
 
           <div class="flex flex-wrap gap-2">
-            <button id="btn-client-view" data-ui="btn md ghost">Ver como cliente<svg><use href="#i-user"/></svg></button>
             <button id="btn-pause" data-ui="btn md ghost"><span id="pause-label">Pausar projeto</span><svg><use id="pause-icon" href="#i-pause"/></svg></button>
             <button id="btn-advance" data-ui="btn md primary"><span id="advance-label"></span><svg><use href="#i-r"/></svg></button>
           </div>
@@ -136,7 +145,7 @@
 
           <section data-ui="card">
             <div class="flex items-center justify-between">
-              <div class="text-sm font-bold text-[#EFEBF6]">Tarefas · Desenvolvimento</div>
+              <div class="text-sm font-bold text-[#EFEBF6]">Tarefas</div>
               <div id="task-count" class="text-[10px] font-semibold text-[#7C7686]"></div>
             </div>
             <div id="tasks" class="flex flex-col gap-1.5"></div>
@@ -152,56 +161,52 @@
         <!-- Coluna lateral -->
         <aside class="flex w-[246px] shrink-0 flex-col gap-4 max-[1100px]:grid max-[1100px]:w-full max-[1100px]:grid-cols-[repeat(auto-fit,minmax(240px,1fr))] max-[1100px]:items-start">
 
+          <?php if ($apr): ?>
           <section data-ui="cardHighlight">
             <div class="text-[13px] font-bold text-[#EDE7FA]">Aprovação pendente</div>
-            <p class="text-[10px] font-medium leading-[15px] text-[#A79FC0]">Página de produtos v3 foi enviada ontem às 10:42 e ainda não foi vista pelo cliente.</p>
-            <div class="w-fit rounded-[7px] bg-[#3A1119] px-2 py-1 text-[9px] font-bold text-[#F0777C]">Prazo do cliente: 22 out</div>
+            <p class="text-[10px] font-medium leading-[15px] text-[#A79FC0]"><?= e($apr['aprovacao_titulo']) ?> foi enviada <?= e(mb_strtolower(quando($apr['aprovacao_criacao']))) ?> e ainda não foi aprovada pelo cliente.</p>
+            <?php if ($apr['aprovacao_prazo']): ?><div class="w-fit rounded-[7px] bg-[#3A1119] px-2 py-1 text-[9px] font-bold text-[#F0777C]">Prazo do cliente: <?= e(dia_mes($apr['aprovacao_prazo'])) ?></div><?php endif; ?>
             <div class="flex gap-2 pt-0.5">
-              <button id="btn-remind" data-ui="btn rail primary grow">Enviar lembrete</button>
-              <button id="btn-version" data-ui="btn rail violet grow">Ver versão</button>
+              <button id="btn-remind" data-ui="btn rail primary grow">Registrar lembrete</button>
             </div>
           </section>
+          <?php endif; ?>
 
           <section data-ui="card">
             <div class="text-[13.5px] font-bold text-[#EFEBF6]">Dados do projeto</div>
             <label data-ui="labelRail">Responsável
               <select id="owner" data-ui="fieldRail">
-                <option>Lucas Almeida</option><option>Ana Costa</option><option>Bruna Teixeira</option><option>Diego Nunes</option><option>Rafael Lima</option>
+                <option value="">Sem responsável</option>
+                <?php foreach ($equipe as $eid => $m): ?>
+                  <option value="<?= e((string)$eid) ?>" <?= (string)$p['responsavel_id'] === (string)$eid ? 'selected' : '' ?>><?= e($m['name']) ?></option>
+                <?php endforeach; ?>
               </select>
             </label>
             <label data-ui="labelRail">Prazo de entrega
-              <input id="deadline" type="date" value="2026-11-14" data-ui="fieldRail" />
+              <input id="deadline" type="date" value="<?= e((string)$p['projeto_prazo']) ?>" data-ui="fieldRail" />
             </label>
-
-            <div class="flex flex-col gap-1.5 pt-0.5">
-              <div class="flex justify-between text-[9.5px] font-semibold text-[#8F88A3]">
-                Horas usadas
-                <div><b class="font-bold text-[#DDD8E8]">84</b> <span class="font-medium text-[#6B6579]">de 120 h</span></div>
-              </div>
-              <div class="h-1 rounded-sm bg-[#221E2E]"><div class="h-full w-[70%] rounded-sm bg-brand"></div></div>
-            </div>
-
             <div class="h-px bg-[#1C1A26]"></div>
-            <div class="flex items-center justify-between text-[9.5px] font-semibold text-[#8F88A3]">Valor do projeto<b class="text-[10.5px] font-bold text-[#EFEBF6]">R$ 3.200,00</b></div>
-            <div class="flex items-center justify-between text-[9.5px] font-semibold text-[#8F88A3]">Pagamento<b class="text-[10.5px] font-bold text-[#54D68E]">2 de 4 parcelas</b></div>
+            <div class="flex items-center justify-between text-[9.5px] font-semibold text-[#8F88A3]">Início<b class="text-[10.5px] font-bold text-[#EFEBF6]"><?= e(data_br($p['projeto_inicio'])) ?></b></div>
+            <?php if ($p['projeto_publicado_em']): ?>
+            <div class="flex items-center justify-between text-[9.5px] font-semibold text-[#8F88A3]">Publicado em<b class="text-[10.5px] font-bold text-[#54D68E]"><?= e(data_br($p['projeto_publicado_em'])) ?></b></div>
+            <?php endif; ?>
           </section>
 
           <section data-ui="card">
             <div class="flex items-center gap-[9px]">
-              <div class="grid size-8 shrink-0 place-items-center rounded-full bg-[#6D28D9] text-[10px] font-bold text-white">MR</div>
+              <div class="grid size-8 shrink-0 place-items-center rounded-full bg-[#6D28D9] text-[10px] font-bold text-white"><?= e(iniciais($cli['usuario_nome'])) ?></div>
               <div>
-                <div class="text-[11.5px] font-bold text-[#EFEBF6]">Marina Rocha</div>
-                <div class="mt-0.5 text-[9.5px] font-medium text-[#8F88A3]">Padaria Doce Trigo</div>
+                <div class="text-[11.5px] font-bold text-[#EFEBF6]"><?= e($cli['usuario_nome']) ?></div>
+                <div class="mt-0.5 text-[9.5px] font-medium text-[#8F88A3]"><?= e($p['projeto_empresa']) ?></div>
               </div>
             </div>
-            <div class="flex flex-col gap-[3px] text-[9.5px] font-medium text-[#9A93AB]">
-              <span>marina@doctrigo.com.br</span>
-              <span>(11) 91111-2222</span>
+            <div class="flex flex-col gap-[3px] break-words text-[9.5px] font-medium text-[#9A93AB]">
+              <span><?= e($cli['usuario_email']) ?></span>
+              <?php if ($cli['usuario_telefone']): ?><span><?= e($cli['usuario_telefone']) ?></span><?php endif; ?>
             </div>
-            <div class="text-[9px] font-medium text-[#5F5972]">Último acesso ao portal: hoje, 11:08</div>
+            <div class="text-[9px] font-medium text-[#5F5972]">Último acesso ao portal: <?= e(mb_strtolower(acesso_relativo($cli['usuario_ultimo_acesso']))) ?></div>
             <div class="flex gap-2 pt-0.5">
-              <button data-ui="btn railSm soft grow" data-toast="Abrindo mensagens com Marina…">Mensagens</button>
-              <button data-ui="btn railSm soft grow" data-toast="Abrindo perfil do cliente…">Ver cliente</button>
+              <a href="client-admin.php?id=<?= (int)$cli['usuario_id'] ?>" data-ui="btn railSm soft grow">Ver cliente</a>
             </div>
           </section>
 
@@ -217,6 +222,29 @@
   <div id="toast" class="pointer-events-none fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 translate-y-5 rounded-[10px] bg-panel px-4 py-2.5 text-xs font-semibold opacity-0 outline outline-1 outline-brand-dark transition duration-[250ms] data-[show]:translate-y-0 data-[show]:opacity-100"></div>
 
 <script>
+
+    /* =========================================================
+       0. SESSÃO E API (fetch -> actions/admin/*.php)
+    ========================================================= */
+    const CSRF = <?= js_json(csrf_token()) ?>;
+    const ME = <?= js_json(['id' => (string)$admin['usuario_id'], 'name' => $admin['usuario_nome']]) ?>;
+
+    async function api(endpoint, data) {
+      const isForm = data instanceof FormData
+      try {
+        const res = await fetch(`../../../actions/admin/${endpoint}.php`, {
+          method: 'POST', credentials: 'same-origin',
+          headers: isForm ? { 'X-CSRF-Token': CSRF } : { 'X-CSRF-Token': CSRF, 'Content-Type': 'application/json' },
+          body: isForm ? data : JSON.stringify(data),
+        })
+        const json = await res.json().catch(() => null)
+        if (!res.ok || !json || !json.ok) { showToast((json && json.erro) || 'Não foi possível salvar'); return null }
+        return json
+      } catch (err) {
+        showToast('Sem conexão com o servidor')
+        return null
+      }
+    }
     /* =========================================================
        1. CONFIGURAÇÃO
     ========================================================= */
@@ -237,13 +265,7 @@
 
     const DOT_COLORS = { blue: 'bg-[#93A4F5]', yellow: 'bg-[#E5C465]', green: 'bg-[#54D68E]' }
 
-    const NAV_ITEMS = [
-  { icon: 'dash',   label: 'Visão geral',   href: 'index.php' },
-  { icon: 'folder', label: 'Projetos',      href: 'project.php', active: true },
-  { icon: 'users',  label: 'Clientes',      href: 'client-admin.php' },
-  { icon: 'inbox',  label: 'Solicitações',  href: 'solicitation.php', badge: 5 },
-  { icon: 'card',   label: 'Financeiro',    href: 'finance.php' },
-]
+    const NAV_ITEMS = <?= js_json(admin_nav($pdo, 'project.php')) ?>;
 
     const ICONS = {
       dash:   '<rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/>',
@@ -302,33 +324,21 @@
     /* =========================================================
        3. ESTADO E DADOS
     ========================================================= */
-    let stage = 2
-    let paused = false
+    const PROJECT_ID = <?= (int)$p['projeto_id'] ?>;
+    let stage = <?= (int)$p['projeto_etapa'] ?>;
+    let paused = <?= $p['projeto_pausado'] ? 'true' : 'false' ?>;
+    let progress = <?= (int)$p['projeto_progresso'] ?>;
     let pendingFile = null
 
-    let history = [
-      { title: 'Catálogo de produtos concluído',            visible: true,  dot: 'blue',   meta: 'Hoje, 08:30 · Lucas Almeida' },
-      { title: 'Cliente pediu pagamento por boleto também', visible: false, dot: 'yellow', meta: '17 out, 16:20 · Rafael Lima · avaliar escopo extra' },
-      { title: 'Cliente aprovou o design da home',          visible: true,  dot: 'green',  meta: '14 out, 14:05 · Marina Rocha' },
-    ]
+    let history = <?= js_json($dados['historico']) ?>;
 
-    let tasks = [
-      { title: 'Estrutura da loja e menu',        owner: 'Lucas', done: true },
-      { title: 'Catálogo de produtos',            owner: 'Lucas', done: true },
-      { title: 'Carrinho e finalização da compra', owner: 'Lucas', done: false, tag: 'Em andamento' },
-      { title: 'Pagamento por Pix e cartão',      owner: 'Bruna', done: false },
-      { title: 'Painel para acompanhar pedidos',  owner: 'Bruna', done: false },
-    ]
+    let tasks = <?= js_json($dados['tarefas']) ?>;
 
-    let files = [
-      { name: 'Layout_produtos_v3.pdf', size: '2,4 MB' },
-      { name: 'Fotos_vitrine.zip',      size: '18 MB' },
-      { name: 'Contrato_de_servico.pdf', size: '640 KB' },
-    ]
+    let files = <?= js_json($dados['arquivos']) ?>;
 
     const OPTIONS = [
-      { id: 'opt-visible', label: 'Visível para a cliente' },
-      { id: 'opt-email',   label: 'Avisar o cliente por e-mail' },
+      { id: 'opt-visible',  label: 'Visível para o cliente',      on: true },
+      { id: 'opt-approval', label: 'Pedir aprovação do cliente',  on: false },
     ]
 
     /* =========================================================
@@ -411,7 +421,7 @@
     }
 
     function renderStage() {
-      const { progress, status } = STAGES[stage]
+      const { status } = STAGES[stage]
       const style = STATUS_STYLES[paused ? 'paused' : stage === LAST_STAGE ? 'done' : 'default']
 
       renderSteps()
@@ -427,7 +437,7 @@
     }
 
     function renderOptions() {
-      $('#options').innerHTML = OPTIONS.map((o) => checkbox({ ...o, on: true })).join('')
+      $('#options').innerHTML = OPTIONS.map((o) => checkbox(o)).join('')
     }
 
     function renderHistory() {
@@ -463,7 +473,7 @@
 
     function renderFiles() {
       $('#files').innerHTML = files.map((f) => `
-        <div data-file="${escapeHTML(f.name)}"
+        <div data-file="${f.id}"
              class="flex cursor-pointer justify-between gap-2 border-b border-[#1C1A26] py-[7px] text-[9.5px] font-semibold text-[#D5D0E0] transition-colors last:border-0 hover:text-[#C4B5FD]">
           ${escapeHTML(f.name)}<span class="whitespace-nowrap text-[9px] font-medium text-[#6B6579]">${f.size}</span>
         </div>`).join('')
@@ -484,10 +494,12 @@
       const input = $('#new-task')
       input.focus()
 
-      const confirm = () => {
+      const confirm = async () => {
         const title = input.value.trim()
         if (!title) return input.focus()
-        tasks.push({ title, owner: 'Rafael', done: false })
+        const r = await api('projetos', { acao: 'tarefa_criar', id: PROJECT_ID, titulo: title })
+        if (!r) return
+        tasks.push(r.tarefa)
         renderTasks()
         showAddButton()
       }
@@ -505,11 +517,11 @@
     ========================================================= */
     function addHistory(title, visible, dot) {
       const now = new Date()
-      history.unshift({ title, visible, dot, meta: `Hoje, ${pad(now.getHours())}:${pad(now.getMinutes())} · Rafael Lima` })
+      history.unshift({ title, visible, dot, meta: `Hoje, ${pad(now.getHours())}:${pad(now.getMinutes())} · ${ME.name}` })
       renderHistory()
     }
 
-    function publishUpdate() {
+    async function publishUpdate() {
       const title = $('#update-title')
       const message = $('#update-message')
       title.toggleAttribute('data-err', !title.value.trim())
@@ -517,29 +529,36 @@
 
       if (!title.value.trim() || !message.value.trim()) return showToast('Preencha título e mensagem')
 
-      const visible = $('#opt-visible').hasAttribute('data-on')
-      const notify = $('#opt-email').hasAttribute('data-on')
-      addHistory(title.value.trim(), visible, visible ? 'blue' : 'yellow')
+      const form = new FormData()   // FormData porque pode levar arquivo ($_FILES no PHP)
+      form.append('acao', 'atualizar')
+      form.append('id', PROJECT_ID)
+      form.append('titulo', title.value.trim())
+      form.append('mensagem', message.value.trim())
+      form.append('visivel', $('#opt-visible').hasAttribute('data-on') ? '1' : '0')
+      form.append('pedir_aprovacao', $('#opt-approval').hasAttribute('data-on') ? '1' : '0')
+      if (pendingFile) form.append('arquivo', pendingFile)
 
-      if (pendingFile) {
-        files.push({ name: pendingFile.name, size: formatSize(pendingFile.size) })
-        renderFiles()
-        pendingFile = null
-        $('#btn-attach').textContent = 'Anexar arquivo'
-        $('#file-input').value = ''
-      }
+      $('#btn-publish').disabled = true
+      const r = await api('projetos', form)
+      $('#btn-publish').disabled = false
+      if (!r) return
 
-      showToast(visible && notify ? 'Publicado e cliente avisado por e-mail' : 'Atualização publicada')
+      history.unshift(r.historico)
+      renderHistory()
+      if (r.arquivo) { files.unshift(r.arquivo); renderFiles() }
+      pendingFile = null
+      $('#btn-attach').textContent = 'Anexar arquivo'
+      $('#file-input').value = ''
+
+      showToast(r.pedirAprovacao ? 'Publicado e aprovação solicitada ao cliente' : 'Atualização publicada')
       title.value = message.value = ''
+      if (r.pedirAprovacao) setTimeout(() => location.reload(), 900)   // mostra o cartão "Aprovação pendente"
     }
 
-    function toggleTask(task) {
-      if (task.done) {
-        task.done = false
-      } else {
-        task.done = true
-        task.tag = null
-      }
+    async function toggleTask(task) {
+      const r = await api('projetos', { acao: 'tarefa_alternar', tarefa_id: task.id })
+      if (!r) return
+      task.done = r.done
       renderTasks()
     }
 
@@ -547,31 +566,35 @@
        7. EVENTOS
     ========================================================= */
     // Etapas
+    async function goToStage(i) {
+      const r = await api('projetos', { acao: 'mover', id: PROJECT_ID, etapa: i })
+      if (!r) return
+      const changed = stage !== r.etapa
+      stage = r.etapa
+      progress = r.progresso
+      renderStage()
+      if (changed) {
+        showToast(`Projeto avançou para ${STAGES[stage].name}`)
+        addHistory(`Projeto avançou para ${STAGES[stage].name}`, stage === LAST_STAGE, stage === LAST_STAGE ? 'green' : 'blue')
+      }
+    }
+
     $('#steps').addEventListener('click', (e) => {
       const step = e.target.closest('[data-step]')
-      if (!step) return
-      stage = +step.dataset.step
-      renderStage()
-      showToast(`Etapa: ${STAGES[stage].name}`)
+      if (step) goToStage(+step.dataset.step)
     })
 
-    $('#btn-advance').addEventListener('click', () => {
-      if (stage >= LAST_STAGE) return
-      stage++
-      renderStage()
-      showToast(`Projeto avançou para ${STAGES[stage].name}`)
-      addHistory(`Projeto avançou para ${STAGES[stage].name}`, false, 'blue')
-    })
+    $('#btn-advance').addEventListener('click', () => { if (stage < LAST_STAGE) goToStage(stage + 1) })
 
-    $('#btn-pause').addEventListener('click', () => {
-      paused = !paused
+    $('#btn-pause').addEventListener('click', async () => {
+      const r = await api('projetos', { acao: 'pausar', id: PROJECT_ID, pausado: !paused })
+      if (!r) return
+      paused = r.pausado
       $('#pause-label').textContent = paused ? 'Retomar projeto' : 'Pausar projeto'
       $('#pause-icon').setAttribute('href', paused ? '#i-play' : '#i-pause')
       renderStage()
       showToast(paused ? 'Projeto pausado' : 'Projeto retomado')
     })
-
-    $('#btn-client-view').addEventListener('click', () => showToast('Abrindo visão do cliente…'))
 
     // Opções de publicação (checkboxes)
     $('#options').addEventListener('click', (e) => e.target.closest('[role=checkbox]')?.toggleAttribute('data-on'))
@@ -600,19 +623,29 @@
     })
     $('#files').addEventListener('click', (e) => {
       const file = e.target.closest('[data-file]')
-      if (file) showToast(`Baixando ${file.dataset.file}…`)
+      if (file) location.href = `../../../actions/admin/arquivo.php?id=${file.dataset.file}`
     })
 
     // Coluna lateral
-    $('#btn-remind').addEventListener('click', (e) => {
-      e.currentTarget.className = btn('rail', 'sent', 'grow')
-      e.currentTarget.textContent = 'Lembrete enviado ✓'
-      showToast('Lembrete enviado para Marina')
-      addHistory('Lembrete de aprovação enviado', false, 'yellow')
+    const remind = $('#btn-remind')
+    if (remind) remind.addEventListener('click', async (e) => {
+      const button = e.currentTarget
+      const r = await api('projetos', { acao: 'lembrete', id: PROJECT_ID })
+      if (!r) return
+      button.className = btn('rail', 'sent', 'grow')
+      button.textContent = 'Lembrete registrado ✓'
+      showToast('Lembrete registrado no histórico')
+      addHistory('Lembrete de aprovação registrado', false, 'yellow')
     })
-    $('#btn-version').addEventListener('click', () => showToast('Abrindo Página de produtos v3…'))
-    $('#owner').addEventListener('change', (e) => showToast(`Responsável: ${e.target.value}`))
-    $('#deadline').addEventListener('change', () => showToast('Prazo atualizado'))
+    $('#owner').addEventListener('change', async (e) => {
+      const r = await api('projetos', { acao: 'responsavel', id: PROJECT_ID, responsavel_id: +e.target.value || null })
+      if (r) showToast('Responsável atualizado')
+    })
+    $('#deadline').addEventListener('change', async (e) => {
+      if (!e.target.value) return
+      const r = await api('projetos', { acao: 'prazo', id: PROJECT_ID, prazo: e.target.value })
+      if (r) { showToast('Prazo atualizado'); addHistory('Prazo alterado', false, 'yellow') }
+    })
     $$('[data-toast]').forEach((el) => el.addEventListener('click', () => showToast(el.dataset.toast)))
 
     /* =========================================================

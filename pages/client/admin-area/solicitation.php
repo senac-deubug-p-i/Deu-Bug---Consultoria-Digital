@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__ . '/../../../includes/admin-dados.php';
+[$pdo, $admin] = admin_iniciar();
+$equipe = admin_equipe($pdo);
+?>
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -80,17 +85,19 @@
       </div>
 
       <div class="flex flex-col gap-2.5">
-        <a href="#" class="flex justify-center rounded-[10px] bg-panel px-3 py-[9px] text-[11.5px] font-medium text-[#C9C9D4] outline outline-1 outline-offset-[-.5px] outline-line2 transition hover:bg-panel-hover hover:text-white hover:outline-brand">
+        <a href="../client-area/index.php" class="flex justify-center rounded-[10px] bg-panel px-3 py-[9px] text-[11.5px] font-medium text-[#C9C9D4] outline outline-1 outline-offset-[-.5px] outline-line2 transition hover:bg-panel-hover hover:text-white hover:outline-brand">
           Ver como cliente
         </a>
-        <button class="flex w-full items-center gap-[9px] rounded-[10px] bg-panel px-2 py-[7px] text-left transition hover:bg-panel-hover">
-          <div class="grid size-7 shrink-0 place-items-center rounded-full bg-[#6D28D9] text-[9.5px] font-bold text-white">RL</div>
+        <div class="flex w-full items-center gap-[9px] rounded-[10px] bg-panel px-2 py-[7px] text-left">
+          <div class="grid size-7 shrink-0 place-items-center rounded-full bg-[#6D28D9] text-[9.5px] font-bold text-white"><?= e($admin['iniciais']) ?></div>
           <div class="flex-1">
-            <div class="text-[11.5px] font-semibold">Rafael Lima</div>
-            <div class="mt-px text-[9px] font-medium text-mute">Gerente de projetos</div>
+            <div class="text-[11.5px] font-semibold"><?= e($admin['usuario_nome']) ?></div>
+            <div class="mt-px text-[9px] font-medium text-mute"><?= e($admin['cargo']) ?></div>
           </div>
-          <svg class="size-[13px] shrink-0 text-faint"><use href="#i-ud"/></svg>
-        </button>
+          </div>
+        <form action="../../../actions/logout.php" method="post">
+          <button type="submit" class="flex w-full justify-center rounded-[10px] px-3 py-[9px] text-[11.5px] font-medium text-soft transition hover:bg-panel hover:text-white">Sair</button>
+        </form>
       </div>
     </aside>
 
@@ -101,7 +108,7 @@
         <h1 class="mb-[7px] w-fit bg-gradient-to-t from-[#CBAAFF] via-[#7B4BB3] via-60% to-brand bg-clip-text text-[38px] font-extrabold leading-[normal] tracking-[-1.2px] text-transparent max-[760px]:text-[30px]">
           Solicitações
         </h1>
-        <p class="text-[12.5px] font-medium text-[#7C7C88]">Mensagens e pedidos dos clientes, em um só lugar.</p>
+        <p class="text-[12.5px] font-medium text-[#7C7C88]">Pedidos de novos projetos enviados pelos clientes.</p>
       </header>
 
       <!-- Abas -->
@@ -138,8 +145,6 @@
                   <button id="btn-canned" data-ui="btn md glass">Respostas prontas</button>
                   <div id="canned-menu" class="absolute bottom-full left-0 z-20 mb-2 hidden w-[270px] rounded-[10px] bg-panel p-[5px] shadow-[0_14px_34px_rgba(0,0,0,.5)] outline outline-1 outline-line2 group-data-[open]:block"></div>
                 </div>
-                <button id="btn-attach" data-ui="btn md dashed"><span id="attach-label" class="max-w-[160px] truncate">Anexar</span></button>
-                <input id="file-input" type="file" hidden />
                 <div class="flex-1"></div>
                 <button id="btn-note" data-ui="btn md glass">Salvar como nota</button>
                 <button id="btn-send" data-ui="btn md primary">Enviar</button>
@@ -154,19 +159,13 @@
             <div class="text-sm font-bold text-[#EFEBF6]">Gerenciar</div>
 
             <label data-ui="label">Situação
-              <select id="status" data-ui="field">
-                <option value="nova">Nova</option><option value="andamento">Em andamento</option><option value="resolvida">Resolvida</option>
-              </select>
+              <select id="status" data-ui="field"></select>
             </label>
             <label data-ui="label">Atribuir a
-              <select id="assignee" data-ui="field">
-                <option>Ana Costa</option><option>Rafael Lima</option><option>Sem responsável</option>
-              </select>
+              <select id="assignee" data-ui="field"></select>
             </label>
             <label data-ui="label">Prioridade
-              <select id="priority" data-ui="field">
-                <option>Baixa</option><option>Normal</option><option>Alta</option>
-              </select>
+              <select id="priority" data-ui="field"></select>
             </label>
 
             <div class="flex flex-col gap-2 pt-1">
@@ -175,10 +174,10 @@
             </div>
           </section>
 
-          <section aria-label="Tempo de resposta" class="rounded-[14px] bg-gradient-to-br from-brand-hover to-brand p-4 text-white">
-            <div class="text-[13px] font-bold">Tempo de resposta</div>
-            <p class="mt-1.5 text-[26px] font-extrabold leading-tight tracking-[-.5px]">3 h 20 min</p>
-            <p class="mt-2 max-w-[215px] text-[10.5px] font-medium leading-[1.6] text-white/85">Média desta semana. A meta é responder em até 1 dia útil.</p>
+          <section aria-label="Prazo de retorno" class="rounded-[14px] bg-gradient-to-br from-brand-hover to-brand p-4 text-white">
+            <div class="text-[13px] font-bold">Retorno ao cliente até</div>
+            <p id="contact-by" class="mt-1.5 text-[26px] font-extrabold leading-tight tracking-[-.5px]">—</p>
+            <p class="mt-2 max-w-[215px] text-[10.5px] font-medium leading-[1.6] text-white/85">Prazo prometido ao cliente: <?= (int)PRAZO_CONTATO_DIAS_UTEIS ?> dias úteis após o envio.</p>
           </section>
         </aside>
       </div>
@@ -190,18 +189,37 @@
 
 
   <script>
+
+    /* =========================================================
+       0. SESSÃO E API (fetch -> actions/admin/*.php)
+    ========================================================= */
+    const CSRF = <?= js_json(csrf_token()) ?>;
+    const ME = <?= js_json(['id' => (string)$admin['usuario_id'], 'name' => $admin['usuario_nome']]) ?>;
+
+    async function api(endpoint, data) {
+      const isForm = data instanceof FormData
+      try {
+        const res = await fetch(`../../../actions/admin/${endpoint}.php`, {
+          method: 'POST', credentials: 'same-origin',
+          headers: isForm ? { 'X-CSRF-Token': CSRF } : { 'X-CSRF-Token': CSRF, 'Content-Type': 'application/json' },
+          body: isForm ? data : JSON.stringify(data),
+        })
+        const json = await res.json().catch(() => null)
+        if (!res.ok || !json || !json.ok) { showToast((json && json.erro) || 'Não foi possível salvar'); return null }
+        return json
+      } catch (err) {
+        showToast('Sem conexão com o servidor')
+        return null
+      }
+    }
     /* =========================================================
        1. CONFIGURAÇÃO
     ========================================================= */
-    const CURRENT_USER = 'Rafael Lima'
+    const CURRENT_USER = ME.id
+    const TEAM = <?= js_json($equipe) ?>;
 
-    const NAV_ITEMS = [
-      { icon: 'dash',   label: 'Visão geral',  href: 'index.php' },
-      { icon: 'folder', label: 'Projetos',     href: 'project.php' },
-      { icon: 'users',  label: 'Clientes',     href: 'client-admin.php' },
-      { icon: 'inbox',  label: 'Solicitações', href: 'solicitacoes.php', active: true, badge: true },
-      { icon: 'card',   label: 'Financeiro',   href: 'finance.php' },
-    ]
+    const NAV_ITEMS = <?= js_json(admin_nav($pdo, 'solicitation.php')) ?>;
+    NAV_ITEMS.forEach((item) => { if (item.href === 'solicitation.php') item.badge = true })
 
     const TAG_STYLES = {
       warn:    'bg-[#2F260F] text-[#E5C465]',
@@ -210,23 +228,27 @@
     }
 
     const STATUS = {
-      nova:      { label: 'Nova',         style: 'bg-[#33280D] text-[#E5C465] outline-[#5A451A]' },
-      andamento: { label: 'Em andamento', style: 'bg-[#241640] text-[#C4B5FD] outline-[#4B2E85]' },
-      resolvida: { label: 'Resolvida',    style: 'bg-[#0D2A1C] text-[#54D68E] outline-[#1D5C3B]' },
+      pendente:   { label: 'Nova',         style: 'bg-[#33280D] text-[#E5C465] outline-[#5A451A]' },
+      em_contato: { label: 'Em contato',   style: 'bg-[#241640] text-[#C4B5FD] outline-[#4B2E85]' },
+      aprovada:   { label: 'Aprovada',     style: 'bg-[#0D2A1C] text-[#54D68E] outline-[#1D5C3B]' },
+      recusada:   { label: 'Recusada',     style: 'bg-[#33131B] text-[#F0777C] outline-[#5A1F2B]' },
     }
+    const PRIORITIES = { baixa: 'Baixa', normal: 'Normal', alta: 'Alta' }
 
     const TABS = [
-      { id: 'nova',      label: 'Novas',            count: true },
-      { id: 'andamento', label: 'Em andamento',     count: true },
-      { id: 'resolvida', label: 'Resolvidas' },
-      { id: 'mim',       label: 'Atribuídas a mim' },
+      { id: 'pendente',   label: 'Novas',            count: true },
+      { id: 'em_contato', label: 'Em contato',       count: true },
+      { id: 'aprovada',   label: 'Aprovadas' },
+      { id: 'recusada',   label: 'Recusadas' },
+      { id: 'mim',        label: 'Atribuídas a mim' },
     ]
 
     const TAB_FILTERS = {
-      nova:      (r) => r.status === 'nova',
-      andamento: (r) => r.status === 'andamento',
-      resolvida: (r) => r.status === 'resolvida',
-      mim:       (r) => r.assignee === CURRENT_USER,
+      pendente:   (r) => r.status === 'pendente',
+      em_contato: (r) => r.status === 'em_contato',
+      aprovada:   (r) => r.status === 'aprovada',
+      recusada:   (r) => r.status === 'recusada',
+      mim:        (r) => r.assignee === CURRENT_USER,
     }
 
     const CANNED_REPLIES = [
@@ -270,82 +292,15 @@
     /* =========================================================
        3. DADOS
     ========================================================= */
-    let nextId = 0
-    const request = ({ title, client, project, time, tag, tagTone, status, assignee, messages, notes = [] }) =>
-      ({ id: ++nextId, title, client, project, time, tag, tagTone, status, assignee, priority: 'Normal', messages, notes })
-
-    const fromClient = (text, time, file = null) => ({ from: 'client', text, time, file })
-    const fromTeam   = (text, time) => ({ from: 'team', text, time, file: null })
-
-    let requests = [
-      request({
-        title: 'Trocar a cor dos botões', client: 'Marina Rocha', project: 'Site Doce Trigo', time: '20 min',
-        tag: 'Ajuste de design', tagTone: 'warn', status: 'nova', assignee: 'Ana Costa',
-        messages: [fromClient('Oi! Vi o layout e gostei muito. Será que dá para trocar a cor dos botões para um tom mais próximo do marrom da nossa embalagem?', 'Hoje, 11:08', ['foto_embalagem.jpg', '1,1 MB'])],
-        notes: ['mudança simples, não conta como escopo extra'],
-      }),
-      request({
-        title: 'Dúvida sobre o domínio', client: 'Tiago Mendes', project: 'Loja Café Girassol', time: '2 h',
-        tag: 'Dúvida', tagTone: 'neutral', status: 'nova', assignee: 'Rafael Lima',
-        messages: [fromClient('Bom dia! Já tenho um domínio registrado. Preciso fazer algo para apontar para a loja nova ou vocês cuidam disso?', 'Hoje, 09:40')],
-      }),
-      request({
-        title: 'Incluir página de preços', client: 'Camila Duarte', project: 'Landing Aurora', time: 'Ontem',
-        tag: 'Escopo extra', tagTone: 'warn', status: 'nova', assignee: 'Rafael Lima',
-        messages: [fromClient('Pensei em ter uma página só com os planos e valores das aulas. Dá para incluir na landing?', 'Ontem, 16:12')],
-      }),
-      request({
-        title: 'Segunda via do boleto', client: 'Tiago Mendes', project: 'Loja Café Girassol', time: 'Ontem',
-        tag: 'Financeiro', tagTone: 'red', status: 'nova', assignee: 'Sem responsável',
-        messages: [fromClient('Perdi o boleto da segunda parcela. Conseguem me mandar outra via, por favor?', 'Ontem, 10:05')],
-      }),
-      request({
-        title: 'Acesso ao portal não funciona', client: 'Sérgio Pereira', project: 'Móveis Pereira', time: '2 dias',
-        tag: 'Suporte', tagTone: 'neutral', status: 'nova', assignee: 'Ana Costa',
-        messages: [fromClient('Tento entrar no portal e aparece que a senha está incorreta, mas tenho certeza de que digitei certo.', '17 out, 15:30')],
-      }),
-      request({
-        title: 'Adicionar botão de WhatsApp', client: 'Fernanda Lopes', project: 'Site Clínica Vida Plena', time: '3 dias',
-        tag: 'Ajuste de design', tagTone: 'warn', status: 'andamento', assignee: 'Rafael Lima',
-        messages: [
-          fromClient('Queria um botão flutuante de WhatsApp no canto da tela, em todas as páginas.', '16 out, 14:20'),
-          fromTeam('Combinado, Fernanda! Já estamos incluindo e te aviso quando estiver no ar.', '16 out, 15:02'),
-        ],
-      }),
-      request({
-        title: 'Atualizar horário de funcionamento', client: 'Marina Rocha', project: 'Site Doce Trigo', time: '4 dias',
-        tag: 'Suporte', tagTone: 'neutral', status: 'andamento', assignee: 'Ana Costa',
-        messages: [fromClient('A padaria vai abrir mais cedo aos sábados, às 6h. Podem ajustar no site?', '15 out, 08:45')],
-      }),
-      request({
-        title: 'Nota fiscal do mês', client: 'Paulo Antunes', project: 'Escola Pequeno Mundo', time: '5 dias',
-        tag: 'Financeiro', tagTone: 'red', status: 'andamento', assignee: 'Sem responsável',
-        messages: [fromClient('Preciso da nota fiscal referente à parcela de outubro para o nosso contador.', '14 out, 13:10')],
-      }),
-      request({
-        title: 'Trocar logo no rodapé', client: 'Camila Duarte', project: 'Landing Aurora', time: '1 sem',
-        tag: 'Ajuste de design', tagTone: 'warn', status: 'resolvida', assignee: 'Ana Costa',
-        messages: [
-          fromClient('Enviei a nova versão do logo. Pode atualizar no rodapé?', '10 out, 11:00'),
-          fromTeam('Pronto, já está atualizado no site!', '10 out, 14:30'),
-        ],
-      }),
-      request({
-        title: 'Redefinir senha do portal', client: 'Sérgio Pereira', project: 'Móveis Pereira', time: '2 sem',
-        tag: 'Suporte', tagTone: 'neutral', status: 'resolvida', assignee: 'Rafael Lima',
-        messages: [
-          fromClient('Esqueci minha senha do portal, como faço para redefinir?', '03 out, 09:15'),
-          fromTeam('Te enviamos um link de redefinição por e-mail. Qualquer coisa, é só chamar!', '03 out, 09:50'),
-        ],
-      }),
-    ]
+    let requests = <?= js_json(admin_solicitacoes($pdo)) ?>;
 
     /* =========================================================
        4. ESTADO
     ========================================================= */
-    let activeTab = 'nova'
-    let selectedId = 1
-    let attachedFile = null // [nome, tamanho]
+    const wanted = +(new URLSearchParams(location.search).get('id')) || null
+    const wantedRequest = requests.find((r) => r.id === wanted)
+    let activeTab = wantedRequest ? wantedRequest.status : 'pendente'
+    let selectedId = wantedRequest ? wantedRequest.id : ((requests.filter((r) => r.status === 'pendente')[0] || {}).id || null)
 
     const selectedRequest = () => requests.find((r) => r.id === selectedId)
     const countBy = (tab) => requests.filter(TAB_FILTERS[tab]).length
@@ -389,7 +344,7 @@
            class="group flex items-center gap-2.5 rounded-[9px] px-2.5 py-[9px] text-[12.5px] font-medium text-soft transition hover:bg-panel hover:text-ink data-[on]:bg-brand data-[on]:font-semibold data-[on]:text-white">
           ${icon(item.icon, 15, 'text-mute transition group-hover:text-[#C9C9D4] group-data-[on]:text-white')}
           <span class="flex-1">${item.label}</span>
-          ${item.badge ? `<i class="rounded-full bg-brand-dark px-1.5 py-0.5 text-[9px] font-bold not-italic text-white">${countBy('nova')}</i>` : ''}
+          ${item.badge ? `<i class="rounded-full bg-brand-dark px-1.5 py-0.5 text-[9px] font-bold not-italic text-white">${countBy('pendente')}</i>` : ''}
         </a>`).join('')
     }
 
@@ -434,7 +389,7 @@
 
       return `
         <div class="rounded-lg p-4 ${fromClientSide ? 'bg-[#16131E]' : 'bg-[#2B1B47]/70'}">
-          <p class="text-[11px] font-bold text-white">${fromClientSide ? escapeHTML(r.client) : `${CURRENT_USER} · equipe`}</p>
+          <p class="text-[11px] font-bold text-white">${fromClientSide ? escapeHTML(r.client) : `${m.author || 'Equipe'} · equipe`}</p>
           <p class="mt-2 text-[11.5px] font-medium leading-[1.65] text-[#D5D0E0]">${escapeHTML(m.text)}</p>
           <p class="mt-2.5 text-[9.5px] font-medium text-[#6B6579]">${m.time}</p>
         </div>${attachment}`
@@ -465,13 +420,16 @@
     function renderManage() {
       const r = selectedRequest()
       if (!r) return
+      $('#status').innerHTML = Object.entries(STATUS).map(([k, s]) => `<option value="${k}">${s.label}</option>`).join('')
+      $('#assignee').innerHTML = '<option value="">Sem responsável</option>' + Object.entries(TEAM).map(([id, m]) => `<option value="${id}">${escapeHTML(m.name)}</option>`).join('')
+      $('#priority').innerHTML = Object.entries(PRIORITIES).map(([k, label]) => `<option value="${k}">${label}</option>`).join('')
       $('#status').value = r.status
       $('#assignee').value = r.assignee
       $('#priority').value = r.priority
-      $('#btn-resolve').textContent = r.status === 'resolvida' ? 'Reabrir solicitação' : 'Marcar como resolvida'
+      $('#btn-resolve').textContent = r.status === 'aprovada' ? 'Abrir projeto' : 'Aprovar e criar projeto'
+      $('#contact-by').textContent = r.contactBy
     }
 
-    const renderAttachment = () => { $('#attach-label').textContent = attachedFile ? attachedFile[0] : 'Anexar' }
 
     function renderCannedMenu() {
       $('#canned-menu').innerHTML = CANNED_REPLIES.map((text, i) => `
@@ -484,7 +442,6 @@
       renderList()
       renderDetail()
       renderManage()
-      renderAttachment()
     }
 
     /* =========================================================
@@ -505,52 +462,62 @@
       reply.removeAttribute('data-err')
     }
 
-    function sendReply() {
+    async function sendReply() {
       const r = selectedRequest()
       if (!r || !hasReplyText()) return
 
-      r.messages.push({ from: 'team', text: reply.value.trim(), time: 'Agora', file: attachedFile })
-      if (r.status === 'nova') r.status = 'andamento'
+      const text = reply.value.trim()
+      const res = await api('solicitacoes', { acao: 'responder', id: r.id, texto: text })
+      if (!res) return
 
+      r.messages.push({ from: 'team', text, time: 'Agora', author: ME.name })
+      r.status = res.status
       clearReply()
-      attachedFile = null
-      $('#file-input').value = ''
-      showToast(`Resposta enviada para ${firstName(r)}`)
+      showToast(`Resposta salva para ${firstName(r)}`)
       renderAll()
     }
 
-    function saveNote() {
+    async function saveNote() {
       const r = selectedRequest()
       if (!r || !hasReplyText()) return
 
-      r.notes.push(reply.value.trim())
+      const text = reply.value.trim()
+      const res = await api('solicitacoes', { acao: 'nota', id: r.id, texto: text })
+      if (!res) return
+
+      r.notes.push(text)
       clearReply()
       showToast('Nota interna salva')
       renderDetail()
     }
 
-    function saveChanges() {
+    async function saveChanges(status = null) {
       const r = selectedRequest()
       if (!r) return
-      r.status = $('#status').value
+      const res = await api('solicitacoes', {
+        acao: 'salvar', id: r.id, status: status || $('#status').value,
+        responsavel_id: +$('#assignee').value || null, prioridade: $('#priority').value,
+      })
+      if (!res) return renderManage()
+      r.status = status || $('#status').value
       r.assignee = $('#assignee').value
       r.priority = $('#priority').value
-      showToast('Alterações salvas')
+      if (res.projetoId) r.projectId = res.projetoId
+      showToast(res.projetoId ? 'Solicitação aprovada: projeto criado' : 'Alterações salvas')
       renderAll()
+      return res
     }
 
-    function toggleResolved() {
+    async function toggleResolved() {
       const r = selectedRequest()
       if (!r) return
-      const reopen = r.status === 'resolvida'
-      r.status = reopen ? 'andamento' : 'resolvida'
-      showToast(reopen ? 'Solicitação reaberta' : 'Solicitação marcada como resolvida')
-      renderAll()
+      if (r.status === 'aprovada' && r.projectId) { location.href = `project-area.php?id=${r.projectId}`; return }
+      const res = await saveChanges('aprovada')
+      if (res && res.projetoId) setTimeout(() => { location.href = `project-area.php?id=${res.projetoId}` }, 900)
     }
 
     function select(id) {
       selectedId = id
-      attachedFile = null
       renderAll()
     }
 
@@ -579,14 +546,6 @@
     reply.addEventListener('input', () => reply.removeAttribute('data-err'))
     reply.addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) sendReply() })
 
-    $('#btn-attach').addEventListener('click', () => $('#file-input').click())
-    $('#file-input').addEventListener('change', (e) => {
-      const file = e.target.files[0]
-      if (!file) return
-      attachedFile = [file.name, formatSize(file.size)]
-      renderAttachment()
-    })
-
     // Respostas prontas
     const cannedWrap = $('#canned-wrap')
     $('#btn-canned').addEventListener('click', (e) => {
@@ -603,7 +562,7 @@
     })
 
     // Gerenciar
-    $('#btn-save').addEventListener('click', saveChanges)
+    $('#btn-save').addEventListener('click', () => saveChanges())
     $('#btn-resolve').addEventListener('click', toggleResolved)
 
     // Cliques globais: fecha o menu e mostra toasts de elementos com data-toast

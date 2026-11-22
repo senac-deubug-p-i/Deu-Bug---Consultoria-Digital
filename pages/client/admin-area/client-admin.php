@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../../../includes/admin-dados.php';
+[$pdo, $admin] = admin_iniciar();
+?>
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -79,17 +83,19 @@
       </div>
 
       <div class="flex flex-col gap-2.5">
-        <a href="#" class="flex justify-center rounded-[10px] bg-panel px-3 py-[9px] text-[11.5px] font-medium text-[#C9C9D4] outline outline-1 outline-offset-[-.5px] outline-line2 transition hover:bg-panel-hover hover:text-white hover:outline-brand">
+        <a href="../client-area/index.php" class="flex justify-center rounded-[10px] bg-panel px-3 py-[9px] text-[11.5px] font-medium text-[#C9C9D4] outline outline-1 outline-offset-[-.5px] outline-line2 transition hover:bg-panel-hover hover:text-white hover:outline-brand">
           Ver como cliente
         </a>
-        <button class="flex w-full items-center gap-[9px] rounded-[10px] bg-panel px-2 py-[7px] text-left transition hover:bg-panel-hover">
-          <div class="grid size-7 shrink-0 place-items-center rounded-full bg-[#6D28D9] text-[9.5px] font-bold text-white">RL</div>
+        <div class="flex w-full items-center gap-[9px] rounded-[10px] bg-panel px-2 py-[7px] text-left">
+          <div class="grid size-7 shrink-0 place-items-center rounded-full bg-[#6D28D9] text-[9.5px] font-bold text-white"><?= e($admin['iniciais']) ?></div>
           <div class="flex-1">
-            <div class="text-[11.5px] font-semibold">Rafael Lima</div>
-            <div class="mt-px text-[9px] font-medium text-mute">Gerente de projetos</div>
+            <div class="text-[11.5px] font-semibold"><?= e($admin['usuario_nome']) ?></div>
+            <div class="mt-px text-[9px] font-medium text-mute"><?= e($admin['cargo']) ?></div>
           </div>
-          <svg class="size-[13px] shrink-0 text-faint"><use href="#i-ud"/></svg>
-        </button>
+          </div>
+        <form action="../../../actions/logout.php" method="post">
+          <button type="submit" class="flex w-full justify-center rounded-[10px] px-3 py-[9px] text-[11.5px] font-medium text-soft transition hover:bg-panel hover:text-white">Sair</button>
+        </form>
       </div>
     </aside>
 
@@ -147,12 +153,15 @@
       </label>
       <div class="grid grid-cols-2 gap-3">
         <label data-ui="label">E-mail
-          <input id="m-email" type="email" placeholder="contato@empresa.com" data-ui="field" />
+          <input id="m-email" type="email" placeholder="contato@empresa.com" required data-ui="field" />
         </label>
         <label data-ui="label">Telefone
           <input id="m-telefone" placeholder="(11) 90000-0000" data-ui="field" />
         </label>
       </div>
+
+      <p class="text-[10.5px] font-medium text-soft">O cliente entra com o e-mail e uma senha provisória gerada ao criar a conta.</p>
+      <div id="m-resultado" class="hidden select-all break-words rounded-[9px] bg-[#0D2A1C] px-3 py-2.5 text-[11px] font-semibold text-[#54D68E]"></div>
 
       <div class="flex justify-end gap-2 pt-1">
         <button id="m-cancelar" data-ui="btn md ghost">Cancelar</button>
@@ -166,19 +175,35 @@
 
 
   <script>
+
+    /* =========================================================
+       0. SESSÃO E API (fetch -> actions/admin/*.php)
+    ========================================================= */
+    const CSRF = <?= js_json(csrf_token()) ?>;
+    const ME = <?= js_json(['id' => (string)$admin['usuario_id'], 'name' => $admin['usuario_nome']]) ?>;
+
+    async function api(endpoint, data) {
+      const isForm = data instanceof FormData
+      try {
+        const res = await fetch(`../../../actions/admin/${endpoint}.php`, {
+          method: 'POST', credentials: 'same-origin',
+          headers: isForm ? { 'X-CSRF-Token': CSRF } : { 'X-CSRF-Token': CSRF, 'Content-Type': 'application/json' },
+          body: isForm ? data : JSON.stringify(data),
+        })
+        const json = await res.json().catch(() => null)
+        if (!res.ok || !json || !json.ok) { showToast((json && json.erro) || 'Não foi possível salvar'); return null }
+        return json
+      } catch (err) {
+        showToast('Sem conexão com o servidor')
+        return null
+      }
+    }
     /* =========================================================
        1. CONFIGURAÇÃO
     ========================================================= */
-    const DETAIL_PAGE = 'admin-projeto-detalhe.html'
     const MONTHS = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']
 
-    const NAV_ITEMS = [
-      { icon: 'dash',   label: 'Visão geral',  href: 'index.php' },
-      { icon: 'folder', label: 'Projetos',     href: 'project.php' },
-      { icon: 'users',  label: 'Clientes',     href: 'client-admin.php', active: true },
-      { icon: 'inbox',  label: 'Solicitações', href: 'solicitation.php', badge: 8 },
-      { icon: 'card',   label: 'Financeiro',   href: 'finance.php' },
-    ]
+    const NAV_ITEMS = <?= js_json(admin_nav($pdo, 'client-admin.php')) ?>;
 
     const TAG_STYLES = {
       warn:    'bg-[#2F260F] text-[#E5C465]',
@@ -193,7 +218,7 @@
       { key: 'name',   label: 'Empresa',         width: 'min-w-0 flex-1' },
       { key: 'ativos', label: 'Projetos ativos', width: 'w-24 shrink-0' },
       { key: 'status', label: 'Situação',        width: 'w-44 shrink-0' },
-      { key: 'total',  label: 'Total contratado', width: 'w-[140px] shrink-0' },
+      { key: 'desde',  label: 'Cliente desde', width: 'w-[140px] shrink-0' },
       { key: 'dias',   label: 'Último acesso',   width: 'w-[104px] shrink-0' },
     ]
 
@@ -201,7 +226,7 @@
       name:   (c) => c.name,
       ativos: (c) => c.projects.length,
       status: (c) => c.statusLabel,
-      total:  (c) => c.total,
+      desde:  (c) => c.sinceTs,
       dias:   (c) => c.daysSinceAccess,
     }
 
@@ -239,61 +264,12 @@
     /* =========================================================
        3. DADOS
     ========================================================= */
-    let nextId = 0
-    const client = ({ name, initials, contact, email, phone, since, status, statusLabel, total, lastAccess, daysSinceAccess, projects, notes }) =>
-      ({ id: ++nextId, name, initials, contact, email, phone, since, status, statusLabel, total, lastAccess, daysSinceAccess, projects, notes, invited: false })
-
-    const project = (name, stage, progress) => ({ name, stage, progress })
-
-    let clients = [
-      client({
-        name: 'Padaria Doce Trigo', initials: 'DT', contact: 'Marina Rocha', email: 'marina@docetrigo.com.br', phone: '(11) 91111-2222',
-        since: 'Cliente deste set 2026', status: 'warn', statusLabel: 'Aprovação pendente', total: 5000, lastAccess: 'Hoje', daysSinceAccess: 0,
-        projects: [project('Loja online Doce Trigo', 'Desenvolvimento', 62), project('Site Doce Trigo', 'Revisão', 88), project('Promoção de Natal', 'Design', 22)],
-        notes: ['Prefere conversar por WhatsApp. Responde melhor à noite. Já perguntou sobre pagamento por boleto.'],
-      }),
-      client({
-        name: 'Studio Aurora Pilates', initials: 'AP', contact: 'Camila Duarte', email: 'camila@studioaurora.com.br', phone: '(11) 92222-3333',
-        since: 'Cliente deste ago 2026', status: 'risk', statusLabel: 'Em risco', total: 4200, lastAccess: 'Há 6 dias', daysSinceAccess: 6,
-        projects: [project('Landing Aurora Pilates', 'Briefing', 15), project('Agendamento de aulas', 'Desenvolvimento', 70)],
-        notes: ['Fotos pendentes há 6 dias. Vale ligar antes de cobrar de novo.'],
-      }),
-      client({
-        name: 'Clínica Vida Plena', initials: 'VP', contact: 'Dra. Helena Prado', email: 'helena@vidaplena.com.br', phone: '(11) 93333-4444',
-        since: 'Cliente deste jun 2026', status: 'ok', statusLabel: 'Em dia', total: 7800, lastAccess: 'Ontem', daysSinceAccess: 1,
-        projects: [project('Site Clínica Vida Plena', 'Design', 35), project('Área de exames online', 'Revisão', 92)],
-        notes: ['Prazo do site vence em breve. Aprovação costuma ser rápida.'],
-      }),
-      client({
-        name: 'Café Girassol', initials: 'CG', contact: 'Tiago Mendes', email: 'tiago@cafegirassol.com.br', phone: '(11) 94444-5555',
-        since: 'Cliente deste jul 2026', status: 'risk', statusLabel: 'Fatura em atraso', total: 3900, lastAccess: 'Hoje', daysSinceAccess: 0,
-        projects: [project('Identidade para o cardápio digital', 'Design', 40), project('Loja Café Girassol', 'Desenvolvimento', 48)],
-        notes: ['Pediu segunda via do boleto. Avisar o financeiro.'],
-      }),
-      client({
-        name: 'Móveis Pereira', initials: 'MP', contact: 'Sérgio Pereira', email: 'sergio@moveispereira.com.br', phone: '(11) 95555-6666',
-        since: 'Cliente deste mai 2026', status: 'ok', statusLabel: 'Em dia', total: 6100, lastAccess: 'Há 3 dias', daysSinceAccess: 3,
-        projects: [project('Catálogo online', 'Briefing', 8), project('Site institucional', 'Revisão', 95)],
-        notes: ['Teve problema de acesso ao portal. Resolvido.'],
-      }),
-      client({
-        name: 'Escola Pequeno Mundo', initials: 'PM', contact: 'Renata Alves', email: 'renata@pequenomundo.com.br', phone: '(11) 96666-7777',
-        since: 'Cliente deste abr 2026', status: 'ok', statusLabel: 'Em dia', total: 4600, lastAccess: 'Há 1 semana', daysSinceAccess: 7,
-        projects: [project('Site institucional', 'Briefing', 5)],
-        notes: [],
-      }),
-      client({
-        name: 'Mecânica Irmãos Souza', initials: 'IS', contact: 'Paulo Souza', email: 'paulo@irmaossouza.com.br', phone: '(11) 97777-8888',
-        since: 'Cliente deste mar 2026', status: 'done', statusLabel: 'Concluído', total: 2800, lastAccess: 'Ontem', daysSinceAccess: 1,
-        projects: [],
-        notes: ['Site publicado em 18 out. Possível cliente para manutenção mensal.'],
-      }),
-    ]
+    let clients = <?= js_json(admin_clientes($pdo)) ?>;
 
     /* =========================================================
        4. ESTADO
     ========================================================= */
-    let selectedId = 1
+    let selectedId = +(new URLSearchParams(location.search).get('id')) || (clients[0] ? clients[0].id : null)
     let sort = { key: null, dir: 1 }
     let search = ''
 
@@ -395,13 +371,13 @@
           <div class="${colStatus} flex">
             <span class="whitespace-nowrap rounded-full px-2 py-[3px] text-[9px] font-bold ${TAG_STYLES[STATUS_TONE[c.status]]}">${c.statusLabel}</span>
           </div>
-          <div class="${colTotal} text-[12.5px] font-semibold">${money(c.total)}</div>
+          <div class="${colTotal} text-[12.5px] font-semibold">${escapeHTML(c.since.replace('Cliente desde ', ''))}</div>
           <div class="${colAccess} whitespace-nowrap text-[11.5px] font-medium text-soft">${c.lastAccess}</div>
         </button>`).join('') || '<div class="px-4 py-[34px] text-center text-xs font-medium text-faint">Nenhum cliente encontrado</div>'
     }
 
     const projectCardHTML = (p) => `
-      <a href="${DETAIL_PAGE}" class="${TILE}">
+      <a href="project-area.php?id=${p.id}" class="${TILE}">
         <div>
           <div class="text-[11px] font-bold text-[#EDEDF3]">${escapeHTML(p.name)}</div>
           <div class="mt-0.5 text-[9.5px] font-semibold text-[#75757F]">${p.stage}</div>
@@ -434,10 +410,6 @@
             <div class="mb-1 text-[11.5px] font-semibold text-[#EDEDF3]">${escapeHTML(c.contact)}</div>
             <div class="break-words text-[10px] font-medium leading-[14px] text-soft">${escapeHTML(c.email)}${c.phone ? ` · ${escapeHTML(c.phone)}` : ''}</div>
           </div>
-          <div class="flex flex-wrap gap-2">
-            <button id="btn-message" class="${btn('sm', 'primary')}">Enviar mensagem</button>
-            <button id="btn-invite" class="${btn('sm', c.invited ? 'sent' : 'ghost')}">${c.invited ? 'Convite enviado ✓' : 'Reenviar convite'}</button>
-          </div>
         </section>
 
         <section class="${card('gap-3')}">
@@ -466,8 +438,10 @@
     /* =========================================================
        7. AÇÕES
     ========================================================= */
-    function addNote(text) {
-      selectedClient().notes.push(text)
+    async function addNote(text) {
+      const r = await api('clientes', { acao: 'nota', id: selectedId, texto: text })
+      if (!r) return
+      selectedClient().notes.push(r.nota)
       showToast('Nota adicionada')
       renderDetail()
       $('#note-input').focus()
@@ -478,42 +452,51 @@
     const closeModal = () => overlay.removeAttribute('data-open')
 
     function resetModal() {
+      clienteCriado = false
+      $('#m-resultado').classList.add('hidden')
+      $('#m-criar').textContent = 'Criar cliente'
+      $('#m-cancelar').classList.remove('hidden')
       ;['#m-empresa', '#m-contato', '#m-email', '#m-telefone'].forEach((sel) => {
         $(sel).value = ''
         $(sel).removeAttribute('data-err')
       })
     }
 
-    function createClient() {
+    let clienteCriado = false
+
+    async function createClient() {
+      if (clienteCriado) { clienteCriado = false; return closeModal() }
+
       const company = $('#m-empresa')
       const contact = $('#m-contato')
+      const email = $('#m-email')
 
       let invalid = false
-      ;[company, contact].forEach((input) => {
+      ;[company, contact, email].forEach((input) => {
         const empty = !input.value.trim()
         input.toggleAttribute('data-err', empty)
         invalid = invalid || empty
       })
-      if (invalid) return showToast('Preencha empresa e contato')
+      if (invalid) return showToast('Preencha empresa, contato e e-mail')
 
-      const words = company.value.trim().split(/\s+/)
-      const initials = (words[0][0] + (words[1] ? words[1][0] : words[0][1] || '')).toUpperCase()
-      const now = new Date()
+      const r = await api('clientes', {
+        acao: 'criar', empresa: company.value.trim(), contato: contact.value.trim(),
+        email: email.value.trim(), telefone: $('#m-telefone').value.trim(),
+      })
+      if (!r) return
 
-      clients.push(client({
-        name: company.value.trim(), initials, contact: contact.value.trim(),
-        email: $('#m-email').value.trim() || '—', phone: $('#m-telefone').value.trim(),
-        since: `Cliente deste ${MONTHS[now.getMonth()]} ${now.getFullYear()}`,
-        status: 'new', statusLabel: 'Novo', total: 0, lastAccess: 'Nunca', daysSinceAccess: 99,
-        projects: [], notes: [],
-      }))
-
-      selectedId = clients[clients.length - 1].id
+      clients.push(r.cliente)
+      selectedId = r.cliente.id
       search = ''
       $('#busca').value = ''
-      closeModal()
       renderAll()
-      showToast('Cliente criado')
+
+      // A senha provisória só aparece agora: o banco guarda apenas o hash
+      $('#m-resultado').textContent = `Conta criada! Passe ao cliente: ${r.cliente.email} / senha provisória ${r.senha_provisoria}`
+      $('#m-resultado').classList.remove('hidden')
+      $('#m-criar').textContent = 'Concluir'
+      $('#m-cancelar').classList.add('hidden')
+      clienteCriado = true
     }
 
     /* =========================================================

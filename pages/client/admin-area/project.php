@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__ . '/../../../includes/admin-dados.php';
+[$pdo, $admin] = admin_iniciar();
+$equipe = admin_equipe($pdo);
+?>
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -78,17 +83,19 @@
       </div>
 
       <div class="flex flex-col gap-2.5">
-        <a href="#" class="flex justify-center rounded-[10px] bg-panel px-3 py-[9px] text-[11.5px] font-medium text-[#C9C9D4] outline outline-1 outline-offset-[-.5px] outline-line2 transition hover:bg-panel-hover hover:text-white hover:outline-brand">
+        <a href="../client-area/index.php" class="flex justify-center rounded-[10px] bg-panel px-3 py-[9px] text-[11.5px] font-medium text-[#C9C9D4] outline outline-1 outline-offset-[-.5px] outline-line2 transition hover:bg-panel-hover hover:text-white hover:outline-brand">
           Ver como cliente
         </a>
-        <button class="flex w-full items-center gap-[9px] rounded-[10px] bg-panel px-2 py-[7px] text-left transition hover:bg-panel-hover">
-          <div class="grid size-7 shrink-0 place-items-center rounded-full bg-[#6D28D9] text-[9.5px] font-bold text-white">RL</div>
+        <div class="flex w-full items-center gap-[9px] rounded-[10px] bg-panel px-2 py-[7px] text-left">
+          <div class="grid size-7 shrink-0 place-items-center rounded-full bg-[#6D28D9] text-[9.5px] font-bold text-white"><?= e($admin['iniciais']) ?></div>
           <div class="flex-1">
-            <div class="text-[11.5px] font-semibold">Rafael Lima</div>
-            <div class="mt-px text-[9px] font-medium text-mute">Gerente de projetos</div>
+            <div class="text-[11.5px] font-semibold"><?= e($admin['usuario_nome']) ?></div>
+            <div class="mt-px text-[9px] font-medium text-mute"><?= e($admin['cargo']) ?></div>
           </div>
-          <svg class="size-[13px] shrink-0 text-faint"><use href="#i-ud"/></svg>
-        </button>
+          </div>
+        <form action="../../../actions/logout.php" method="post">
+          <button type="submit" class="flex w-full justify-center rounded-[10px] px-3 py-[9px] text-[11.5px] font-medium text-soft transition hover:bg-panel hover:text-white">Sair</button>
+        </form>
       </div>
     </aside>
 
@@ -143,8 +150,7 @@
       </label>
 
       <label class="flex flex-col gap-1.5 text-[11px] font-semibold text-soft">Cliente
-        <input id="m-cliente" placeholder="Ex.: Padaria Doce Trigo"
-               class="h-[38px] rounded-[9px] bg-field px-3 text-xs font-medium text-ink outline outline-1 outline-offset-[-.5px] outline-line transition [color-scheme:dark] placeholder:text-faint focus:outline-brand" />
+        <select id="m-cliente" class="h-[38px] rounded-[9px] bg-field px-3 text-xs font-medium text-ink outline outline-1 outline-offset-[-.5px] outline-line transition [color-scheme:dark] focus:outline-brand"></select>
       </label>
 
       <div class="grid grid-cols-2 gap-3">
@@ -175,6 +181,29 @@
 
 
   <script>
+
+    /* =========================================================
+       0. SESSÃO E API (fetch -> actions/admin/*.php)
+    ========================================================= */
+    const CSRF = <?= js_json(csrf_token()) ?>;
+    const ME = <?= js_json(['id' => (string)$admin['usuario_id'], 'name' => $admin['usuario_nome']]) ?>;
+
+    async function api(endpoint, data) {
+      const isForm = data instanceof FormData
+      try {
+        const res = await fetch(`../../../actions/admin/${endpoint}.php`, {
+          method: 'POST', credentials: 'same-origin',
+          headers: isForm ? { 'X-CSRF-Token': CSRF } : { 'X-CSRF-Token': CSRF, 'Content-Type': 'application/json' },
+          body: isForm ? data : JSON.stringify(data),
+        })
+        const json = await res.json().catch(() => null)
+        if (!res.ok || !json || !json.ok) { showToast((json && json.erro) || 'Não foi possível salvar'); return null }
+        return json
+      } catch (err) {
+        showToast('Sem conexão com o servidor')
+        return null
+      }
+    }
     /* =========================================================
        1. CONFIGURAÇÃO
     ========================================================= */
@@ -182,15 +211,11 @@
     const LAST_STAGE = STAGES.length - 1
     const MONTHS = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']
     const YEAR = new Date().getFullYear()
-    const CURRENT_USER = 'RL'
+    const CURRENT_USER = ME.id
 
-    const OWNERS = {
-      RL: { name: 'Rafael Lima',    color: 'bg-[#5B21B6]' },
-      DN: { name: 'Diego Nunes',    color: 'bg-brand-dark' },
-      AC: { name: 'Ana Costa',      color: 'bg-brand-dark' },
-      LA: { name: 'Lucas Almeida',  color: 'bg-[#6D28D9]' },
-      BT: { name: 'Bruna Teixeira', color: 'bg-[#0F766E]' },
-    }
+    const OWNERS = <?= js_json($equipe) ?>;
+    const UNASSIGNED = { name: 'Sem responsável', initials: '—', color: 'bg-[#3A3A44]' }
+    const CLIENTES = <?= js_json(admin_clientes_para_select($pdo)) ?>;
 
     const TAG_STYLES = {
       warn: 'bg-[#2F260F] text-[#E5C465]',
@@ -199,13 +224,7 @@
       ok:   'bg-[#0D2A1C] text-[#54D68E]',
     }
 
-     const NAV_ITEMS = [
-  { icon: 'dash',   label: 'Visão geral',   href: 'index.php' },
-  { icon: 'folder', label: 'Projetos',      href: 'index.php', active: true },
-  { icon: 'users',  label: 'Clientes',      href: 'client-admin.php' },
-  { icon: 'inbox',  label: 'Solicitações',  href: 'solicitation.php', badge: 5 },
-  { icon: 'card',   label: 'Financeiro',    href: 'finance.php' },
-]
+     const NAV_ITEMS = <?= js_json(admin_nav($pdo, 'project.php')) ?>;
 
     const FILTERS = [
       { id: 'todos', label: 'Todos' },
@@ -217,30 +236,7 @@
     /* =========================================================
        2. DADOS
     ========================================================= */
-    let nextId = 0
-    const project = (stage, client, title, progress, day, month, owner, tag = null, tagStyle = null) =>
-      ({ id: ++nextId, stage, client, title, progress, day, month, owner, tag, tagStyle })
-
-    let projects = [
-      project(0, 'Studio Aurora Pilates', 'Landing Aurora Pilates', 15, 5, 10, 'RL', 'Fotos pendentes', 'warn'),
-      project(0, 'Móveis Pereira', 'Catálogo online', 8, 28, 10, 'RL'),
-      project(0, 'Escola Pequeno Mundo', 'Site institucional', 5, 10, 11, 'DN'),
-
-      project(1, 'Clínica Vida Plena', 'Site Clínica Vida Plena', 35, 21, 9, 'AC', 'Vence em 2 dias', 'red'),
-      project(1, 'Padaria Doce Trigo', 'Promoção de Natal', 22, 20, 11, 'AC'),
-      project(1, 'Café Girassol', 'Identidade para o cardápio digital', 40, 14, 10, 'AC'),
-
-      project(2, 'Padaria Doce Trigo', 'Loja online Doce Trigo', 62, 14, 10, 'LA'),
-      project(2, 'Café Girassol', 'Loja Café Girassol', 48, 12, 10, 'LA', 'Fatura em atraso', 'org'),
-      project(2, 'Studio Aurora Pilates', 'Agendamento de aulas', 70, 2, 10, 'BT'),
-
-      project(3, 'Padaria Doce Trigo', 'Site Doce Trigo', 88, 30, 9, 'AC', 'Aguardando cliente', 'warn'),
-      project(3, 'Clínica Vida Plena', 'Área de exames online', 92, 26, 9, 'BT'),
-      project(3, 'Móveis Pereira', 'Site institucional', 95, 24, 9, 'LA'),
-
-      project(4, 'Mecânica Irmãos Souza', 'Site Mecânica Irmãos Souza', 100, 18, 9, 'BT', 'No ar desde 18 out', 'ok'),
-      project(4, 'Escola Pequeno Mundo', 'Página de matrículas', 100, 2, 9, 'LA', 'No ar desde 02 out', 'ok'),
-    ]
+    let projects = <?= js_json(admin_projetos($pdo)) ?>;
 
     /* =========================================================
        3. ESTADO DOS FILTROS
@@ -268,9 +264,9 @@
     /* =========================================================
        5. REGRAS DE NEGÓCIO
     ========================================================= */
-    const deadline = (p) => new Date(YEAR, p.month, p.day)
+    const deadline = (p) => (p.hasDeadline ? new Date(p.year, p.month, p.day) : null)
     const startOfToday = () => new Date(new Date().setHours(0, 0, 0, 0))
-    const isLate = (p) => p.stage < LAST_STAGE && deadline(p) < startOfToday()
+    const isLate = (p) => p.stage < LAST_STAGE && deadline(p) !== null && deadline(p) < startOfToday()
     const hasPending = (p) => p.tag && p.tagStyle !== 'ok'
 
     const QUICK_FILTERS = {
@@ -287,28 +283,22 @@
       return QUICK_FILTERS[filters.quick](p)
     }
 
-    function moveProject(p, toStage) {
-      const fromStage = p.stage
-      p.stage = toStage
-
-      if (toStage === LAST_STAGE) {
-        const now = new Date()
-        p.progress = 100
-        p.tag = `No ar desde ${pad(now.getDate())} ${MONTHS[now.getMonth()]}`
-        p.tagStyle = 'ok'
-      } else if (fromStage === LAST_STAGE) {
-        p.progress = Math.min(p.progress, 95)
-        p.tag = p.tagStyle = null
-      }
-
+    async function moveProject(p, toStage) {
+      const r = await api('projetos', { acao: 'mover', id: p.id, etapa: toStage })
+      if (!r) return false
+      p.stage = r.etapa
+      p.progress = r.progresso
+      p.tag = r.tag
+      p.tagStyle = r.tagEstilo
       projects = [...projects.filter((x) => x !== p), p] // vai para o fim da coluna
+      return true
     }
 
     /* =========================================================
        6. RENDER
     ========================================================= */
     function renderCard(p) {
-      const owner = OWNERS[p.owner]
+      const owner = OWNERS[p.owner] || UNASSIGNED
       const published = p.stage === LAST_STAGE
 
       const tag = p.tag
@@ -318,21 +308,21 @@
       const meta = published ? '' : `
         <div class="flex items-center justify-between pt-[3px]">
           <span class="text-[10px] font-bold text-[#C9C9D2]">${p.progress}%</span>
-          <span class="text-[9.5px] font-medium ${isLate(p) ? 'text-[#F0777C]' : 'text-[#6B6B76]'}">Prazo ${pad(p.day)} ${MONTHS[p.month]}</span>
+          <span class="text-[9.5px] font-medium ${isLate(p) ? 'text-[#F0777C]' : 'text-[#6B6B76]'}">${p.hasDeadline ? `Prazo ${pad(p.day)} ${MONTHS[p.month]}` : 'Sem prazo'}</span>
         </div>`
 
       return `
         <div draggable="true" data-id="${p.id}"
              class="flex cursor-grab select-none flex-col gap-[7px] rounded-xl bg-[#15151A] p-3 outline outline-1 outline-offset-[-.5px] outline-[#23232B] transition duration-150 hover:-translate-y-0.5 hover:bg-[#18181F] hover:shadow-[0_10px_24px_-10px_rgba(124,58,237,.35)] hover:outline-brand-dark data-[drag]:cursor-grabbing data-[drag]:opacity-[.35]">
           <div class="text-[9.5px] font-semibold leading-3 text-[#75757F]">${escapeHTML(p.client)}</div>
-          <div class="text-[12.5px] font-bold leading-4 text-[#EDEDF3]">${escapeHTML(p.title)}</div>
+          <a href="project-area.php?id=${p.id}" draggable="false" class="text-[12.5px] font-bold leading-4 text-[#EDEDF3] hover:text-[#C4B5FD]">${escapeHTML(p.title)}</a>
           ${tag}
           ${meta}
           <div class="h-[3px] rounded-sm bg-[#23232B]">
             <div class="h-[3px] rounded-sm transition-[width] duration-300 ${published ? 'bg-[#22C55E]' : 'bg-brand'}" style="width:${p.progress}%"></div>
           </div>
           <div class="flex items-center gap-1.5 pt-[3px] text-[9.5px] font-medium text-[#9A9AA4]">
-            <div class="grid size-[18px] shrink-0 place-items-center rounded-full text-[7.5px] font-bold text-white ${owner.color}">${p.owner}</div>
+            <div class="grid size-[18px] shrink-0 place-items-center rounded-full text-[7.5px] font-bold text-white ${owner.color}">${owner.initials}</div>
             ${owner.name}
           </div>
         </div>`
@@ -414,7 +404,7 @@
       column.setAttribute('data-over', '')
     })
 
-    board.addEventListener('drop', (e) => {
+    board.addEventListener('drop', async (e) => {
       const column = e.target.closest('[data-stage]')
       if (!column || draggingId == null) return
       e.preventDefault()
@@ -422,8 +412,7 @@
       const p = projects.find((x) => x.id === draggingId)
       const toStage = +column.dataset.stage
       if (p.stage !== toStage) {
-        moveProject(p, toStage)
-        showToast(`“${p.title}” movido para ${STAGES[toStage]}`)
+        if (await moveProject(p, toStage)) showToast(`“${p.title}” movido para ${STAGES[toStage]}`)
       }
       renderBoard()
     })
@@ -473,27 +462,28 @@
       defaultDeadline.setDate(defaultDeadline.getDate() + 14)
 
       $('#m-titulo').value = ''
-      $('#m-cliente').value = ''
+      $('#m-cliente').value = CLIENTES.length ? CLIENTES[0].id : ''
       $('#m-prazo').value = `${defaultDeadline.getFullYear()}-${pad(defaultDeadline.getMonth() + 1)}-${pad(defaultDeadline.getDate())}`
       $('#m-resp').value = CURRENT_USER
       $('#m-etapa').value = 0
     }
 
-    function createProject() {
+    async function createProject() {
       const title = $('#m-titulo').value.trim()
-      const client = $('#m-cliente').value.trim()
+      const clienteId = $('#m-cliente').value
 
-      if (!title || !client) {
-        showToast('Preencha título e cliente')
-        ;(!title ? $('#m-titulo') : $('#m-cliente')).focus()
+      if (!title || !clienteId) {
+        showToast(CLIENTES.length ? 'Preencha título e cliente' : 'Cadastre um cliente antes de criar o projeto')
+        if (!title) $('#m-titulo').focus()
         return
       }
 
-      const [, month, day] = ($('#m-prazo').value || '').split('-').map(Number)
-      const today = new Date()
-      const due = day ? { day, month: month - 1 } : { day: today.getDate(), month: today.getMonth() }
-
-      projects.push(project(+$('#m-etapa').value, client, title, 0, due.day, due.month, $('#m-resp').value))
+      const r = await api('projetos', {
+        acao: 'criar', titulo: title, cliente_id: +clienteId, prazo: $('#m-prazo').value,
+        responsavel_id: +$('#m-resp').value || null, etapa: +$('#m-etapa').value,
+      })
+      if (!r) return
+      projects.push(r.projeto)
       closeModal()
       renderBoard()
       showToast('Projeto criado')
@@ -513,12 +503,14 @@
        10. INICIALIZAÇÃO
     ========================================================= */
     $('#m-resp').innerHTML  = Object.entries(OWNERS).map(([id, o]) => `<option value="${id}">${o.name}</option>`).join('')
+    $('#m-cliente').innerHTML = CLIENTES.map((c) => `<option value="${c.id}">${escapeHTML(c.label)}</option>`).join('')
     $('#m-etapa').innerHTML = STAGES.slice(0, LAST_STAGE).map((name, i) => `<option value="${i}">${name}</option>`).join('')
 
     renderNav()
     renderPills()
     renderOwnerMenu()
     renderBoard()
+    if (new URLSearchParams(location.search).has('novo')) { resetModal(); openModal() }
   </script>
 </body>
 </html>

@@ -2,8 +2,15 @@
     require_once __DIR__ . '/../../../includes/functions.php';
     require_once __DIR__ . '/../../../includes/auth.php';
     require_once __DIR__ . '/../../../actions/user-infos.php';
+    require_once __DIR__ . '/../../../includes/projetos.php';
     exigir_login();
-    $usuario = usuario_atual();
+    $usuario  = usuario_atual();
+    $pdo      = conectar();
+    $resumo   = resumo_do_cliente($pdo, (int)$_SESSION['usuario_id']);
+    $projetos = projetos_do_cliente($pdo, (int)$_SESSION['usuario_id']);
+    $atividade = atividade_do_cliente($pdo, (int)$_SESSION['usuario_id']);
+    $avisoPend = pegar_sucesso('pendencias');
+    $erroPend  = pegar_erro('pendencias');
 ?>
 
 <!DOCTYPE html>
@@ -27,66 +34,73 @@
         <!-- Inserção do Header -->
         <?php
             require __DIR__ . '/../../../includes/client-header.php';
-        ?>
-        
-                <?php
-        // TODO: quando existir a tabela de projetos, trocar por uma consulta ao banco.
-        $projetos     = [];
-        $temProjetos  = !empty($projetos);
-        $primeiroNome = primeiro_nome($_SESSION['usuario_nome'] ?? 'Cliente');
+
+            $primeiroNome = primeiro_nome($usuario['usuario_nome'] ?? 'Cliente');
+            $ativos       = array_values(array_filter($projetos, fn($p) => (int)$p['projeto_etapa'] < ETAPA_PUBLICADO));
+            $temProjetos  = !empty($projetos);
+            $pendencias   = $resumo['pendencias'];
+            $qtdPend      = count($pendencias);
+            $proxima      = $resumo['proxima'];
+            $empresa      = $projetos[0]['projeto_empresa'] ?? null;
         ?>
 
-        <?php if (!$temProjetos): ?>
-        <!-- ===================== ESTADO VAZIO: cliente sem projetos ===================== -->
         <section class="hero-header">
             <div class="hero-title">
-                <h3><?= e(data_hoje()) ?></h3>
+                <h3><?= $empresa ? e($empresa) . ' - ' : '' ?><?= e(data_hoje()) ?></h3>
                 <h2>Olá, <?= e($primeiroNome) ?>!</h2>
-                <p>Você ainda não tem nenhum projeto por aqui. Vamos começar o primeiro?</p>
+                <?php if (!$temProjetos): ?>
+                    <p>Você ainda não tem nenhum projeto por aqui. Vamos começar o primeiro?</p>
+                <?php elseif ($qtdPend > 0): ?>
+                    <p>Seus projetos estão andando. Tem <?= $qtdPend ?> <?= $qtdPend === 1 ? 'coisa esperando' : 'coisas esperando' ?> por você.</p>
+                <?php else: ?>
+                    <p>Seus projetos estão andando bem. Não há nada pendente com você agora.</p>
+                <?php endif; ?>
             </div>
 
             <div class="hero-contact">
-                <button onclick="location.href='../projects-area/index.php'">
-                    Solicitar meu projeto
-                </button>
-                <button style="background-color: transparent;" onclick="location.href='../support-area/index.php'">
-                    <img src="../../../assets/images/chat-message-icon.svg" alt="">
-                    Falar com a equipe
-                </button>
+                <?php if (!$temProjetos): ?>
+                    <button onclick="location.href='../projects-area/index.php'">Solicitar meu projeto</button>
+                <?php else: ?>
+                    <button onclick="location.href='../support-area/index.php'">
+                        <img src="../../../assets/images/chat-message-icon.svg" alt="">
+                        Falar com a equipe
+                    </button>
+                    <button style="background-color: transparent;" onclick="location.href='../projects-area/index.php'">Solicitar novo projeto</button>
+                <?php endif; ?>
             </div>
         </section>
 
         <section class="data-boxes">
-            <div class="is-empty">
+            <div class="<?= $resumo['ativos'] ? '' : 'is-empty' ?>">
                 <div>
                     <h3>Projetos Ativos</h3>
-                    <h2>0</h2>
+                    <h2><?= (int)$resumo['ativos'] ?></h2>
                 </div>
-                <p>Nenhum projeto vinculado à sua conta</p>
+                <p><?= $resumo['ativos'] ? e(implode(' · ', array_map(fn($p) => $p['projeto_titulo'], array_slice($ativos, 0, 2)))) : 'Nenhum projeto vinculado à sua conta' ?></p>
             </div>
 
-            <div class="is-empty">
+            <div class="<?= $proxima ? '' : 'is-empty' ?>">
                 <div>
                     <h3>Previsão da próxima entrega</h3>
-                    <h2>—</h2>
+                    <h2><?= $proxima ? e(dia_mes($proxima['projeto_prazo'])) : '—' ?></h2>
                 </div>
-                <p>Sem entregas previstas</p>
+                <p><?= $proxima ? e($proxima['projeto_titulo']) : 'Sem entregas previstas' ?></p>
             </div>
 
-            <div class="is-empty">
+            <div class="<?= $resumo['solicitacoes'] ? '' : 'is-empty' ?>">
                 <div>
-                    <h3>Mensagens não lidas</h3>
-                    <h2>0</h2>
+                    <h3>Solicitações em andamento</h3>
+                    <h2><?= (int)$resumo['solicitacoes'] ?></h2>
                 </div>
-                <p>Nenhuma mensagem por enquanto</p>
+                <p><?= $resumo['solicitacoes'] ? 'Aguardando retorno da equipe' : 'Nenhuma solicitação aberta' ?></p>
             </div>
 
-            <div class="is-empty">
+            <div <?= $qtdPend ? 'style="background-color: #7B4BB3; border-color: #FFF;"' : 'class="is-empty"' ?>>
                 <div>
                     <h3>Precisa da sua atenção</h3>
-                    <h2>0</h2>
+                    <h2><?= $qtdPend ?></h2>
                 </div>
-                <p>Nada pendente, está tudo em dia</p>
+                <p><?= $qtdPend ? e(implode(' - ', array_map(fn($a) => $a['aprovacao_titulo'], array_slice($pendencias, 0, 2)))) : 'Nada pendente, está tudo em dia' ?></p>
             </div>
         </section>
 
@@ -94,148 +108,55 @@
             <div class="activity">
                 <h2>Atividade recente</h2>
 
+                <?php if ($atividade): ?>
+                <div class="infosscreen">
+                    <?php foreach ($atividade as $a): ?>
+                    <div class="info-activity">
+                        <div class="status-activity"></div>
+                        <div>
+                            <h3><?= e($a['atualizacao_titulo']) ?></h3>
+                            <p><?= e(quando($a['atualizacao_criacao'])) ?> - <?= e($a['autor'] ? primeiro_nome($a['autor']) : 'Equipe') ?></p>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php else: ?>
                 <div class="empty-state">
                     <h3>Nenhuma atividade ainda</h3>
                     <p>Quando o seu projeto começar, as atualizações da equipe aparecem aqui.</p>
                 </div>
+                <?php endif; ?>
             </div>
 
             <div class="requests">
                 <h2>Pendências</h2>
 
+                <?php if ($avisoPend): ?><div class="aviso-pendencias" role="status"><?= e($avisoPend) ?></div><?php endif; ?>
+                <?php if ($erroPend): ?><div class="aviso-pendencias" role="alert" style="background-color:#33131B;color:#F0777C"><?= e($erroPend) ?></div><?php endif; ?>
+
+                <?php if ($pendencias): ?>
+                <div class="pendencys">
+                    <?php foreach ($pendencias as $a): ?>
+                    <div class="pendency-box">
+                        <div>
+                            <h3><?= e($a['aprovacao_titulo']) ?></h3>
+                            <p><?= e($a['projeto_empresa']) ?><?= $a['aprovacao_prazo'] ? ' - ' . e(dia_mes($a['aprovacao_prazo'])) : '' ?></p>
+                        </div>
+                        <form action="../../../actions/aprovar.php" method="post">
+                            <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>">
+                            <input type="hidden" name="aprovacao_id" value="<?= (int)$a['aprovacao_id'] ?>">
+                            <button type="submit">Aprovar</button>
+                        </form>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php else: ?>
                 <div class="empty-state">
                     <h3>Nada para aprovar</h3>
                     <p>Layouts e materiais que precisarem do seu OK serão listados aqui.</p>
                 </div>
-            </div>
-
-            <div class="payments">
-                <h2>Faturas e pagamentos</h2>
-
-                <div class="next-payment">
-                    <h3>Próximo vencimento</h3>
-                    <h2>—</h2>
-                    <p>Nenhuma fatura em aberto</p>
-                </div>
-
-                <div class="empty-state empty-state--small">
-                    <p>Seu histórico de pagamentos aparece aqui depois da primeira cobrança.</p>
-                </div>
-
-                <div class="button-switch-payment">
-                    <button disabled>Ver Boleto</button>
-                    <button disabled style="background-color: transparent;">Recibos</button>
-                </div>
+                <?php endif; ?>
             </div>
         </section>
-
-        <?php else: ?>
-        <section class="hero-header">
-            <div class="hero-title">
-                <h3>Barbearia Lucky Shot - <?= e(data_hoje()) ?></h3>
-                <h2>Olá, <?= e(primeiro_nome($usuario['usuario_nome'])) ?>!</h2>
-                <p>Seus projetos estão andando bem. Tem 2 coisas esperando por você.</p>
-            </div>
-
-            <div class="hero-contact">
-                <button>
-                    <img src="../../../assets/images/chat-message-icon.svg" alt="">
-                    Falar com a equipe
-                </button>
-                <button style="background-color: transparent;">Abrir Solicitação</button>
-            </div>
-        </section>
-
-        <section class="data-boxes">
-            <div>
-                <div>
-                    <h3>Projetos Ativos</h3>
-                    <h2>2</h2>
-                </div>
-
-                <p>1 loja virtual e 1 site institucional</p>
-            </div>
-
-            <div>
-                <div>
-                    <h3>Previsão da próxima entrega</h3>
-                    <h2>24 out</h2>
-                </div>
-
-                <p>Layout da página de produtos</p>
-            </div>
-
-            <div>
-                <div>
-                    <h3>Mensagens não lidas</h3>
-                    <h2>2</h2>
-                </div>
-
-                <p>Ler agora</p>
-            </div>
-
-            <div style="background-color: #7B4BB3; border-color: #FFF;">
-                <div>
-                    <h3>Precisa da sua atenção</h3>
-                    <h2>2</h2>
-                </div>
-
-                <p>Aprovar layout - Enviar fotos dos produtos</p>
-            </div>
-        </section>
-
-        <section class="info-boxes">
-            <div class="activity">
-                <h2>Atividade recente</h2>
-
-                <div class="infosscreen">
-                    <div class="info-activity">
-                        <div class="status-activity"></div>
-                        <div>
-                            <h3>Layout da home enviado para aprovação</h3>
-                            <p>Hoje, 10:42 - Lucas Gallo</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="requests">
-                <h2>Pendências</h2>
-
-                <div class="pendencys">
-                    <div class="pendency-box">
-                        <div>
-                            <h3>Aprovar layout de produtos</h3>
-                            <p>Barbearia Lucky Shot - 22 out</p>
-                        </div>
-                        <button>Aprovar</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="payments">
-                <h2>Faturas e pagamentos</h2>
-
-                <div class="next-payment">
-                    <h3>Próximo vencimento</h3>
-                    <h2>R$ 1250,00</h2>
-                    <p>Parcela 3 de 4 - vence em 25 de outubro</p>
-                </div>
-
-                <div class="others-payment">
-                    <p>Parcela 2 - 25 set</p>
-
-                    <div class="status-payment">
-                        <h3>Paga</h3>
-                    </div>
-                </div>
-
-                <div class="button-switch-payment">
-                    <button>Ver Boleto</button>
-                    <button style="background-color: transparent;">Recibos</button>
-                </div>
-            </div>
-        </section>
-        <?php endif; ?>
     </body>
 </html>

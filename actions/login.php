@@ -29,7 +29,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 $pdo = conectar();
 
 $stmt = $pdo->prepare(
-    'SELECT usuario_id, usuario_nome, usuario_senha
+    'SELECT usuario_id, usuario_nome, usuario_senha, usuario_tipo
        FROM usuario
       WHERE usuario_email = :email'
 );
@@ -41,18 +41,15 @@ if (!$usuario || !password_verify($senha, $usuario['usuario_senha'])) {
     voltar_com_erro('E-mail ou senha incorretos.');
 }
 
-// Plano ativo do cliente (aparece no cabeçalho)
-$stmt = $pdo->prepare(
-    "SELECT p.plano_nome
-       FROM assinatura a
-       JOIN plano p ON p.plano_id = a.plano_id
-      WHERE a.usuario_id = :id AND a.assinatura_status = 'ativa'
-      LIMIT 1"
-);
-$stmt->execute(['id' => $usuario['usuario_id']]);
-$plano = $stmt->fetch();
-
 iniciar_sessao_usuario($usuario);
-$_SESSION['plano_nome'] = $plano ? 'Plano ' . $plano['plano_nome'] : 'Sem plano';
+
+// Registra o último acesso (aparece na lista de clientes do admin)
+$pdo->prepare('UPDATE usuario SET usuario_ultimo_acesso = :agora WHERE usuario_id = :id')
+    ->execute(['agora' => date('Y-m-d H:i:s'), 'id' => $usuario['usuario_id']]);
+
+// Administrador entra direto no painel dele
+if ($usuario['usuario_tipo'] === 'admin') {
+    redirecionar('pages/client/admin-area/index.php');
+}
 
 redirecionar(PAGINA_CLIENTE);

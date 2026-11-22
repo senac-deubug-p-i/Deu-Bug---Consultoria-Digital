@@ -45,6 +45,37 @@ function exigir_login(): void
     }
 }
 
+// Só administradores. Cliente logado é mandado de volta para a área dele.
+function usuario_eh_admin(): bool
+{
+    return usuario_logado() && ($_SESSION['usuario_tipo'] ?? 'cliente') === 'admin';
+}
+
+function exigir_admin(): void
+{
+    if (!usuario_logado()) {
+        redirecionar('pages/client/landingpage/index.php');
+    }
+    if (!usuario_eh_admin()) {
+        http_response_code(403);
+        redirecionar('pages/client/client-area/index.php');
+    }
+}
+
+// CSRF: um token por sessão. Vai em campo hidden (formulário) ou no cabeçalho X-CSRF-Token (fetch).
+function csrf_token(): string
+{
+    if (empty($_SESSION['csrf'])) {
+        $_SESSION['csrf'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf'];
+}
+
+function csrf_valido(?string $enviado): bool
+{
+    return is_string($enviado) && $enviado !== '' && hash_equals($_SESSION['csrf'] ?? '', $enviado);
+}
+
 // Chamar após validar e-mail e senha no login
 function iniciar_sessao_usuario(array $usuario): void
 {
@@ -52,6 +83,7 @@ function iniciar_sessao_usuario(array $usuario): void
     $_SESSION['logado']        = true;
     $_SESSION['usuario_id']    = (int)$usuario['usuario_id'];
     $_SESSION['usuario_nome']  = $usuario['usuario_nome'];
+    $_SESSION['usuario_tipo']  = $usuario['usuario_tipo'] ?? 'cliente';   // 'cliente' ou 'admin'
     $_SESSION['ultimo_acesso'] = time();
 }
 

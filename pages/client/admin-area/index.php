@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__ . '/../../../includes/admin-dados.php';
+[$pdo, $admin] = admin_iniciar();
+$dash = admin_dashboard($pdo);
+?>
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -78,17 +83,19 @@
       </div>
 
       <div class="flex flex-col gap-2.5">
-        <a href="#" class="flex justify-center rounded-[10px] bg-panel px-3 py-[9px] text-[11.5px] font-medium text-[#C9C9D4] outline outline-1 outline-offset-[-.5px] outline-line2 transition hover:bg-panel-hover hover:text-white hover:outline-brand">
+        <a href="../client-area/index.php" class="flex justify-center rounded-[10px] bg-panel px-3 py-[9px] text-[11.5px] font-medium text-[#C9C9D4] outline outline-1 outline-offset-[-.5px] outline-line2 transition hover:bg-panel-hover hover:text-white hover:outline-brand">
           Ver como cliente
         </a>
-        <button class="flex w-full items-center gap-[9px] rounded-[10px] bg-panel px-2 py-[7px] text-left transition hover:bg-panel-hover">
-          <div class="grid size-7 shrink-0 place-items-center rounded-full bg-[#6D28D9] text-[9.5px] font-bold text-white">RL</div>
+        <div class="flex w-full items-center gap-[9px] rounded-[10px] bg-panel px-2 py-[7px] text-left">
+          <div class="grid size-7 shrink-0 place-items-center rounded-full bg-[#6D28D9] text-[9.5px] font-bold text-white"><?= e($admin['iniciais']) ?></div>
           <div class="flex-1">
-            <div class="text-[11.5px] font-semibold">Rafael Lima</div>
-            <div class="mt-px text-[9px] font-medium text-mute">Gerente de projetos</div>
+            <div class="text-[11.5px] font-semibold"><?= e($admin['usuario_nome']) ?></div>
+            <div class="mt-px text-[9px] font-medium text-mute"><?= e($admin['cargo']) ?></div>
           </div>
-          <svg class="size-[13px] shrink-0 text-faint"><use href="#i-ud"/></svg>
-        </button>
+          </div>
+        <form action="../../../actions/logout.php" method="post">
+          <button type="submit" class="flex w-full justify-center rounded-[10px] px-3 py-[9px] text-[11.5px] font-medium text-soft transition hover:bg-panel hover:text-white">Sair</button>
+        </form>
       </div>
     </aside>
 
@@ -100,9 +107,9 @@
           <h1 class="mb-[7px] w-fit bg-gradient-to-t from-[#CBAAFF] via-[#7B4BB3] via-60% to-brand bg-clip-text text-[38px] font-extrabold leading-[normal] tracking-[-1.2px] text-transparent max-[760px]:text-[30px]">
             Visão geral
           </h1>
-          <p class="text-[12.5px] font-medium text-[#7C7C88]">Segunda, 19 de outubro · 14 projetos ativos</p>
+          <p class="text-[12.5px] font-medium text-[#7C7C88]"><?= e(data_hoje()) ?> · <?= (int)$dash['ativos'] ?> <?= $dash['ativos'] == 1 ? 'projeto ativo' : 'projetos ativos' ?></p>
         </div>
-        <a href="project.php" data-toast="Abrindo novo projeto…" class="flex items-center gap-[7px] whitespace-nowrap rounded-[9px] bg-brand px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-brand-hover hover:shadow-[0_6px_20px_-6px_#7C3AED] active:scale-[.97]">
+        <a href="project.php?novo=1" class="flex items-center gap-[7px] whitespace-nowrap rounded-[9px] bg-brand px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-brand-hover hover:shadow-[0_6px_20px_-6px_#7C3AED] active:scale-[.97]">
           <svg class="size-3.5 shrink-0"><use href="#i-plus"/></svg>Novo projeto
         </a>
       </header>
@@ -136,7 +143,7 @@
         <section data-ui="section" class="!gap-5">
           <div class="text-sm font-bold text-[#E8E8EE]">Projetos por etapa</div>
           <div id="stages" class="flex flex-col gap-5"></div>
-          <div class="text-[9.5px] font-medium leading-[13px] text-soft">Total: 14 projetos ativos. Os 8 publicados este ano ficam no histórico.</div>
+          <div class="text-[9.5px] font-medium leading-[13px] text-soft">Total: <?= (int)$dash['ativos'] ?> <?= $dash['ativos'] == 1 ? 'projeto ativo' : 'projetos ativos' ?>. Os <?= (int)$dash['publicados'] ?> publicados este ano ficam no histórico.</div>
         </section>
       </div>
 
@@ -145,7 +152,7 @@
         <section data-ui="section">
           <div class="flex items-center justify-between">
             <div class="text-sm font-bold text-[#E8E8EE]">Solicitações novas</div>
-            <a href="solicitacoes.php" class="text-[10.5px] font-medium text-soft transition-colors hover:text-white">Abrir</a>
+            <a href="solicitation.php" class="text-[10.5px] font-medium text-soft transition-colors hover:text-white">Abrir</a>
           </div>
           <div id="requests" class="flex flex-col gap-2"></div>
         </section>
@@ -168,18 +175,34 @@
 
 
   <script>
+
+    /* =========================================================
+       0. SESSÃO E API (fetch -> actions/admin/*.php)
+    ========================================================= */
+    const CSRF = <?= js_json(csrf_token()) ?>;
+    const ME = <?= js_json(['id' => (string)$admin['usuario_id'], 'name' => $admin['usuario_nome']]) ?>;
+
+    async function api(endpoint, data) {
+      const isForm = data instanceof FormData
+      try {
+        const res = await fetch(`../../../actions/admin/${endpoint}.php`, {
+          method: 'POST', credentials: 'same-origin',
+          headers: isForm ? { 'X-CSRF-Token': CSRF } : { 'X-CSRF-Token': CSRF, 'Content-Type': 'application/json' },
+          body: isForm ? data : JSON.stringify(data),
+        })
+        const json = await res.json().catch(() => null)
+        if (!res.ok || !json || !json.ok) { showToast((json && json.erro) || 'Não foi possível salvar'); return null }
+        return json
+      } catch (err) {
+        showToast('Sem conexão com o servidor')
+        return null
+      }
+    }
     /* =========================================================
        1. CONFIGURAÇÃO
     ========================================================= */
-    const DETAIL_PAGE = 'admin-projeto-detalhe.html'
-
-    const NAV_ITEMS = [
-      { icon: 'dash',   label: 'Visão geral',  href: 'index.php', active: true },
-      { icon: 'folder', label: 'Projetos',     href: 'project.php' },
-      { icon: 'users',  label: 'Clientes',     href: 'client-admin.php' },
-      { icon: 'inbox',  label: 'Solicitações', href: 'solicitation.php', badge: 8 },
-      { icon: 'card',   label: 'Financeiro',   href: 'finance.php' },
-    ]
+    
+    const NAV_ITEMS = <?= js_json(admin_nav($pdo, 'index.php')) ?>;
 
     const TAG_STYLES = {
       warn: 'bg-[#2F260F] text-[#E5C465]',
@@ -213,52 +236,17 @@
     /* =========================================================
        3. DADOS
     ========================================================= */
-    const KPIS = [
-      { label: 'Projetos ativos',     value: '14',        note: '+2 este mês',                    tone: 'positive',  href: 'project.php' },
-      { label: 'Entregas da semana',  value: '5',         note: '2 já enviados ao cliente',       tone: 'neutral',   href: 'project.php' },
-      { label: 'Aguardando cliente',  value: '4',         note: 'Aprovações e ajustes pendentes', tone: 'highlight', href: 'project.php' },
-      { label: 'Faturas em atraso',   value: '2',         note: 'R$ 2.480,00 · ver financeiro',   tone: 'negative',  href: 'financeiro.php' },
-      { label: 'Recebido em outubro', value: 'R$ 18.400', note: '7,4% da meta do mês',            tone: 'positive',  href: 'financeiro.php' },
-    ]
-
-    const ATTENTION = [
-      { name: 'Site Doce Trigo',         meta: 'Padaria Doce Trigo · Revisão',    reason: 'Layout aguardando cliente', tone: 'warn', deadline: '30 out' },
-      { name: 'Site Clínica Vida Plena', meta: 'Clínica Vida Plena · Design',     reason: 'Prazo vence em 2 dias',     tone: 'red',  deadline: '21 out' },
-      { name: 'Landing Aurora Pilates',  meta: 'Studio Aurora · Briefing',        reason: 'Fotos pendentes há 6 dias', tone: 'warn', deadline: '05 nov' },
-      { name: 'Loja Café Girassol',      meta: 'Café Girassol · Desenvolvimento', reason: 'Fatura em atraso',          tone: 'red',  deadline: '12 nov' },
-    ]
-
-    const STAGES = [
-      { name: 'Briefing',        count: 3, percent: 36 },
-      { name: 'Design',          count: 3, percent: 33 },
-      { name: 'Desenvolvimento', count: 5, percent: 52 },
-      { name: 'Revisão',         count: 3, percent: 29 },
-    ]
-
-    const REQUESTS = [
-      { title: 'Trocar a cor dos botões',  meta: 'Marta Rocha · Site Doce Trigo · há 20 min',  read: false },
-      { title: 'Dúvida sobre o domínio',   meta: 'Tiago Mendes · Loja Café Girassol · há 2 h', read: false },
-      { title: 'Incluir página de preços', meta: 'Camila Duarte · Landing Aurora · ontem',     read: false },
-    ]
-
-    const ACTIVITY = [
-      { color: 'brand',  text: 'Ana Costa enviou o layout de produtos para aprovação',  meta: 'Hoje, 10:42 · Site Doce Trigo' },
-      { color: 'green',  text: 'Lucas Almeida concluiu o catálogo de produtos',         meta: 'Hoje, 08:15 · Loja Doce Trigo' },
-      { color: 'brand',  text: 'Bruna Teixeira publicou o site Mecânica Irmãos Souza',  meta: 'Ontem, 18:00' },
-      { color: 'yellow', text: 'Diego Nunes revisou o lembrete de fatura',              meta: 'Ontem, 15:20 · Landing Aurora' },
-    ]
-
-    const WORKLOAD = [
-      { name: 'Ana Costa · design',    label: '5 de 6',          percent: 83 },
-      { name: 'Lucas Almeida · dev',   label: '6 de 6 · lotado', percent: 100, full: true },
-      { name: 'Bruna Teixeira · dev',  label: '3 de 6',          percent: 50 },
-      { name: 'Diego Nunes · suporte', label: '2 de 4',          percent: 50 },
-    ]
+    const KPIS      = <?= js_json($dash['kpis']) ?>;
+    const ATTENTION = <?= js_json($dash['atencao']) ?>;
+    const STAGES    = <?= js_json($dash['etapas']) ?>;
+    const REQUESTS  = <?= js_json($dash['pedidos']) ?>;
+    const ACTIVITY  = <?= js_json($dash['atividade']) ?>;
+    const WORKLOAD  = <?= js_json($dash['carga']) ?>;
 
     /* =========================================================
        4. ESTADO
     ========================================================= */
-    let unreadRequests = NAV_ITEMS.find((item) => item.badge).badge
+    let unreadRequests = (NAV_ITEMS.find((item) => item.badge) || {}).badge || 0
 
     /* =========================================================
        5. UTILITÁRIOS
@@ -311,7 +299,7 @@
     function renderAttention(query = '') {
       const rows = ATTENTION.filter((a) => matches(query, a.name, a.meta, a.reason))
       $('#attention').innerHTML = rows.map((a) => `
-        <a href="${DETAIL_PAGE}" class="group flex items-center gap-3 rounded-md border-b border-line py-[9px] transition-colors hover:bg-panel">
+        <a href="project-area.php?id=${a.id}" class="group flex items-center gap-3 rounded-md border-b border-line py-[9px] transition-colors hover:bg-panel">
           <div class="min-w-0 flex-1">
             <div class="text-[12.5px] font-bold leading-4 text-[#EDEDF3]">${a.name}</div>
             <div class="mt-0.5 text-[9.5px] font-semibold text-[#75757F]">${a.meta}</div>
@@ -345,7 +333,7 @@
     }
 
     function renderActivity() {
-      $('#activity').innerHTML = ACTIVITY.map((a) => `
+      $('#activity').innerHTML = !ACTIVITY.length ? EMPTY('Nenhuma atualização ainda') : ACTIVITY.map((a) => `
         <div class="flex gap-2 rounded-md py-0.5 transition-colors hover:bg-panel">
           <div class="mt-[5px] size-1.5 shrink-0 rounded-full ${DOT_COLORS[a.color]}"></div>
           <div>
@@ -356,7 +344,7 @@
     }
 
     function renderWorkload() {
-      $('#workload').innerHTML = WORKLOAD.map((w) => `
+      $('#workload').innerHTML = !WORKLOAD.length ? EMPTY('Nenhum membro na equipe') : WORKLOAD.map((w) => `
         <div class="flex flex-col gap-[5px]">
           <div class="flex justify-between text-[10.5px] font-bold text-[#EDEDF3]">
             ${w.name}<span class="text-[9.5px] font-medium ${w.full ? 'text-[#F0777C]' : 'text-soft'}">${w.label}</span>
@@ -383,14 +371,7 @@
     $('#requests').addEventListener('click', (e) => {
       const button = e.target.closest('[data-request]')
       if (!button) return
-      const request = REQUESTS[+button.dataset.request]
-
-      if (!request.read) {
-        request.read = true
-        $('[data-badge]').textContent = --unreadRequests
-      }
-      showToast(`Abrindo “${request.title}”…`)
-      renderRequests(currentQuery())
+      location.href = `solicitation.php?id=${REQUESTS[+button.dataset.request].id}`
     })
 
     // Qualquer elemento com data-toast mostra o aviso
