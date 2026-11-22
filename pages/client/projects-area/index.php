@@ -67,7 +67,7 @@
 
                 <!-- Projetos reais do cliente (tabela projeto) -->
                 <?php foreach ($projetos as $p): ?>
-                    <div class="project-card">
+                    <a class="project-card" href="../project-visualization/index.php?id=<?= (int)$p['projeto_id'] ?>">
                         <div>
                             <h3><?= e(nome_tipo_site((string)($p['projeto_tipo'] ?? 'outro'))) ?></h3>
                             <h2><?= e($p['projeto_titulo']) ?></h2>
@@ -78,7 +78,7 @@
                         <div class="project-status">
                             <p><?= $p['projeto_pausado'] ? 'Pausado' : ((int)$p['projeto_etapa'] === ETAPA_PUBLICADO ? 'Publicado' : e('Em ' . mb_strtolower(nome_etapa((int)$p['projeto_etapa'])))) ?></p>
                         </div>
-                    </div>
+                    </a>
                 <?php endforeach; ?>
 
             </div>

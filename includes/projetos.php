@@ -164,3 +164,112 @@ function resumo_do_cliente(PDO $pdo, int $usuarioId): array
         'solicitacoes' => contar_solicitacoes_abertas($pdo, $usuarioId),
     ];
 }
+
+
+// =====================================================================
+// NOTIFICAÇÕES (sino do cabeçalho) e PÁGINA DO PROJETO (cliente)
+// =====================================================================
+const ETAPA_DESCRICAO = [
+    'Objetivos, público, referências e conteúdo definidos junto com você.',
+    'Layout e identidade visual do site, com a paleta da marca.',
+    'Construção das páginas e funcionalidades do site.',
+    'Você revisa o site pronto e pedimos os ajustes finais.',
+    'Publicamos o site no seu domínio.',
+];
+
+// Logs visíveis dos projetos do cliente + aprovações pendentes. 'novas' = não vistas desde a última abertura do sino.
+function notificacoes_do_cliente(PDO $pdo, int $usuarioId, int $limite = 12): array
+{
+    $v = $pdo->prepare('SELECT usuario_notif_visto_em FROM usuario WHERE usuario_id = :id');
+    $v->execute(['id' => $usuarioId]);
+    $visto = $v->fetchColumn() ?: null;
+
+    $stmt = $pdo->prepare(
+        'SELECT u.projeto_id, u.atualizacao_titulo, u.atualizacao_criacao, p.projeto_titulo, a.usuario_nome AS autor
+           FROM projeto_atualizacao u
+           JOIN projeto p ON p.projeto_id = u.projeto_id
+           LEFT JOIN usuario a ON a.usuario_id = u.autor_id
+          WHERE p.usuario_id = :id AND u.atualizacao_visivel = 1
+          ORDER BY u.atualizacao_id DESC LIMIT ' . (int)$limite
+    );
+    $stmt->execute(['id' => $usuarioId]);
+    $itens = $stmt->fetchAll();
+    $novas = 0;
+    foreach ($itens as &$i) {
+        $i['nova'] = $visto === null || $i['atualizacao_criacao'] > $visto;
+        $novas += $i['nova'] ? 1 : 0;
+    }
+    unset($i);
+
+    $pend = $pdo->prepare(
+        "SELECT a.aprovacao_titulo, a.aprovacao_prazo, p.projeto_id, p.projeto_titulo
+           FROM projeto_aprovacao a JOIN projeto p ON p.projeto_id = a.projeto_id
+          WHERE p.usuario_id = :id AND a.aprovacao_status = 'pendente' ORDER BY a.aprovacao_id DESC"
+    );
+    $pend->execute(['id' => $usuarioId]);
+    $pendencias = $pend->fetchAll();
+
+    return ['itens' => $itens, 'pendencias' => $pendencias, 'novas' => $novas, 'badge' => $novas + count($pendencias)];
+}
+
+// Projeto SÓ se pertencer ao cliente (a checagem fica no WHERE, nunca confie no id da URL)
+function projeto_do_cliente(PDO $pdo, int $usuarioId, int $projetoId): ?array
+{
+    $stmt = $pdo->prepare(
+        'SELECT p.*, r.usuario_nome AS responsavel, r.usuario_cargo AS responsavel_cargo
+           FROM projeto p LEFT JOIN usuario r ON r.usuario_id = p.responsavel_id
+          WHERE p.projeto_id = :p AND p.usuario_id = :u'
+    );
+    $stmt->execute(['p' => $projetoId, 'u' => $usuarioId]);
+    return $stmt->fetch() ?: null;
+}
+
+function aprovacoes_do_projeto(PDO $pdo, int $projetoId, string $status): array
+{
+    $stmt = $pdo->prepare(
+        'SELECT aprovacao_id, aprovacao_titulo, aprovacao_descricao, aprovacao_prazo, aprovacao_criacao, aprovacao_resposta_em
+           FROM projeto_aprovacao WHERE projeto_id = :p AND aprovacao_status = :s ORDER BY aprovacao_id DESC'
+    );
+    $stmt->execute(['p' => $projetoId, 's' => $status]);
+    return $stmt->fetchAll();
+}
+
+function atualizacoes_visiveis_do_projeto(PDO $pdo, int $projetoId): array
+{
+    $stmt = $pdo->prepare(
+        'SELECT u.atualizacao_titulo, u.atualizacao_mensagem, u.atualizacao_criacao, a.usuario_nome AS autor
+           FROM projeto_atualizacao u LEFT JOIN usuario a ON a.usuario_id = u.autor_id
+          WHERE u.projeto_id = :p AND u.atualizacao_visivel = 1 ORDER BY u.atualizacao_id DESC'
+    );
+    $stmt->execute(['p' => $projetoId]);
+    return $stmt->fetchAll();
+}
+
+function tarefas_do_projeto(PDO $pdo, int $projetoId): array
+{
+    $stmt = $pdo->prepare('SELECT tarefa_titulo, tarefa_concluida FROM projeto_tarefa WHERE projeto_id = :p ORDER BY tarefa_id');
+    $stmt->execute(['p' => $projetoId]);
+    return $stmt->fetchAll();
+}
+
+// Responsável + quem da equipe já atualizou o projeto
+function equipe_do_projeto(PDO $pdo, array $projeto): array
+{
+    $stmt = $pdo->prepare(
+        "SELECT DISTINCT u.usuario_id, u.usuario_nome, u.usuario_cargo FROM usuario u
+          WHERE u.usuario_tipo = 'admin' AND (u.usuario_id = :r
+             OR u.usuario_id IN (SELECT autor_id FROM projeto_atualizacao WHERE projeto_id = :p AND autor_id IS NOT NULL))
+          ORDER BY u.usuario_nome"
+    );
+    $stmt->execute(['r' => (int)($projeto['responsavel_id'] ?? 0), 'p' => $projeto['projeto_id']]);
+    $lista = $stmt->fetchAll();
+    usort($lista, fn($a, $b) => ((int)$b['usuario_id'] === (int)$projeto['responsavel_id']) <=> ((int)$a['usuario_id'] === (int)$projeto['responsavel_id']));
+    return $lista;
+}
+
+function rotulo_status_projeto(array $p): array   // [texto, classe]
+{
+    if ($p['projeto_pausado'])                      return ['Pausado', 'is-paused'];
+    if ((int)$p['projeto_etapa'] === ETAPA_PUBLICADO) return ['Publicado', 'is-done'];
+    return ['Em ' . mb_strtolower(nome_etapa((int)$p['projeto_etapa'])), ''];
+}

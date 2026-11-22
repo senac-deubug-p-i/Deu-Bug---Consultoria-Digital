@@ -965,3 +965,53 @@ nav a:focus {
     font-weight: 900;
     color: #FFF;
 }
+/* ---------- Integração com o banco ---------- */
+/* barra de progresso: preenche de 0 até o valor real ao abrir a página */
+@keyframes preencher { from { width: 0; } }
+.progress-bar { overflow: hidden; }
+.progress-bar div { transition: width 0.6s; animation: preencher 1s ease-out; }
+.progress-stage div { animation: preencher 1.2s ease-out; transition: width 0.6s; }
+
+/* etapas: concluída (check), atual (destaque) e futura (apagada) */
+.data-stage div { display: flex; align-items: center; justify-content: center; color: #fff; font: 800 22px "Nunito"; }
+.data-stage.done div::after { content: "✓"; }
+.data-stage.current div { box-shadow: 0 0 0 6px #7B4BB355; }
+.data-stage.current div::after { content: ""; width: 15px; height: 15px; border-radius: 100%; background-color: #fff; }
+.data-stage.todo div { background-color: #2A1B3D; border: 2px solid #472D65; }
+.data-stage.todo h3, .data-stage.todo p { opacity: 0.55; }
+
+/* selo de status: amarelo (em andamento), verde (publicado), cinza (pausado) */
+.project-status.is-done, .development-status.is-done { background-color: #2A714C; border-color: #49FF92; }
+.project-status.is-done div, .development-status.is-done div { background-color: #49FF92; }
+.project-status.is-done p, .development-status.is-done p { color: #49FF92; }
+.project-status.is-paused, .development-status.is-paused { background-color: #3a3a44; border-color: #9a9aa8; }
+.project-status.is-paused div, .development-status.is-paused div { background-color: #9a9aa8; }
+.project-status.is-paused p, .development-status.is-paused p { color: #d6d6df; }
+
+/* etapas na coluna da direita */
+.stage-current .design-status { background-color: #725C1B; border-color: #FACC15; }
+.stage-current .design-status div { background-color: #FACC15; }
+.stage-current .design-status p { color: #FACC15; }
+.stage-todo .design-status { background-color: transparent; border-color: #7E7B97; }
+.stage-todo .design-status div { background-color: #7E7B97; }
+.stage-todo .design-status p { color: #D0C5DC; }
+
+.development-status-ball.is-todo { background-color: #2A1B3D; border: 2px solid #7B4BB3; }
+
+/* Para aprovar: agora é uma lista (sem imagem fixa) */
+.to-approve { height: auto; min-height: 260px; gap: 18px; }
+.to-approve .approve-item { display: flex; flex-direction: row; justify-content: space-between; align-items: center; align-self: stretch; gap: 24px; margin-top: 0; padding: 18px 22px; background-color: #100B17; border: 1px solid #7B4BB3; border-radius: 14px; }
+.to-approve .approve-text { display: flex; flex-direction: column; align-self: auto; gap: 6px; margin: 0; }
+.to-approve .approve-text h3 { font: 800 20px "Nunito"; color: #fff; }
+.to-approve .approve-text p { align-self: flex-start; margin: 0; font: 400 15px "Nunito"; color: #D0C5DC; }
+.to-approve .approve-text small { font: 300 14px "Nunito"; color: #CFA6FF; }
+.to-approve form { display: block; margin: 0; }
+.to-approve form button { width: 150px; height: 52px; font-size: 18px; }
+
+.empty-note { font: 400 16px "Nunito"; color: #917AAB; margin-top: 12px; }
+.to-approve .empty-note { align-self: flex-start; margin-top: 4px; font-weight: 400; color: #917AAB; }
+
+.to-approve .aviso-ok { display: block; align-self: stretch; margin: 0; gap: 0; padding: 10px 14px; border-radius: 12px; font: 16px "Nunito"; background-color: #0D2A1C; color: #54D68E; }
+.to-approve .aviso-erro { background-color: #33131B; color: #F0777C; }
+
+.partner-avatar { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 100%; background-color: #4d277a; color: #fff; font: 800 18px "Nunito"; flex: none; }

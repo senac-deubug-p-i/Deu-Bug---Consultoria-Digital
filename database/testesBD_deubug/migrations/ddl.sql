@@ -12,6 +12,7 @@ CREATE TABLE usuario(
     usuario_empresa VARCHAR(150) NULL,
     usuario_cargo VARCHAR(60) NULL,
     usuario_ultimo_acesso DATETIME NULL,
+    usuario_notif_visto_em DATETIME NULL,
     usuario_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

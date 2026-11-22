@@ -514,3 +514,7 @@ nav a:focus {
 .solic-acoes button:hover {
     border-color: #fff;
 }
+
+/* card de projeto clicável (leva para project-visualization) */
+a.project-card { cursor: pointer; transition: 0.4s; color: inherit; }
+a.project-card:hover { border-color: #fff; transform: translateY(-2px); }

@@ -7,13 +7,20 @@ require_once __DIR__ . '/../config/database.php';
 
 const VOLTAR = 'pages/client/client-area/index.php';
 
+// Se o botão foi clicado na página do projeto, volta para ela (id validado como inteiro)
+$projetoVolta = filter_var($_POST['voltar_projeto'] ?? null, FILTER_VALIDATE_INT);
+function destino(?int $projetoId): string
+{
+    return $projetoId ? 'pages/client/project-visualization/index.php?id=' . $projetoId : VOLTAR;
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') redirecionar(VOLTAR);
 exigir_login();
 
 if (!csrf_valido($_POST['csrf'] ?? null)) {
     http_response_code(419);
     definir_erro('Sessão expirada. Tente novamente.', 'pendencias');
-    redirecionar(VOLTAR);
+    redirecionar(destino($projetoVolta ?: null));
 }
 
 $aprovacaoId = filter_var($_POST['aprovacao_id'] ?? null, FILTER_VALIDATE_INT);
@@ -41,4 +48,4 @@ if ($item) {
     definir_sucesso('Aprovado! A equipe já foi avisada.', 'pendencias');
 }
 
-redirecionar(VOLTAR);
+redirecionar(destino($projetoVolta ?: null));
