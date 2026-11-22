@@ -1,3 +1,38 @@
+<?php
+    require_once __DIR__ . '/../../../includes/auth.php';
+    require_once __DIR__ . '/../../../includes/chat.php';
+    require_once __DIR__ . '/../../../config/database.php';
+    exigir_login();
+
+    $pdo       = conectar();
+    $uid       = (int)$_SESSION['usuario_id'];
+    $conversas = chat_conversas_do_cliente($pdo, $uid);   // [0] = suporte geral, depois um por projeto
+
+    // Conversa aberta: ?projeto=ID (chat daquele projeto) ou, sem nada, o suporte geral
+    $projetoPedido = filter_var($_GET['projeto'] ?? null, FILTER_VALIDATE_INT) ?: null;
+    $atual = $conversas[0];
+    foreach ($conversas as $c) {
+        if ($projetoPedido !== null && $c['projeto_id'] === $projetoPedido) $atual = $c;
+    }
+    $chatId    = (int)$atual['chat_id'];
+    $mensagens = array_map(fn($m) => chat_formatar($m, 'cliente'), chat_mensagens($pdo, $chatId));
+    chat_marcar_visto($pdo, $chatId, 'cliente');
+    foreach ($conversas as &$c) { if ((int)$c['chat_id'] === $chatId) $c['nao_lidas'] = 0; }
+    unset($c);
+
+    $projetos   = projetos_do_cliente($pdo, $uid);
+    $avisoOk    = pegar_sucesso('chamado');
+    $avisoErro  = pegar_erro('chamado');
+    $antigo     = $_SESSION['antigo_chamado'] ?? []; unset($_SESSION['antigo_chamado']);
+    $projetoForm = $antigo['projeto_id'] ?? ($atual['projeto_id'] !== null ? (string)$atual['projeto_id'] : '');
+
+    $stmt = $pdo->prepare('SELECT c.chamado_assunto, c.chamado_status, c.chamado_criacao, p.projeto_titulo
+                             FROM chamado c LEFT JOIN projeto p ON p.projeto_id = c.projeto_id
+                            WHERE c.usuario_id = :u ORDER BY c.chamado_id DESC LIMIT 5');
+    $stmt->execute(['u' => $uid]);
+    $chamados = $stmt->fetchAll();
+    $rotuloChamado = ['aberto' => 'Aberta', 'em_andamento' => 'Em andamento', 'resolvido' => 'Resolvida'];
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
@@ -29,69 +64,93 @@
             </div>
 
             <div class="support-modals">
-
                 <div class="chats-request">
                     <div class="support-chats">
                         <h2>Conversas</h2>
-                        
-                        <div class="chats-grid">
 
-                            <div class="chat-card">
-                                <img src="" alt="user-icon">
-                                <h3>Barbearia Luck Shot</h3>
-                            </div>
+                        <div class="chats-grid" id="chats-grid">
+                            <?php foreach ($conversas as $c): ?>
+                                <a class="chat-card<?= (int)$c['chat_id'] === $chatId ? ' selected' : '' ?>" data-chat="<?= (int)$c['chat_id'] ?>"
+                                   href="?<?= $c['projeto_id'] ? 'projeto=' . (int)$c['projeto_id'] : 'geral=1' ?>">
+                                    <span class="chat-avatar"><?= e(iniciais($c['titulo'])) ?></span>
+                                    <span class="chat-card-text">
+                                        <h3><?= e($c['titulo']) ?></h3>
+                                        <small><?= e($c['subtitulo']) ?></small>
+                                    </span>
+                                    <span class="chat-dot" <?= $c['nao_lidas'] > 0 ? '' : 'hidden' ?>><?= (int)$c['nao_lidas'] ?></span>
+                                </a>
+                            <?php endforeach; ?>
                         </div>
                     </div>
 
-                    <div class="open-request">
+                    <form class="open-request" action="../../../actions/abrir-chamado.php" method="post">
+                        <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>">
                         <h2>Abrir solicitação</h2>
+
+                        <?php if ($avisoOk): ?><div class="aviso-suporte" role="status"><?= e($avisoOk) ?></div><?php endif; ?>
+                        <?php if ($avisoErro): ?><div class="aviso-suporte aviso-erro" role="alert"><?= e($avisoErro) ?></div><?php endif; ?>
 
                         <div class="input-request">
                             <h4>Assunto</h4>
-                            <input type="text" placeholder="Ex:.. Trocar o texto da página inicial">
+                            <input type="text" name="assunto" maxlength="150" required placeholder="Ex:.. Trocar o texto da página inicial" value="<?= e($antigo['assunto'] ?? '') ?>">
                         </div>
 
                         <div class="input-request">
                             <h4>Projeto Relacionado</h4>
-                            <input type="text" placeholder="Dropdown-need to make">
+                            <select name="projeto_id">
+                                <option value="">Suporte geral (dúvidas gerais)</option>
+                                <?php foreach ($projetos as $p): ?>
+                                    <option value="<?= (int)$p['projeto_id'] ?>" <?= $projetoForm === (string)$p['projeto_id'] ? 'selected' : '' ?>><?= e($p['projeto_titulo']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
 
                         <div class="input-request">
                             <h4>Descrição</h4>
-                            <textarea name="" id="" placeholder="Conte o que você precisa"></textarea>
+                            <textarea name="descricao" required minlength="10" maxlength="1800" placeholder="Conte o que você precisa"><?= e($antigo['descricao'] ?? '') ?></textarea>
                         </div>
 
-                        <button id="request-archive-btn">Anexar arquivo ou imagem</button>
-                        <button>Enviar Solicitação</button>
-                    </div>
+                        <button type="submit">Enviar Solicitação</button>
+                    </form>
                 </div>
 
                 <div class="contact-modals">
-                    <div class="chat-modal">
+                    <div class="chat-modal" id="chat-modal" data-chat="<?= $chatId ?>" data-csrf="<?= e(csrf_token()) ?>">
                         <div class="chat-modal-header">
-                            <img src="" alt="user-image">
-                            <h2>Barbearia Luck Shot</h2>
+                            <span class="chat-avatar"><?= e(iniciais($atual['titulo'])) ?></span>
+                            <h2><?= e($atual['titulo']) ?></h2>
                         </div>
 
-                        <div class="chat-modal-messages">
-                            <div class="left-message">
-                                <h3>Lucas Gallo - Gestor</h3>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, id perspiciatis eius voluptatem ratione cum magni fugit laudantium vitae iusto optio facilis quidem? Ipsa excepturi ut temporibus modi et mollitia.</p>
-                            </div>
-
-                            <div class="right-message">
-                                <h3>Lucas Gallo - Gestor</h3>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, id perspiciatis eius voluptatem ratione cum magni fugit laudantium vitae iusto optio facilis quidem? Ipsa excepturi ut temporibus modi et mollitia.</p>
-                            </div>
-
+                        <div class="chat-modal-messages" id="mensagens">
+                            <?php foreach ($mensagens as $m): ?>
+                                <div class="<?= $m['mine'] ? 'right-message' : 'left-message' ?>" data-id="<?= (int)$m['id'] ?>">
+                                    <h3><?= e($m['mine'] ? 'Você' : $m['author']) ?></h3>
+                                    <p><?= nl2br(e($m['text'])) ?></p>
+                                    <small><?= e($m['time']) ?></small>
+                                </div>
+                            <?php endforeach; ?>
+                            <p class="chat-vazio" id="chat-vazio" <?= $mensagens ? 'hidden' : '' ?>>Nenhuma mensagem ainda. Escreva abaixo e a equipe responde por aqui.</p>
                         </div>
 
-                        <div class="chat-modal-inputs">
-                            <button id="btn-archive"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M288.6 76.8C344.8 20.6 436 20.6 492.2 76.8C548.4 133 548.4 224.2 492.2 280.4L328.2 444.4C293.8 478.8 238.1 478.8 203.7 444.4C169.3 410 169.3 354.3 203.7 319.9L356.5 167.3C369 154.8 389.3 154.8 401.8 167.3C414.3 179.8 414.3 200.1 401.8 212.6L249 365.3C239.6 374.7 239.6 389.9 249 399.2C258.4 408.5 273.6 408.6 282.9 399.2L446.9 235.2C478.1 204 478.1 153.3 446.9 122.1C415.7 90.9 365 90.9 333.8 122.1L169.8 286.1C116.7 339.2 116.7 425.3 169.8 478.4C222.9 531.5 309 531.5 362.1 478.4L492.3 348.3C504.8 335.8 525.1 335.8 537.6 348.3C550.1 360.8 550.1 381.1 537.6 393.6L407.4 523.6C329.3 601.7 202.7 601.7 124.6 523.6C46.5 445.5 46.5 318.9 124.6 240.8L288.6 76.8z"/></svg></button>
-                            <input type="text" placeholder="Digite sua mensagem">
-                            <button>Enviar</button>
-                        </div>
+                        <form class="chat-modal-inputs" id="chat-form" autocomplete="off">
+                            <input type="text" id="chat-texto" maxlength="<?= CHAT_MAX_TEXTO ?>" placeholder="Digite sua mensagem">
+                            <button type="submit">Enviar</button>
+                        </form>
                     </div>
+
+                    <?php if ($chamados): ?>
+                    <div class="contact-card my-requests">
+                        <h3>Minhas solicitações</h3>
+                        <ul>
+                            <?php foreach ($chamados as $ch): ?>
+                                <li>
+                                    <span><?= e($ch['chamado_assunto']) ?><small><?= e($ch['projeto_titulo'] ?? 'Suporte geral') ?> · <?= e(quando($ch['chamado_criacao'])) ?></small></span>
+                                    <em class="status-<?= e($ch['chamado_status']) ?>"><?= e($rotuloChamado[$ch['chamado_status']]) ?></em>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
 
                     <div class="contact-card">
                         <h3>Prefere outro canal?</h3>
@@ -112,5 +171,6 @@
             </div>
         </section>
 
+        <script src="index.js"></script>
     </body>
 </html>

@@ -57,6 +57,7 @@ $equipe = admin_equipe($pdo);
       <symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol>
       <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
       <symbol id="i-inbox" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
       <symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></symbol>
       <symbol id="i-ud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5M7 9l5-5 5 5"/></symbol>
       <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5v14"/></symbol>
@@ -108,7 +109,7 @@ $equipe = admin_equipe($pdo);
         <h1 class="mb-[7px] w-fit bg-gradient-to-t from-[#CBAAFF] via-[#7B4BB3] via-60% to-brand bg-clip-text text-[38px] font-extrabold leading-[normal] tracking-[-1.2px] text-transparent max-[760px]:text-[30px]">
           Solicitações
         </h1>
-        <p class="text-[12.5px] font-medium text-[#7C7C88]">Pedidos de novos projetos enviados pelos clientes.</p>
+        <p class="text-[12.5px] font-medium text-[#7C7C88]">Pedidos de novos projetos e solicitações de suporte enviados pelos clientes.</p>
       </header>
 
       <!-- Abas -->
@@ -136,7 +137,12 @@ $equipe = admin_equipe($pdo);
             <div class="mt-5 border-t border-white/10"></div>
             <div id="thread" class="mt-5 flex flex-col gap-3"></div>
 
-            <div class="mt-14 border-t border-white/10 pt-4">
+            <div id="chat-block" class="mt-8 hidden border-t border-white/10 pt-4">
+              <p class="text-[11px] font-medium leading-[1.6] text-[#B3A8CB]">Este é um chamado de suporte. A equipe responde ao cliente pelo chat.</p>
+              <a id="chat-link" href="chat.php" data-ui="btn md primary" class="mt-3 inline-flex w-fit">Responder no chat</a>
+            </div>
+
+            <div id="reply-block" class="mt-14 border-t border-white/10 pt-4">
               <label id="reply-label" for="reply" class="text-[10.5px] font-semibold text-[#B3A8CB]">Responder</label>
               <textarea id="reply" rows="3" placeholder="Escreva a resposta" data-ui="textarea"></textarea>
 
@@ -174,7 +180,7 @@ $equipe = admin_equipe($pdo);
             </div>
           </section>
 
-          <section aria-label="Prazo de retorno" class="rounded-[14px] bg-gradient-to-br from-brand-hover to-brand p-4 text-white">
+          <section id="contact-card" aria-label="Prazo de retorno" class="rounded-[14px] bg-gradient-to-br from-brand-hover to-brand p-4 text-white">
             <div class="text-[13px] font-bold">Retorno ao cliente até</div>
             <p id="contact-by" class="mt-1.5 text-[26px] font-extrabold leading-tight tracking-[-.5px]">—</p>
             <p class="mt-2 max-w-[215px] text-[10.5px] font-medium leading-[1.6] text-white/85">Prazo prometido ao cliente: <?= (int)PRAZO_CONTATO_DIAS_UTEIS ?> dias úteis após o envio.</p>
@@ -220,6 +226,7 @@ $equipe = admin_equipe($pdo);
 
     const NAV_ITEMS = <?= js_json(admin_nav($pdo, 'solicitation.php')) ?>;
     NAV_ITEMS.forEach((item) => { if (item.href === 'solicitation.php') item.badge = true })
+    const CHAMADO_LABEL = { pendente: 'Nova', em_contato: 'Em andamento', aprovada: 'Resolvida' }
 
     const TAG_STYLES = {
       warn:    'bg-[#2F260F] text-[#E5C465]',
@@ -238,7 +245,7 @@ $equipe = admin_equipe($pdo);
     const TABS = [
       { id: 'pendente',   label: 'Novas',            count: true },
       { id: 'em_contato', label: 'Em contato',       count: true },
-      { id: 'aprovada',   label: 'Aprovadas' },
+      { id: 'aprovada',   label: 'Concluídas' },
       { id: 'recusada',   label: 'Recusadas' },
       { id: 'mim',        label: 'Atribuídas a mim' },
     ]
@@ -305,6 +312,7 @@ $equipe = admin_equipe($pdo);
     const selectedRequest = () => requests.find((r) => r.id === selectedId)
     const countBy = (tab) => requests.filter(TAB_FILTERS[tab]).length
     const firstName = (r) => r.client.split(' ')[0]
+    const statusLabel = (r, key) => (r.kind === 'chamado' && CHAMADO_LABEL[key]) || STATUS[key].label
 
     /* =========================================================
        5. UTILITÁRIOS
@@ -344,7 +352,7 @@ $equipe = admin_equipe($pdo);
            class="group flex items-center gap-2.5 rounded-[9px] px-2.5 py-[9px] text-[12.5px] font-medium text-soft transition hover:bg-panel hover:text-ink data-[on]:bg-brand data-[on]:font-semibold data-[on]:text-white">
           ${icon(item.icon, 15, 'text-mute transition group-hover:text-[#C9C9D4] group-data-[on]:text-white')}
           <span class="flex-1">${item.label}</span>
-          ${item.badge ? `<i class="rounded-full bg-brand-dark px-1.5 py-0.5 text-[9px] font-bold not-italic text-white">${countBy('pendente')}</i>` : ''}
+          ${item.badge ? `<i class="rounded-full bg-brand-dark px-1.5 py-0.5 text-[9px] font-bold not-italic text-white">${item.href === 'solicitation.php' ? countBy('pendente') : item.badge}</i>` : ''}
         </a>`).join('')
     }
 
@@ -412,7 +420,13 @@ $equipe = admin_equipe($pdo);
 
       const status = STATUS[r.status]
       $('#detail-status').className = `${STATUS_BASE} ${status.style}`
-      $('#detail-status').textContent = status.label
+      $('#detail-status').textContent = statusLabel(r, r.status)
+
+      // Chamado de suporte: a conversa acontece no chat
+      const isTicket = r.kind === 'chamado'
+      $('#reply-block').classList.toggle('hidden', isTicket)
+      $('#chat-block').classList.toggle('hidden', !isTicket)
+      if (isTicket) $('#chat-link').href = `chat.php?chat=${r.chatId}`
 
       $('#thread').innerHTML = r.messages.map((m) => messageHTML(m, r)).join('') + r.notes.map(noteHTML).join('')
     }
@@ -420,13 +434,15 @@ $equipe = admin_equipe($pdo);
     function renderManage() {
       const r = selectedRequest()
       if (!r) return
-      $('#status').innerHTML = Object.entries(STATUS).map(([k, s]) => `<option value="${k}">${s.label}</option>`).join('')
+      const isTicket = r.kind === 'chamado'
+      $('#status').innerHTML = Object.entries(STATUS).filter(([k]) => !(isTicket && k === 'recusada')).map(([k, s]) => `<option value="${k}">${statusLabel(r, k)}</option>`).join('')
       $('#assignee').innerHTML = '<option value="">Sem responsável</option>' + Object.entries(TEAM).map(([id, m]) => `<option value="${id}">${escapeHTML(m.name)}</option>`).join('')
       $('#priority').innerHTML = Object.entries(PRIORITIES).map(([k, label]) => `<option value="${k}">${label}</option>`).join('')
       $('#status').value = r.status
       $('#assignee').value = r.assignee
       $('#priority').value = r.priority
-      $('#btn-resolve').textContent = r.status === 'aprovada' ? 'Abrir projeto' : 'Aprovar e criar projeto'
+      $('#btn-resolve').textContent = isTicket ? (r.status === 'aprovada' ? 'Abrir conversa' : 'Marcar como resolvida') : (r.status === 'aprovada' ? 'Abrir projeto' : 'Aprovar e criar projeto')
+      $('#contact-card').classList.toggle('hidden', isTicket)
       $('#contact-by').textContent = r.contactBy
     }
 
@@ -503,7 +519,7 @@ $equipe = admin_equipe($pdo);
       r.assignee = $('#assignee').value
       r.priority = $('#priority').value
       if (res.projetoId) r.projectId = res.projetoId
-      showToast(res.projetoId ? 'Solicitação aprovada: projeto criado' : 'Alterações salvas')
+      showToast(res.projetoId ? 'Solicitação aprovada: projeto criado' : (r.kind === 'chamado' && r.status === 'aprovada' ? 'Solicitação marcada como resolvida' : 'Alterações salvas'))
       renderAll()
       return res
     }
@@ -511,6 +527,11 @@ $equipe = admin_equipe($pdo);
     async function toggleResolved() {
       const r = selectedRequest()
       if (!r) return
+      if (r.kind === 'chamado') {
+        if (r.status === 'aprovada') { location.href = `chat.php?chat=${r.chatId}`; return }
+        await saveChanges('aprovada')
+        return
+      }
       if (r.status === 'aprovada' && r.projectId) { location.href = `project-area.php?id=${r.projectId}`; return }
       const res = await saveChanges('aprovada')
       if (res && res.projetoId) setTimeout(() => { location.href = `project-area.php?id=${res.projetoId}` }, 900)

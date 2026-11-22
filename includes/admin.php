@@ -3,6 +3,9 @@
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/functions.php';
 require_once __DIR__ . '/projetos.php';
+require_once __DIR__ . '/chat.php';
+
+const CHAMADO_OFFSET = 1000000;   // na tela de Solicitações, id >= isto = chamado de suporte (id real = id - offset)
 require_once __DIR__ . '/../config/database.php';
 
 const PALETA_EQUIPE = ['bg-[#5B21B6]', 'bg-brand-dark', 'bg-[#6D28D9]', 'bg-[#0F766E]', 'bg-[#9333EA]'];
@@ -29,12 +32,15 @@ function admin_iniciar(): array
 
 function admin_nav(PDO $pdo, string $ativo): array
 {
-    $novas = (int)$pdo->query("SELECT COUNT(*) FROM solicitacao_projeto WHERE solicitacao_status = 'pendente'")->fetchColumn();
+    $novas = (int)$pdo->query("SELECT COUNT(*) FROM solicitacao_projeto WHERE solicitacao_status = 'pendente'")->fetchColumn()
+           + (int)$pdo->query("SELECT COUNT(*) FROM chamado WHERE chamado_status = 'aberto'")->fetchColumn();
+    $msgs = chat_total_nao_lidas_admin($pdo);
     $itens = [
         ['icon' => 'dash',   'label' => 'Visão geral',  'href' => 'index.php'],
         ['icon' => 'folder', 'label' => 'Projetos',     'href' => 'project.php'],
         ['icon' => 'users',  'label' => 'Clientes',     'href' => 'client-admin.php'],
         ['icon' => 'inbox',  'label' => 'Solicitações', 'href' => 'solicitation.php', 'badge' => $novas],
+        ['icon' => 'chat',   'label' => 'Mensagens',    'href' => 'chat.php',         'badge' => $msgs],
     ];
     foreach ($itens as &$i) {
         $i['active'] = $i['href'] === $ativo;

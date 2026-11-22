@@ -111,7 +111,8 @@ function admin_dashboard(PDO $pdo): array
     $atrasados = $um('SELECT COUNT(*) FROM projeto WHERE projeto_etapa < ' . ETAPA_PUBLICADO . ' AND projeto_prazo < :h', ['h' => $hoje]);
     $aprovacoes = $um("SELECT COUNT(*) FROM projeto_aprovacao WHERE aprovacao_status = 'pendente'");
     $projComAprov = $um("SELECT COUNT(DISTINCT projeto_id) FROM projeto_aprovacao WHERE aprovacao_status = 'pendente'");
-    $novas     = $um("SELECT COUNT(*) FROM solicitacao_projeto WHERE solicitacao_status = 'pendente'");
+    $novas     = $um("SELECT COUNT(*) FROM solicitacao_projeto WHERE solicitacao_status = 'pendente'")
+               + $um("SELECT COUNT(*) FROM chamado WHERE chamado_status = 'aberto'");
     $publicados = $um('SELECT COUNT(*) FROM projeto WHERE projeto_etapa = ' . ETAPA_PUBLICADO . ' AND projeto_publicado_em >= :a', ['a' => $ano]);
 
     $kpis = [
@@ -147,6 +148,15 @@ function admin_dashboard(PDO $pdo): array
         $pedidos[] = ['id' => (int)$s['solicitacao_id'], 'title' => 'Novo projeto: ' . nome_tipo_site($s['solicitacao_tipo']),
                       'meta' => $s['usuario_nome'] . ' · ' . $s['solicitacao_empresa'] . ' · há ' . tempo_atras($s['solicitacao_criacao'])];
     }
+
+    $stmt = $pdo->query("SELECT c.chamado_id, c.chamado_assunto, c.chamado_criacao, u.usuario_nome
+                           FROM chamado c JOIN usuario u ON u.usuario_id = c.usuario_id
+                          WHERE c.chamado_status = 'aberto' ORDER BY c.chamado_id DESC LIMIT 4");
+    foreach ($stmt->fetchAll() as $c) {
+        $pedidos[] = ['id' => CHAMADO_OFFSET + (int)$c['chamado_id'], 'title' => 'Solicitação: ' . $c['chamado_assunto'],
+                      'meta' => $c['usuario_nome'] . ' · suporte · há ' . tempo_atras($c['chamado_criacao'])];
+    }
+    $pedidos = array_slice($pedidos, 0, 4);
 
     $atividade = [];
     $stmt = $pdo->query('SELECT u.atualizacao_titulo, u.atualizacao_cor, u.atualizacao_criacao, p.projeto_titulo, a.usuario_nome AS autor
@@ -245,5 +255,22 @@ function admin_solicitacoes(PDO $pdo): array
             'projectId' => $proj[$s['solicitacao_id']] ?? null, 'messages' => $mensagens, 'notes' => $notas,
         ];
     }
+    // Chamados de suporte entram na mesma lista (id deslocado por CHAMADO_OFFSET)
+    $mapa = ['aberto' => 'pendente', 'em_andamento' => 'em_contato', 'resolvido' => 'aprovada'];
+    $cs = $pdo->query('SELECT c.*, u.usuario_nome, u.usuario_empresa, p.projeto_titulo
+                         FROM chamado c JOIN usuario u ON u.usuario_id = c.usuario_id
+                         LEFT JOIN projeto p ON p.projeto_id = c.projeto_id ORDER BY c.chamado_id DESC')->fetchAll();
+    foreach ($cs as $c) {
+        $chatId = chat_obter($pdo, (int)$c['usuario_id'], $c['projeto_id'] !== null ? (int)$c['projeto_id'] : null);
+        $out[] = [
+            'id' => CHAMADO_OFFSET + (int)$c['chamado_id'], 'kind' => 'chamado', 'chatId' => $chatId,
+            'title' => $c['chamado_assunto'], 'client' => $c['usuario_nome'], 'project' => $c['projeto_titulo'] ?: 'Suporte geral',
+            'time' => tempo_atras($c['chamado_criacao']), 'tag' => 'Suporte', 'tagTone' => $c['chamado_prioridade'] === 'alta' ? 'red' : 'warn',
+            'status' => $mapa[$c['chamado_status']], 'assignee' => $c['chamado_responsavel_id'] ? (string)$c['chamado_responsavel_id'] : '',
+            'priority' => $c['chamado_prioridade'], 'contactBy' => '—', 'projectId' => null,
+            'messages' => [['from' => 'client', 'text' => $c['chamado_descricao'], 'time' => quando($c['chamado_criacao'])]], 'notes' => [],
+        ];
+    }
+    usort($out, fn($a, $b) => 0);   // mantém a ordem (já vem do mais novo para o mais antigo em cada grupo)
     return $out;
 }

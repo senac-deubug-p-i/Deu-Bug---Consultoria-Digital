@@ -602,3 +602,40 @@ nav a:focus {
     height: 20px;
     margin-right: 10px;
 }
+/* ---------- Chat integrado ---------- */
+a.chat-card { color: inherit; cursor: pointer; transition: 0.3s; position: relative; }
+a.chat-card:hover, a.chat-card.selected { border-color: #fff; background-color: #3b2658; }
+.chat-card-text { display: flex; flex-direction: column; flex-grow: 1; min-width: 0; }
+.chat-card-text small { font: 300 14px "Nunito"; color: #917AAB; }
+.chat-card .chat-avatar, .chat-modal-header .chat-avatar { flex: none; }
+.chat-avatar { display: grid; place-items: center; width: 55px; height: 55px; border-radius: 100%; background-color: #7B4BB3; border: 1px solid #7E7B97; color: #fff; font: 800 18px "Nunito"; }
+.chat-dot { min-width: 26px; height: 26px; padding: 0 7px; border-radius: 13px; background-color: #FACC15; color: #1D1726; font: 800 14px "Nunito"; display: grid; place-items: center; }
+.chat-dot[hidden] { display: none; }
+
+.chat-modal-header h2 { font: 800 22px "Nunito"; color: #CFA6FF; }
+.chat-modal-messages { overflow-y: auto; min-height: 0; padding-top: 20px; padding-bottom: 20px; }
+.chat-modal-messages::-webkit-scrollbar { width: 6px; }
+.chat-modal-messages::-webkit-scrollbar-thumb { background-color: #7B4BB3; border-radius: 20px; }
+.left-message, .right-message { max-width: 520px; flex: none; }
+.left-message small, .right-message small { margin-top: 6px; font: 300 13px "Nunito"; color: #917AAB; }
+.right-message { background-color: #3b2658; }
+.chat-vazio { margin: auto; text-align: center; font: 400 16px "Nunito"; color: #917AAB; }
+.chat-vazio[hidden] { display: none; }
+
+form.chat-modal-inputs { margin: 0; }
+
+.open-request select { width: 100%; height: 50px; border-radius: 12px; background-color: #1D122A; border: 1px solid #451D74; color: #fff; font: 700 16px "Nunito"; padding: 0 16px; outline: none; cursor: pointer; }
+.open-request select option { background-color: #1D122A; }
+.open-request { height: auto; min-height: 560px; }
+.aviso-suporte { padding: 10px 14px; border-radius: 12px; font: 16px "Nunito"; background-color: #0D2A1C; color: #54D68E; }
+.aviso-erro { background-color: #33131B; color: #F0777C; }
+
+.my-requests { align-items: stretch; }
+.my-requests ul { list-style: none; display: flex; flex-direction: column; gap: 12px; width: 100%; }
+.my-requests li { display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 16px; color: #fff; font: 700 16px "Nunito"; }
+.my-requests li span { display: flex; flex-direction: column; }
+.my-requests li small { font: 300 14px "Nunito"; color: #CFA6FF; }
+.my-requests em { font-style: normal; font: 800 13px "Nunito"; padding: 5px 12px; border-radius: 20px; background-color: #725C1B; color: #FACC15; white-space: nowrap; }
+.my-requests em.status-resolvido { background-color: #2A714C; color: #49FF92; }
+.my-requests em.status-em_andamento { background-color: #3b2658; color: #CFA6FF; }
+.contact-card.my-requests { height: auto; justify-content: flex-start; align-items: stretch; padding: 28px 36px; gap: 18px; }

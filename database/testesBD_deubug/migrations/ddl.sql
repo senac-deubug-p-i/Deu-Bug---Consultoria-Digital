@@ -246,3 +246,46 @@ CREATE TABLE IF NOT EXISTS solicitacao_mensagem(
     FOREIGN KEY (solicitacao_id) REFERENCES solicitacao_projeto (solicitacao_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (autor_id)       REFERENCES usuario (usuario_id) ON DELETE SET NULL ON UPDATE CASCADE
 );
+
+-- =====================================================================
+-- CHAT DO SUPORTE: uma conversa por projeto + uma de "suporte geral" (projeto_id NULL)
+-- (as tabelas antigas conversa/mensagem são do chat com IA e não foram alteradas)
+-- =====================================================================
+CREATE TABLE IF NOT EXISTS chat_conversa(
+    chat_id               INT PRIMARY KEY AUTO_INCREMENT,
+    usuario_id            INT NOT NULL,                  -- cliente dono da conversa
+    projeto_id            INT NULL,                      -- NULL = suporte geral
+    chat_ultima_em        DATETIME NULL,                 -- hora da última mensagem (ordena a lista)
+    chat_cliente_visto_em DATETIME NULL,                 -- até quando o cliente já leu
+    chat_equipe_visto_em  DATETIME NULL,                 -- até quando a equipe já leu
+    chat_criacao          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (projeto_id) REFERENCES projeto (projeto_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS chat_mensagem(
+    msg_id        INT PRIMARY KEY AUTO_INCREMENT,
+    chat_id       INT NOT NULL,
+    msg_remetente ENUM('cliente', 'equipe') NOT NULL,
+    autor_id      INT NULL,
+    msg_texto     TEXT NOT NULL,
+    msg_criacao   DATETIME NOT NULL,
+    FOREIGN KEY (chat_id)  REFERENCES chat_conversa (chat_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (autor_id) REFERENCES usuario (usuario_id) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+-- Solicitações de suporte ("Abrir solicitação"): ligadas a um projeto ou ao suporte geral
+CREATE TABLE IF NOT EXISTS chamado(
+    chamado_id             INT PRIMARY KEY AUTO_INCREMENT,
+    usuario_id             INT NOT NULL,
+    projeto_id             INT NULL,                     -- NULL = suporte geral
+    chamado_assunto        VARCHAR(150) NOT NULL,
+    chamado_descricao      TEXT NOT NULL,
+    chamado_status         ENUM('aberto', 'em_andamento', 'resolvido') NOT NULL DEFAULT 'aberto',
+    chamado_prioridade     ENUM('baixa', 'normal', 'alta') NOT NULL DEFAULT 'normal',
+    chamado_responsavel_id INT NULL,
+    chamado_criacao        DATETIME NOT NULL,
+    FOREIGN KEY (usuario_id)             REFERENCES usuario (usuario_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (projeto_id)             REFERENCES projeto (projeto_id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (chamado_responsavel_id) REFERENCES usuario (usuario_id) ON DELETE SET NULL ON UPDATE CASCADE
+);

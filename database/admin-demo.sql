@@ -61,3 +61,13 @@ INSERT INTO solicitacao_projeto (usuario_id, solicitacao_empresa, solicitacao_ti
 
 INSERT INTO cliente_nota (usuario_id, autor_id, nota_texto) VALUES
  (@marina, @admin, 'Prefere conversar por WhatsApp. Responde melhor à noite.');
+
+-- Chat de demonstração (suporte geral da Marina + chat do projeto dela)
+INSERT INTO chat_conversa (usuario_id, projeto_id, chat_ultima_em) VALUES
+ (@marina, NULL, NOW()), (@marina, @p1, NOW());
+SET @chatGeral := (SELECT chat_id FROM chat_conversa WHERE usuario_id = @marina AND projeto_id IS NULL);
+SET @chatP1    := (SELECT chat_id FROM chat_conversa WHERE usuario_id = @marina AND projeto_id = @p1);
+INSERT INTO chat_mensagem (chat_id, msg_remetente, autor_id, msg_texto, msg_criacao) VALUES
+ (@chatP1, 'equipe',  @lucas, 'Oi Marina! Já enviamos o layout da página de produtos para a sua aprovação.', NOW() - INTERVAL 2 HOUR),
+ (@chatP1, 'cliente', @marina, 'Oi! Vou olhar hoje à noite e te falo.', NOW() - INTERVAL 1 HOUR),
+ (@chatGeral, 'equipe', @admin, 'Olá! Este é o seu canal de suporte geral. Como podemos ajudar?', NOW() - INTERVAL 1 DAY);

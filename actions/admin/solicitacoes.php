@@ -14,6 +14,29 @@ function solicitacao_existe(PDO $pdo, ?int $id): array
     return $s->fetch() ?: api_erro('Solicitação não encontrada.', 404);
 }
 
+// id >= CHAMADO_OFFSET é um chamado de suporte (tabela chamado), não uma solicitação de projeto
+$idRecebido = api_int($d, 'id');
+if ($idRecebido !== null && $idRecebido >= CHAMADO_OFFSET) {
+    if (($d['acao'] ?? '') !== 'salvar') api_erro('Para chamados de suporte, responda pelo chat (menu Mensagens).');
+    $cid = $idRecebido - CHAMADO_OFFSET;
+    $s = $pdo->prepare('SELECT chamado_id FROM chamado WHERE chamado_id = :id');
+    $s->execute(['id' => $cid]);
+    if (!$s->fetchColumn()) api_erro('Solicitação não encontrada.', 404);
+
+    $status = ['pendente' => 'aberto', 'em_contato' => 'em_andamento', 'aprovada' => 'resolvido'][(string)($d['status'] ?? '')] ?? api_erro('Situação inválida.');
+    $prio = (string)($d['prioridade'] ?? 'normal');
+    if (!in_array($prio, ['baixa', 'normal', 'alta'], true)) api_erro('Prioridade inválida.');
+    $resp = api_int($d, 'responsavel_id');
+    if ($resp) {
+        $c = $pdo->prepare("SELECT COUNT(*) FROM usuario WHERE usuario_id = :id AND usuario_tipo = 'admin'");
+        $c->execute(['id' => $resp]);
+        if (!$c->fetchColumn()) api_erro('Responsável inválido.');
+    }
+    $pdo->prepare('UPDATE chamado SET chamado_status = :s, chamado_prioridade = :p, chamado_responsavel_id = :r WHERE chamado_id = :id')
+        ->execute(['s' => $status, 'p' => $prio, 'r' => $resp, 'id' => $cid]);
+    api_responder(['ok' => true, 'projetoId' => null]);
+}
+
 switch ((string)($d['acao'] ?? '')) {
     case 'responder':
     case 'nota':
