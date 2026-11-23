@@ -1,12 +1,10 @@
 function initAccordion(root, opts = {}) {
   const {
     defaultIndex = 0,
-    expandRatio = 0.52,
-    tilt = 8,
+    expandRatio = 0.5,
+    tilt = 6,
     duration = 0.6,
     ease = 'power3.out',
-    parallax = 0.5,
-    gap = 10,
   } = opts;
 
   const panels = [...root.querySelectorAll('.ag-panel')];
@@ -16,12 +14,14 @@ function initAccordion(root, opts = {}) {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let active = defaultIndex;
-  let mediaSize = 320;
 
+  // Largura da imagem = largura do painel aberto (sem zoom).
+  // O espaçamento é lido do CSS, então nunca fica diferente do .ag { gap }.
   function measure() {
+    const gap = parseFloat(getComputedStyle(root).columnGap) || 0;
     const total = root.getBoundingClientRect().width;
     const usable = Math.max(total - gap * (count - 1), 120);
-    mediaSize = Math.max(140, usable * r * 1.22);
+    const mediaSize = Math.max(140, usable * r);
     panels.forEach((p) => {
       p.querySelector('.ag-media').style.width = mediaSize + 'px';
     });
@@ -42,13 +42,9 @@ function initAccordion(root, opts = {}) {
         overwrite: 'auto',
       });
 
-      const drift = Math.max(-1.5, Math.min(1.5, active - i));
-      const shift = drift * parallax * mediaSize * 0.06;
-
       gsap.to(panel.querySelector('.ag-media'), {
         xPercent: -50,
         yPercent: -50,
-        x: isActive ? 0 : shift,
         duration: dur,
         ease,
         overwrite: 'auto',
@@ -57,23 +53,13 @@ function initAccordion(root, opts = {}) {
   }
 
   panels.forEach((panel, i) => {
-    panel.addEventListener('mouseenter', () => {
+    const activate = () => {
       active = i;
       layout(true);
-    });
-
-    panel.addEventListener('focus', () => {
-      active = i;
-      layout(true);
-    });
-
-    panel.addEventListener('click', (e) => {
-      if (i !== active) {
-        e.preventDefault();
-        active = i;
-        layout(true);
-      }
-    });
+    };
+    panel.addEventListener('mouseenter', activate);
+    panel.addEventListener('focus', activate);
+    panel.addEventListener('click', activate);
   });
 
   new ResizeObserver(() => {
@@ -85,6 +71,4 @@ function initAccordion(root, opts = {}) {
   layout(false);
 }
 
-document.querySelectorAll('.ag').forEach((root) =>
-  initAccordion(root, { gap: 16, expandRatio: 0.5, tilt: 6 })
-);
+document.querySelectorAll('.ag').forEach((root) => initAccordion(root));
