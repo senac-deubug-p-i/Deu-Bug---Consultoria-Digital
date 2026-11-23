@@ -1,8 +1,13 @@
 <?php
-// Escapa texto antes de imprimir no HTML
-function e($texto) {
-  return htmlspecialchars($texto, ENT_QUOTES, 'UTF-8');
-}
+// auth.php já carrega functions.php (função e() para escapar texto) e inicia a sessão
+require_once __DIR__ . '/../../includes/auth.php';
+$erroLogin    = pegar_erro('login');      // erros aparecem uma única vez
+$erroCadastro = pegar_erro('cadastro');
+$antigo       = pegar_antigo();           // valores digitados no cadastro
+$aba          = $erroCadastro ? 'cadastro' : 'login';
+
+// Links do menu (a landing page tem as seções #sobre e #pacotes)
+$landing = '../client/landingpage/index.php';
 
 // Equipe repetida nos 3 projetos
 $equipe = [
@@ -81,60 +86,66 @@ $pastaImagens = '../../assets/images/portfolio-assets/';
   <header class="site-header">
     <nav class="navbar liquid-glass">
       <div class="navbar__links">
-        <a href="#portfolio">PROJETOS</a>
-        <a href="#">PACOTES</a>
-        <a href="#">SOBRE</a>
+        <a href="#portfolio" aria-current="page">PROJETOS</a>
+        <a href="<?= $landing ?>#pacotes">PACOTES</a>
+        <a href="<?= $landing ?>#sobre">SOBRE</a>
       </div>
-      <img src="../../assets/images/ReducedLogo_DeuBug.png" alt="Deu Bug Logo" class="navbar__logo">
+      <a href="<?= $landing ?>" aria-label="Voltar para a página inicial"><img src="../../assets/images/ReducedLogo_DeuBug.png" alt="Deu Bug Logo" class="navbar__logo"></a>
       <div class="navbar__spacer"></div>
     </nav>
     <button id="button-login" class="btn-glass liquid-glass" type="button">Login</button>
   </header>
 
-  <!-- Modais de login e cadastro -->
-  <div class="modals" data-active="login">
+  <!-- Modais de login e cadastro (mesmos formulários da landing page) -->
+  <div class="modals<?= ($erroLogin || $erroCadastro) ? ' active' : '' ?>" data-active="<?= $aba ?>">
     <div class="switch-login">
-      <button class="switch-button active" data-value="login" type="button">Login</button>
-      <button class="switch-button" data-value="cadastro" type="button">Cadastro</button>
+      <button class="switch-button<?= $aba === 'login' ? ' active' : '' ?>" data-value="login" type="button">Login</button>
+      <button class="switch-button<?= $aba === 'cadastro' ? ' active' : '' ?>" data-value="cadastro" type="button">Cadastro</button>
       <div class="switch-bg"></div>
     </div>
 
     <!-- Login -->
-    <div class="modal-login">
+    <form class="modal-login" action="../../actions/login.php" method="post">
+      <?php if ($erroLogin): ?>
+        <div class="form-erro" role="alert"><?= e($erroLogin) ?></div>
+      <?php endif; ?>
       <label for="login-email">E-mail</label>
-      <input id="login-email" type="email" autocomplete="email">
+      <input id="login-email" type="email" name="email" required autocomplete="email">
       <label for="login-senha">Senha</label>
-      <input id="login-senha" type="password" autocomplete="current-password">
+      <input id="login-senha" type="password" name="senha" required autocomplete="current-password">
       <a href="#" class="modal-login__forgot">Esqueci minha senha</a>
-      <button class="modal-btn" type="button">Login</button>
+      <button class="modal-btn" type="submit">Login</button>
       <a href="#" class="google-btn" aria-label="Entrar com Google">
         <img src="../../assets/images/Google Logo.svg" alt="">
       </a>
-    </div>
+    </form>
 
     <!-- Cadastro -->
-    <div class="modal-register">
+    <form class="modal-register" action="../../actions/register.php" method="post">
+      <?php if ($erroCadastro): ?>
+        <div class="form-erro" role="alert"><?= e($erroCadastro) ?></div>
+      <?php endif; ?>
       <div class="register-name">
         <div>
           <label for="cad-nome">Primeiro Nome</label>
-          <input id="cad-nome" type="text" autocomplete="given-name">
+          <input id="cad-nome" type="text" name="nome" maxlength="100" required autocomplete="given-name" value="<?= e($antigo['nome'] ?? '') ?>">
         </div>
         <div>
           <label for="cad-sobrenome">Sobrenome</label>
-          <input id="cad-sobrenome" type="text" autocomplete="family-name">
+          <input id="cad-sobrenome" type="text" name="sobrenome" maxlength="100" required autocomplete="family-name" value="<?= e($antigo['sobrenome'] ?? '') ?>">
         </div>
       </div>
       <label for="cad-email">E-mail</label>
-      <input id="cad-email" type="email" autocomplete="email">
+      <input id="cad-email" type="email" name="email" maxlength="255" required autocomplete="email" value="<?= e($antigo['email'] ?? '') ?>">
       <label for="cad-tel">Telefone</label>
-      <input id="cad-tel" type="tel" autocomplete="tel">
+      <input id="cad-tel" type="tel" name="telefone" maxlength="20" required autocomplete="tel" placeholder="(11) 91111-1111" value="<?= e($antigo['telefone'] ?? '') ?>">
       <hr class="modal-register__divider">
       <label for="cad-senha">Senha</label>
-      <input id="cad-senha" type="password" autocomplete="new-password">
+      <input id="cad-senha" type="password" name="senha" minlength="8" maxlength="72" required autocomplete="new-password">
       <label for="cad-senha2">Confirme sua senha</label>
-      <input id="cad-senha2" type="password" autocomplete="new-password">
-      <button class="modal-btn" type="button">Cadastro</button>
-    </div>
+      <input id="cad-senha2" type="password" name="confirmar_senha" minlength="8" maxlength="72" required autocomplete="new-password">
+      <button class="modal-btn" type="submit">Cadastro</button>
+    </form>
   </div>
 
   <main>

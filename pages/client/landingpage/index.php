@@ -45,9 +45,9 @@
         <header>
             <nav class="navbar-header">
                 <div>
-                    <a href="">PROJETOS</a>
-                    <a href="">PACOTES</a>
-                    <a href="">SOBRE</a>
+                    <a href="../../portfoliopage/portfolio.php">PROJETOS</a>
+                    <a href="#pacotes">PACOTES</a>
+                    <a href="#sobre">SOBRE</a>
                 </div>
                 <img src="../../../assets/images/ReducedLogo_DeuBug.png" alt="Deu_Bug Logo">
                 <div></div>
@@ -151,7 +151,7 @@
 
 
     <!-- About Us Section -->
-    <section class="about-us">
+    <section class="about-us" id="sobre">
         <h2>Deu Bug! E agora? A gente resolve.</h2>
         <hr style="border: 1px solid #7B4BB3; width: 500px; margin-top: 8px;">
 
@@ -181,7 +181,7 @@
     </section>
 
     <!-- Packages & Services Section -->
-    <section class="services">
+    <section class="services" id="pacotes">
         <h2>PACOTES & SERVIÇOS</h2>
         <div class="packages">
             <div>

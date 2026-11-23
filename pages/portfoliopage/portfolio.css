@@ -185,6 +185,8 @@ body {
   background-color: transparent;
   z-index: 3;
   cursor: pointer;
+    outline: none;
+  border: none;
 }
 
 .switch-bg {
@@ -737,3 +739,5 @@ body {
   .scrolldown::before,
   .chevrondown { animation: none; }
 }
+/* Mensagem de erro dos formulários de login/cadastro */
+.form-erro { color: #ff8a8a; font-size: 0.85rem; margin-bottom: 4px; }

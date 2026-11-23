@@ -871,3 +871,5 @@ footer {
     font: 14px "Inter";
     color: #fff;
 }
+/* Rolagem suave ao clicar em Sobre / Pacotes no menu */
+html { scroll-behavior: smooth; }
