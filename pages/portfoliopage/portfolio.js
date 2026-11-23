@@ -1,3 +1,4 @@
+/* ===== Galeria accordion ===== */
 function initAccordion(root, opts = {}) {
   const {
     defaultIndex = 0,
@@ -72,3 +73,34 @@ function initAccordion(root, opts = {}) {
 }
 
 document.querySelectorAll('.ag').forEach((root) => initAccordion(root));
+
+/* ===== Modal de login / cadastro (igual à main) ===== */
+const modals = document.querySelector('.modals');
+const loginBtn = document.getElementById('button-login');
+
+if (modals && loginBtn) {
+  // Trocar entre {Login} e {Cadastro}
+  const options = modals.querySelectorAll('.switch-button');
+
+  options.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      modals.dataset.active = btn.dataset.value;
+
+      options.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Mostrar e esconder o modal
+  loginBtn.addEventListener('click', () => {
+    modals.classList.toggle('active');
+  });
+
+  // Clicar fora fecha o modal
+  document.addEventListener('click', (e) => {
+    const clickedInside = modals.contains(e.target) || loginBtn.contains(e.target);
+    if (!clickedInside && modals.classList.contains('active')) {
+      modals.classList.remove('active');
+    }
+  });
+}

@@ -60,7 +60,7 @@ $pastaImagens = '../../assets/images/portfolio-assets/';
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfólio</title>
+  <title>Portfólio - Deu Bug! Consultoria Digital</title>
   <link rel="shortcut icon" href="../../assets/images/DeuBug_favIcon.ico" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,10 +73,11 @@ $pastaImagens = '../../assets/images/portfolio-assets/';
   <svg class="svg-filter" aria-hidden="true">
     <filter id="liquid-distortion" x="-20%" y="-20%" width="140%" height="140%">
       <feTurbulence type="fractalNoise" baseFrequency="0.009 0.009" numOctaves="2" seed="6" result="noise" />
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="80" xChannelSelector="R" yChannelSelector="G" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="40" xChannelSelector="R" yChannelSelector="G" />
     </filter>
   </svg>
 
+  <!-- Header -->
   <header class="site-header">
     <nav class="navbar liquid-glass">
       <div class="navbar__links">
@@ -87,8 +88,54 @@ $pastaImagens = '../../assets/images/portfolio-assets/';
       <img src="../../assets/images/ReducedLogo_DeuBug.png" alt="Deu Bug Logo" class="navbar__logo">
       <div class="navbar__spacer"></div>
     </nav>
-    <button class="btn-glass liquid-glass" type="button">Login</button>
+    <button id="button-login" class="btn-glass liquid-glass" type="button">Login</button>
   </header>
+
+  <!-- Modais de login e cadastro -->
+  <div class="modals" data-active="login">
+    <div class="switch-login">
+      <button class="switch-button active" data-value="login" type="button">Login</button>
+      <button class="switch-button" data-value="cadastro" type="button">Cadastro</button>
+      <div class="switch-bg"></div>
+    </div>
+
+    <!-- Login -->
+    <div class="modal-login">
+      <label for="login-email">E-mail</label>
+      <input id="login-email" type="email" autocomplete="email">
+      <label for="login-senha">Senha</label>
+      <input id="login-senha" type="password" autocomplete="current-password">
+      <a href="#" class="modal-login__forgot">Esqueci minha senha</a>
+      <button class="modal-btn" type="button">Login</button>
+      <a href="#" class="google-btn" aria-label="Entrar com Google">
+        <img src="../../assets/images/Google Logo.svg" alt="">
+      </a>
+    </div>
+
+    <!-- Cadastro -->
+    <div class="modal-register">
+      <div class="register-name">
+        <div>
+          <label for="cad-nome">Primeiro Nome</label>
+          <input id="cad-nome" type="text" autocomplete="given-name">
+        </div>
+        <div>
+          <label for="cad-sobrenome">Sobrenome</label>
+          <input id="cad-sobrenome" type="text" autocomplete="family-name">
+        </div>
+      </div>
+      <label for="cad-email">E-mail</label>
+      <input id="cad-email" type="email" autocomplete="email">
+      <label for="cad-tel">Telefone</label>
+      <input id="cad-tel" type="tel" autocomplete="tel">
+      <hr class="modal-register__divider">
+      <label for="cad-senha">Senha</label>
+      <input id="cad-senha" type="password" autocomplete="new-password">
+      <label for="cad-senha2">Confirme sua senha</label>
+      <input id="cad-senha2" type="password" autocomplete="new-password">
+      <button class="modal-btn" type="button">Cadastro</button>
+    </div>
+  </div>
 
   <main>
     <!-- Hero -->
@@ -117,7 +164,7 @@ $pastaImagens = '../../assets/images/portfolio-assets/';
             <?php foreach ($p['imagens'] as $i => $img): ?>
               <div class="ag-panel" tabindex="0">
                 <span class="ag-media">
-                  <img src="<?= e($pastaImagens . $img) ?>"
+                  <img src="<?= e($pastaImagens . rawurlencode($img)) ?>"
                        alt="<?= e($p['nome']) ?> - imagem <?= $i + 1 ?>"
                        draggable="false">
                 </span>
@@ -152,6 +199,39 @@ $pastaImagens = '../../assets/images/portfolio-assets/';
       <?php endforeach; ?>
     </section>
   </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__social">
+        <a href="#"><img src="../../assets/images/Github Icon.svg" alt="GitHub"></a>
+        <a href="#"><img src="../../assets/images/Instagram Icon.svg" alt="Instagram"></a>
+        <a href="#"><img src="../../assets/images/LinkedIn Icon.svg" alt="LinkedIn"></a>
+        <a href="#"><img src="../../assets/images/Whatsapp Icon.svg" alt="WhatsApp"></a>
+      </div>
+
+      <div class="newsletter">
+        <h2>Assine nossa Newsletter!</h2>
+        <label for="news-email">Fique por dentro de todas as novidades da Deu Bug!</label>
+        <div class="newsletter__form">
+          <input id="news-email" type="email" placeholder="Digite o seu email">
+          <button type="button">Assinar</button>
+        </div>
+        <p>By subscribing you agree to with our <span>Privacy Policy</span></p>
+      </div>
+    </div>
+
+    <hr class="footer__divider">
+
+    <div class="footer__terms">
+      <div class="footer__links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookies Settings</a>
+      </div>
+      <p>© 2026 Deu Bug!. All rights reserved.</p>
+    </div>
+  </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="./portfolio.js"></script>
