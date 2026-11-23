@@ -45,7 +45,7 @@
         <header>
             <nav class="navbar-header">
                 <div>
-                    <a href="../../portfoliopage/portfolio.php">PROJETOS</a>
+                    <a href="../portfoliopage/index.php">PROJETOS</a>
                     <a href="#pacotes">PACOTES</a>
                     <a href="#sobre">SOBRE</a>
                 </div>
@@ -53,7 +53,6 @@
                 <div></div>
             </nav>
             <button id="button-login">Login</button>
-            <button id="">temporario</button>
         </header>
 
 
