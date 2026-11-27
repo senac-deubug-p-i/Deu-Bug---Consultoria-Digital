@@ -280,13 +280,14 @@ nav a:focus {
     display: flex;
     flex-direction: row;
     width: 845px;
-    height: 200px;
+    height: 250px;
     background-color: #17111F;
     border: 1px solid #695583;
     border-radius: 24px;
     padding: 30px 38px;
     justify-content: space-between;
 }
+
 
 .project-card img {
     width: 138px;
@@ -347,7 +348,11 @@ nav a:focus {
     color: #facc15;
 }
 
-
+.project-card h3 {
+    font: 16px "Nunito";
+    font-weight: 800;
+    color: #fff;
+}
 
 /* ===== Solicitar novo projeto ===== */
 .aviso {
