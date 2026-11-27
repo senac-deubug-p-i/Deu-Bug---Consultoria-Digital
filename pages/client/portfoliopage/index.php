@@ -57,7 +57,7 @@ $projetos = [
   ],
 ];
 
-$pastaImagens = '../../../../assets/images/portfolio-assets/';
+$pastaImagens = '../../../assets/images/portfolio-assets/';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
